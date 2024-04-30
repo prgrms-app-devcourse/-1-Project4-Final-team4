@@ -1,8 +1,15 @@
 import dayjs from 'dayjs';
 import {Dimensions} from 'react-native';
 
+export const STORAGE_KEY = {
+  SCHEDULE_KEY: 'SCHEDULE_KEY',
+};
+
 export const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} =
   Dimensions.get('screen');
+
+export const ITEM_WIDTH = 330;
+export const BOTTOM_HEIGHT = 20;
 
 export const fillEmptyColumns = (columns, start, end) => {
   const filledColumns = columns.slice(0);
