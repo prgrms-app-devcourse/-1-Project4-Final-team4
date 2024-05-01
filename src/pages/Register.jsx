@@ -4,7 +4,7 @@ import { signUp } from '../auth';
 
 
 
-const SignUp = () => {
+const Register = () => {
 
   const userRegister = async () => {
     try {
@@ -35,4 +35,4 @@ const SignUp = () => {
   );
 }
 
-export default SignUp;
+export default Register;

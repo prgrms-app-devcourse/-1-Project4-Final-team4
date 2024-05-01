@@ -30,15 +30,19 @@ const Login = () => {
 
   return (
     <View>
-      <TextInput placeholder="Useremail" onChangeText={setEmailValue} value={emailValue} />
-      <TextInput placeholder="Password" secureTextEntry={true} onChangeText={setPasswordValue} value={passwordValue} />
+      <TextInput placeholder="이메일" onChangeText={setEmailValue} value={emailValue} />
+      <TextInput 
+        placeholder="비밀번호" 
+        onChangeText={setPasswordValue} 
+        value={passwordValue}
+        secureTextEntry={true} />
       <TouchableOpacity onPress={login}>
         <Text>Login</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() =>{
           initInput();
-          navigation.navigate('SignUp')
+          navigation.navigate('Register')
         }
       }>
         <Text>SignUp</Text>
