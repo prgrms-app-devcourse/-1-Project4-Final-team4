@@ -9,6 +9,7 @@ import CustomTopTab from './components/CustomTopTab';
 // init 페이지
 import Splash from './pages/Splash';
 import Login from './pages/Login';
+import ForgotPassword from './pages/ForgotPassword';
 import Register from './pages/Register';
 import Help from './pages/Help';
 
@@ -56,6 +57,7 @@ const loginTab = () => {
       }}>
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Register" component={Register} />
+      <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
       <Stack.Screen name="Help" component={Help} />
     </Stack.Navigator>
   );
