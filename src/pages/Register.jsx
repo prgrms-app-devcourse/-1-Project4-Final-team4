@@ -1,34 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, TextInput, Text, TouchableOpacity } from 'react-native';
 import { signUp } from '../auth';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 
 
 const Register = () => {
-
-  const userRegister = async () => {
+  const [emailValue, setEmailValue] = useState('');
+  const [passwordValue, setPasswordValue] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  
+  const register = async () => {
     try {
-      if (!nameValue) throw new Error('이름을 입력해 주세요.');
-      if (!emailValue) throw new Error('이메일을 입력해 주세요.');
-      if (!passwordValue) throw new Error('비밀번호를 입력해 주세요.');
-
-      if (!validateEmail(emailValue)) throw new Error('이메일 형식에 맞지 않습니다.');
-      if (!validatePassword(passwordValue))
-        throw new Error('비밀번호는 8자 이상 입력해야 합니다.');
-
-      if (!agree) throw new Error('약관에 동의해주세요.');
-      await signUp({ email: emailValue, password: passwordValue, name: nameValue });
-    } catch (e) {
-      alert(e);
+      const response = await createUserWithEmailAndPassword(auth, emailValue, passwordValue);
+      console.log(response);
+      Alert('회원가입 성공' + response.user.email);
     }
-  };
+    catch(error) {
+      console.log(error);
+      Alert('회원가입 실패' + error.message)
+    }
+    finally{
+      setLoading(false);
+    }
+  }
 
   return (
     <View>
       <TextInput placeholder="Username" />
       <TextInput placeholder="Email" />
       <TextInput placeholder="Password" secureTextEntry={true} />
-      <TouchableOpacity onPress={() => {userRegister}}>
+      <TouchableOpacity onPress={() => {register}}>
         <Text>SignUp</Text>
       </TouchableOpacity>
     </View>
