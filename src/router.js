@@ -1,5 +1,6 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import React from 'react';
 
 // 탭 컴포넌트
@@ -42,6 +43,7 @@ import Setting from './pages/Setting';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+const TopTab = createMaterialTopTabNavigator();
 
 // 바텀탭
 const renderBottomBar = props => <CustomBottomTab {...props} />;
@@ -130,17 +132,17 @@ const communityTab = () => {
 // 커뮤니티 상단탭 출력을 위한 중첩구조
 const communityTabContent = () => {
   return (
-    <Tab.Navigator
+    <TopTab.Navigator
       tabBar={renderTopTab}
       screenOptions={{
         headerShown: false,
       }}>
-      <Tab.Screen name="Feed" component={Feed} />
-      <Tab.Screen name="Food" component={Food} />
-      <Tab.Screen name="Movie" component={Movie} />
-      <Tab.Screen name="Show" component={Show} />
-      <Tab.Screen name="Sports" component={Sports} />
-    </Tab.Navigator>
+      <TopTab.Screen name="Feed" component={Feed} />
+      <TopTab.Screen name="Food" component={Food} />
+      <TopTab.Screen name="Movie" component={Movie} />
+      <TopTab.Screen name="Show" component={Show} />
+      <TopTab.Screen name="Sports" component={Sports} />
+    </TopTab.Navigator>
   );
 };
 
@@ -162,14 +164,14 @@ const toolTab = () => {
 // 커뮤니티 상단탭 출력을 위한 중첩구조
 const toolTabContent = () => {
   return (
-    <Tab.Navigator
+    <TopTab.Navigator
       tabBar={renderTopTab}
       screenOptions={{
         headerShown: false,
       }}>
-      <Tab.Screen name="Calculator" component={Calculator} />
-      <Tab.Screen name="Calendar" component={Calendar} />
-    </Tab.Navigator>
+      <TopTab.Screen name="Calculator" component={Calculator} />
+      <TopTab.Screen name="Calendar" component={Calendar} />
+    </TopTab.Navigator>
   );
 };
 
