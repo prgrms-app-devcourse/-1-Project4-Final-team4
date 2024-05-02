@@ -1,7 +1,10 @@
 import React, {useRef} from 'react';
 import {StyleSheet, TouchableOpacity, View, Animated, Text} from 'react-native';
+import Icon from 'react-native-vector-icons/AntDesign';
+import Icons from 'react-native-vector-icons/Ionicons';
 
 import {Colors} from '../utils/Colors';
+import {BOTTOM_HEIGHT} from '../utils/utils';
 
 const CustomBottomTab = ({state, navigation, insets, descriptors}) => {
   const tab1Value = useRef(new Animated.Value(0)).current;
@@ -27,16 +30,48 @@ const CustomBottomTab = ({state, navigation, insets, descriptors}) => {
         const iconFlag = bool => {
           switch (label) {
             case '홈':
-              return <Text>Home</Text>;
+              return (
+                <Icon
+                  name="home"
+                  color={isFocused ? '#000' : 'grey'}
+                  size={30}
+                />
+              );
             case '검색':
-              return <Text>empty</Text>;
-            case '지도':
-              return <Text>empty</Text>;
+              return (
+                <Icon
+                  name="search1"
+                  color={isFocused ? '#000' : 'grey'}
+                  size={30}
+                />
+              );
+
+            case '빈':
+              return (
+                <Icons
+                  name="people"
+                  color={isFocused ? '#000' : 'grey'}
+                  size={30}
+                />
+              );
+
             case '일정':
-              return <Text>Schedule</Text>;
+              return (
+                <Icon
+                  name="calendar"
+                  color={isFocused ? '#000' : 'grey'}
+                  size={30}
+                />
+              );
 
             default:
-              return <Text>MyPage</Text>;
+              return (
+                <Icon
+                  name="setting"
+                  color={isFocused ? '#000' : 'grey'}
+                  size={30}
+                />
+              );
           }
         };
 
@@ -76,9 +111,9 @@ const styles = StyleSheet.create({
     borderTopWidth: 0.5,
     borderLeftWidth: 0.5,
     borderRightWidth: 0.5,
-    borderColor: '#eee',
-    backgroundColor: '#fff',
-    paddingTop: 10,
+    borderColor: '#000',
+    backgroundColor: Colors.ACTIVE_COLOR,
+    paddingTop: BOTTOM_HEIGHT,
     zIndex: 10,
   },
 });
