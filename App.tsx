@@ -4,7 +4,7 @@ import Router from './src/router';
 import Community from './src/pages/Community';
 
 function App(): React.JSX.Element {
-  return <Community />;
+  return <Router />;
 }
 
 export default App;
