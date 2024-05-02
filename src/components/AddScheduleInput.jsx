@@ -4,6 +4,14 @@ import {BOTTOM_HEIGHT, ITEM_WIDTH} from '../utils/utils';
 import Plus from 'react-native-vector-icons/AntDesign';
 import {Colors} from '../utils/Colors';
 
+export const AddButton = ({onPressAdd}) => {
+  return (
+    <TouchableOpacity onPress={onPressAdd} style={{padding: 5}}>
+      <Plus name="plus" size={20} />
+    </TouchableOpacity>
+  );
+};
+
 export default ({
   value,
   onChangeText,
@@ -34,9 +42,6 @@ export default ({
         blurOnSubmit={false}
         onFocus={onFocus}
       />
-      <TouchableOpacity onPress={onPressAdd} style={{padding: 5}}>
-        <Plus name="plus" size={20} />
-      </TouchableOpacity>
     </View>
   );
 };
