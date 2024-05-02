@@ -79,3 +79,9 @@ yarn-error.log
 # 각 컴퓨터 환경에 맞도록 OS 폴더 예외처리
 android/
 ios/
+
+# 프로젝트 환경에 맞도록 환경변수 파일 예외처리
+.env
+
+# utils 폴더에 있는 firebaseConfig 파일 예외처리
+src/utils/firebaseConfig.js
