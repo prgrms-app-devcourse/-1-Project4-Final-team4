@@ -84,4 +84,4 @@ ios/
 .env
 
 # utils 폴더에 있는 firebaseConfig 파일 예외처리
-src/utils/firebaseConfig.js
+src/firebase.ts
