@@ -83,5 +83,5 @@ ios/
 # 프로젝트 환경에 맞도록 환경변수 파일 예외처리
 .env
 
-# utils 폴더에 있는 firebaseConfig 파일 예외처리
+# src에 있는 firebase.ts 파일 예외처리
 src/firebase.ts
