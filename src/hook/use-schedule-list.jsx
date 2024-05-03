@@ -1,7 +1,5 @@
 import dayjs from 'dayjs';
 import {useEffect, useState} from 'react';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
-// import {STORAGE_KEY} from '../utils/utils';
 
 const defaultScheduleList = [
   // {

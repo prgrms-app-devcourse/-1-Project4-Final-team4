@@ -1,8 +1,6 @@
-// import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useEffect, useState} from 'react';
 import {Alert} from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
-// import {STORAGE_KEY} from '../utils/utils';
 
 export const useImagePikcer = () => {
   const [image, setImage] = useState(null);

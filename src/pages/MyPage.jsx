@@ -1,6 +1,4 @@
-import React from 'react';
 import {
-  Button,
   Image,
   SafeAreaView,
   StyleSheet,
@@ -8,27 +6,18 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import React from 'react';
 import {Colors} from '../utils/Colors';
 import Margin from '../components/Margin';
-import EditIcon from 'react-native-vector-icons/MaterialIcons';
-import {useState} from 'react';
 import {useImagePikcer} from '../hook/use-image-picker';
-import EditProfileModal from '../components/EditProfileModal';
 import {containerStyle} from '../utils/utils';
 
-const profile_img = 150;
+const MyPage = ({navigation}) => {
+  const {image, setImage, init} = useImagePikcer();
 
-const EditProfile = ({navigation}) => {
-  const {pickImage, image} = useImagePikcer();
-
-  const [isVisible, setIsVisible] = useState(false);
-
-  const onPressOpenAlbum = () => {
-    pickImage();
-  };
-  const onPressEditProfileModal = () => {
-    setIsVisible(!isVisible);
-  };
+  // useEffect(() => {
+  //   // init();
+  // }, []);
 
   return (
     <SafeAreaView style={containerStyle}>
@@ -38,7 +27,7 @@ const EditProfile = ({navigation}) => {
           <Text>B</Text>
         </TouchableOpacity>
         <Text style={{fontSize: 20, color: Colors.BOLD_TEXT_COLOR}}>
-          프로필 설정
+          마이페이지
         </Text>
         <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
           <Text>S</Text>
@@ -49,23 +38,27 @@ const EditProfile = ({navigation}) => {
 
       {/* 프로필 섹션 */}
       <View style={styles.profile}>
-        <Image source={image} style={styles.image} />
-        <Button title="앨범 열기" onPress={onPressOpenAlbum} />
-        <Margin height={20} />
-        <View style={styles.name}>
-          <Text style={{fontSize: 40}}>moko</Text>
-          <TouchableOpacity onPress={onPressEditProfileModal}>
-            <EditIcon name="edit" color={'#aeaeae'} size={20} />
+        <Image source={image?.uri} style={styles.image} />
+        <View style={{flex: 1}}>
+          <Text>moko</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('EditProfile')}>
+            <Text style={{color: Colors.BOLD_TEXT_COLOR}}>내 정보 수정</Text>
           </TouchableOpacity>
         </View>
       </View>
-      <EditProfileModal isVisible={isVisible} setIsVisible={setIsVisible} />
+
       <Margin height={20} />
+      {/* 포인트 섹션 */}
+      <View style={styles.point}>
+        <Text>포인트</Text>
+        <Text style={{fontSize: 20}}>0P</Text>
+      </View>
 
       {/* 스케줄 관리 섹션 */}
     </SafeAreaView>
   );
 };
+
 const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
@@ -76,22 +69,30 @@ const styles = StyleSheet.create({
   profile: {
     borderRadius: 8,
     backgroundColor: '#fff',
+    width: 350,
+    height: 100,
+    flexDirection: 'row',
     paddingHorizontal: 20,
     alignItems: 'center',
-    alignSelf: 'center',
+    gap: 20,
   },
   image: {
-    width: profile_img,
-    height: profile_img,
-    borderRadius: profile_img / 2,
+    width: 50,
+    height: 50,
+    borderRadius: 50 / 2,
     backgroundColor: '#423549',
   },
-  name: {
+  point: {
+    borderRadius: 8,
+    backgroundColor: '#fff',
+    width: 350,
+    height: 50,
     flexDirection: 'row',
+    paddingHorizontal: 20,
     alignItems: 'center',
-    gap: 5,
-    alignSelf: 'center',
+    justifyContent: 'space-between',
+    gap: 20,
   },
 });
 
-export default EditProfile;
+export default MyPage;

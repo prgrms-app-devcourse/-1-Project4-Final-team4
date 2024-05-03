@@ -1,9 +1,7 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useRef} from 'react';
 import {
   Alert,
   FlatList,
-  KeyboardAvoidingView,
-  Platform,
   Pressable,
   SafeAreaView,
   StyleSheet,
@@ -22,7 +20,6 @@ import {useCalendar} from '../hook/use-calendar';
 import {useScheduleList} from '../hook/use-schedule-list';
 import {
   ITEM_WIDTH,
-  containerStyle,
   getCalendarColumns,
   getDayColor,
   getDayText,
@@ -65,7 +62,7 @@ const ArrowButton = ({name, onPress}) => {
   );
 };
 
-export default () => {
+const ScheduleList = () => {
   const now = dayjs();
   const {
     seletedDate,
@@ -288,3 +285,5 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
 });
+
+export default ScheduleList;

@@ -1,5 +1,4 @@
 import {Animated, View, TouchableOpacity} from 'react-native';
-import ScheduleList from '../pages/ScheduleList';
 import Settings from '../pages/Settings';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 

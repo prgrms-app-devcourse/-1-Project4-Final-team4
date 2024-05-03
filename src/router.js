@@ -5,6 +5,7 @@ import CustomBottomTab from './components/CustomBottomTab';
 import Home from './pages/Home';
 import MyPage from './pages/MyPage';
 import ScheduleList from './pages/ScheduleList';
+import EditProfile from './pages/EditProfile';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -16,7 +17,7 @@ const MainTab = () => {
       screenOptions={{headerShown: false}}>
       <Tab.Screen name="홈" component={Home} />
       <Tab.Screen name="검색" component={Home} />
-      <Tab.Screen name="지도" component={Home} />
+      <Tab.Screen name="빈" component={Home} />
       <Tab.Screen name="일정" component={ScheduleList} />
       <Tab.Screen name="마이페이지" component={MyPage} />
     </Tab.Navigator>
@@ -31,6 +32,7 @@ export default () => {
         // gestureEnabled: false,
       }}>
       <Stack.Screen name="MainTab" component={MainTab} />
+      <Stack.Screen name="EditProfile" component={EditProfile} />
     </Stack.Navigator>
   );
 };

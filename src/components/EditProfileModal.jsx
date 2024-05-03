@@ -1,12 +1,9 @@
 import Modal from 'react-native-modal';
 import React, {useState} from 'react';
 import {
-  Alert,
   Keyboard,
-  Pressable,
   SafeAreaView,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -16,7 +13,7 @@ import AddScheduleInput from './AddScheduleInput';
 import dayjs from 'dayjs';
 import Margin from './Margin';
 
-export default ({isVisible, setIsVisible}) => {
+const EditProfileModal = ({isVisible, setIsVisible}) => {
   const [input, setInput] = useState('');
   const resetInput = () => setInput('');
   const onSubmitEditing = () => {
@@ -95,3 +92,4 @@ export default ({isVisible, setIsVisible}) => {
     </SafeAreaView>
   );
 };
+export default EditProfileModal;

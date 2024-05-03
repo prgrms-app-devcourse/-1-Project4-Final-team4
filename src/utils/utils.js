@@ -1,13 +1,16 @@
 import dayjs from 'dayjs';
 import {Dimensions} from 'react-native';
+import {Colors} from './Colors';
 
 export const STORAGE_KEY = {
   SCHEDULE_KEY: 'SCHEDULE_KEY',
+  PROFILE_IMAGE_KEY: 'PROFILE_INFO_KEY',
 };
 
 export const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} =
   Dimensions.get('screen');
 
+export const containerStyle = {flex: 1, backgroundColor: Colors.BG_COLOR};
 export const ITEM_WIDTH = 330;
 export const BOTTOM_HEIGHT = 20;
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import {TextInput, TouchableOpacity, View} from 'react-native';
-import {BOTTOM_HEIGHT, ITEM_WIDTH} from '../utils/utils';
+import {ITEM_WIDTH} from '../utils/utils';
 import Plus from 'react-native-vector-icons/AntDesign';
 import {Colors} from '../utils/Colors';
 
@@ -12,7 +12,7 @@ export const AddButton = ({onPressAdd}) => {
   );
 };
 
-export default ({
+const AddScheduleInput = ({
   value,
   onChangeText,
   placeholder,
@@ -45,3 +45,5 @@ export default ({
     </View>
   );
 };
+
+export default AddScheduleInput;
