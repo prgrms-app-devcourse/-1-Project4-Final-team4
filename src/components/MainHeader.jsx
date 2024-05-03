@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   profileText: {
     fontSize: 12,
     color: Colors.black,
-    fontFamily: 'Pretendard-Bold',
+    fontFamily: 'PretendardBold',
     textAlign: 'center',
   },
   profileImg: {
