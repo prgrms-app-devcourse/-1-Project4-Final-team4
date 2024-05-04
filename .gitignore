@@ -77,5 +77,10 @@ yarn-error.log
 .vscode
 
 # 각 컴퓨터 환경에 맞도록 OS 폴더 예외처리
+.env
+.package-lock.json
+android/
+ios/
+
 android/
 ios/
