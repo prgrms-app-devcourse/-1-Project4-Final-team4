@@ -13,3 +13,4 @@ export const Colors = {
   BOX_SHADOW: '3px 4px 4px 0 grey',
   ACTIVE_COLOR: '#81D8CF',
 };
+

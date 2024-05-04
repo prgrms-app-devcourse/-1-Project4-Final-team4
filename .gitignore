@@ -73,7 +73,6 @@ yarn-error.log
 !.yarn/sdks
 !.yarn/versions
 
-
 # 타입스크립트 에러 해결
 .vscode
 
@@ -83,3 +82,5 @@ yarn-error.log
 android/
 ios/
 
+android/
+ios/
