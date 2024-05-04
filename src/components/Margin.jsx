@@ -1,6 +1,7 @@
 import {View} from 'react-native';
 import React from 'react';
 
-export default ({height}) => {
+const Margin = ({height}) => {
   return <View style={{height}} />;
 };
+export default Margin;

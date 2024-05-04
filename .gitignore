@@ -73,5 +73,13 @@ yarn-error.log
 !.yarn/sdks
 !.yarn/versions
 
+
+# 타입스크립트 에러 해결
+.vscode
+
+# 각 컴퓨터 환경에 맞도록 OS 폴더 예외처리
 .env
 .package-lock.json
+android/
+ios/
+
