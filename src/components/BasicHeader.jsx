@@ -1,18 +1,20 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
+import {View, TouchableOpacity, StyleSheet, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import Colors from '../utils/Colors';
+import {Colors} from '../utils/Colors';
+import {SCREEN_WIDTH} from '../utils/utils';
 
-const BasicHeader = () => {
+const BasicHeader = ({isBackButton, title, label, rightIconName}) => {
   const navigation = useNavigation();
   return (
     <View style={styles.headerWrapper}>
       <TouchableOpacity onPress={() => navigation.goBack()}>
-        <Icon name={'arrow-left'} size={25} />
+        {isBackButton ? <Icon name={'arrow-left'} size={25} /> : null}
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
-        <Icon name={'menu'} size={25} />
+      {title ? <Text style={styles.title}>{title}</Text> : null}
+      <TouchableOpacity onPress={() => navigation.navigate(`${label}`)}>
+        <Icon name={rightIconName} size={25} />
       </TouchableOpacity>
     </View>
   );
@@ -24,10 +26,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     height: 68,
-    flex: 1,
+    width: SCREEN_WIDTH,
     backgroundColor: Colors.main,
     paddingHorizontal: 24,
   },
+  title: {fontSize: 20, color: Colors.bold_text, fontWeight: 'bold'},
 });
 
 export default BasicHeader;

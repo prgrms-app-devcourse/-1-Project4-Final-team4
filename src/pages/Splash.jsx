@@ -4,7 +4,7 @@ import {Image, StyleSheet, View, Animated, Easing, Text} from 'react-native';
 const Splash = ({navigation}) => {
   setTimeout(() => {
     navigation.replace('MainTab');
-  }, 500);
+  }, 2000);
 
   return (
     <View style={styles.splashContainer}>

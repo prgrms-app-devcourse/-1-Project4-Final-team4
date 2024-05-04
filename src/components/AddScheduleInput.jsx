@@ -35,7 +35,7 @@ const AddScheduleInput = ({
           flex: 1,
           paddingHorizontal: 16,
           paddingVertical: 12,
-          color: Colors.TEXT_COLOR,
+          color: Colors.grey,
         }}
         placeholder={placeholder}
         onSubmitEditing={onSubmitEditing}

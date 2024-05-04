@@ -11,6 +11,8 @@ import {Colors} from '../utils/Colors';
 import Margin from '../components/Margin';
 import {useImagePikcer} from '../hook/use-image-picker';
 import {containerStyle} from '../utils/utils';
+import BasicHeader from '../components/BasicHeader';
+import EditIcon from 'react-native-vector-icons/MaterialIcons';
 
 const MyPage = ({navigation}) => {
   const {image, setImage, init} = useImagePikcer();
@@ -20,19 +22,13 @@ const MyPage = ({navigation}) => {
   // }, []);
 
   return (
-    <SafeAreaView style={containerStyle}>
+    <SafeAreaView style={[containerStyle, {alignItems: 'center'}]}>
       {/* 헤더 */}
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Text>B</Text>
-        </TouchableOpacity>
-        <Text style={{fontSize: 20, color: Colors.BOLD_TEXT_COLOR}}>
-          마이페이지
-        </Text>
-        <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
-          <Text>S</Text>
-        </TouchableOpacity>
-      </View>
+      <BasicHeader
+        isBackButton={true}
+        title={'마이페이지'}
+        rightIconName={'settings'}
+      />
 
       <Margin height={20} />
 
@@ -41,8 +37,11 @@ const MyPage = ({navigation}) => {
         <Image source={image?.uri} style={styles.image} />
         <View style={{flex: 1}}>
           <Text>moko</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('EditProfile')}>
-            <Text style={{color: Colors.BOLD_TEXT_COLOR}}>내 정보 수정</Text>
+          <TouchableOpacity
+            style={{flexDirection: 'row', alignItems: 'center', gap: 4}}
+            onPress={() => navigation.navigate('EditProfile')}>
+            <Text style={{color: Colors.grey}}>내 정보 수정</Text>
+            <EditIcon name="edit" color={'#aeaeae'} size={14} />
           </TouchableOpacity>
         </View>
       </View>
@@ -68,7 +67,7 @@ const styles = StyleSheet.create({
   },
   profile: {
     borderRadius: 8,
-    backgroundColor: '#fff',
+    backgroundColor: Colors.mint,
     width: 350,
     height: 100,
     flexDirection: 'row',
@@ -80,11 +79,11 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 50 / 2,
-    backgroundColor: '#423549',
+    backgroundColor: Colors.grey,
   },
   point: {
     borderRadius: 8,
-    backgroundColor: '#fff',
+    backgroundColor: Colors.mint,
     width: 350,
     height: 50,
     flexDirection: 'row',
