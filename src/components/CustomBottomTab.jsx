@@ -46,7 +46,7 @@ const CustomBottomTab = ({state, navigation, insets, descriptors}) => {
                 />
               );
 
-            case '빈':
+            case '커뮤니티':
               return (
                 <Icons
                   name="people"
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     borderLeftWidth: 0.5,
     borderRightWidth: 0.5,
     borderColor: '#000',
-    backgroundColor: Colors.ACTIVE_COLOR,
+    backgroundColor: Colors.main,
     paddingTop: BOTTOM_HEIGHT,
     zIndex: 10,
   },

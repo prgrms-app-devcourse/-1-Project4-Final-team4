@@ -25,6 +25,7 @@ import {
   getDayText,
 } from '../utils/utils';
 import AddScheduleInput, {AddButton} from '../components/AddScheduleInput';
+import BasicHeader from '../components/BasicHeader';
 
 const columnSize = 50;
 
@@ -200,6 +201,7 @@ const ScheduleList = () => {
   };
   return (
     <SafeAreaView style={styles.container}>
+      <BasicHeader isTitle={true} title={'일정 관리'} />
       <FlatList
         data={columns}
         keyExtractor={(_, index) => `column-${index}`}
