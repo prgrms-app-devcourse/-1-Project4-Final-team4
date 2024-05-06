@@ -77,10 +77,18 @@ yarn-error.log
 .vscode
 
 # 각 컴퓨터 환경에 맞도록 OS 폴더 예외처리
+<<<<<<< HEAD
 .env
 package-lock.json
+=======
+.package-lock.json
+>>>>>>> 0773c1e2d0ba2373eaf10ea3cb4670e67afa7fec
 android/
 ios/
 
-android/
-ios/
+# 프로젝트 환경에 맞도록 환경변수 파일 예외처리
+.env
+
+# src에 있는 firebase.ts 파일 예외처리
+src/firebase.ts
+

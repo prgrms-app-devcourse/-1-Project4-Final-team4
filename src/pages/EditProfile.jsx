@@ -8,13 +8,14 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {Colors} from '../utils/Colors';
 import Margin from '../components/Margin';
 import EditIcon from 'react-native-vector-icons/MaterialIcons';
+
 import {useState} from 'react';
 import {useImagePikcer} from '../hook/use-image-picker';
 import EditProfileModal from '../components/EditProfileModal';
 import {containerStyle} from '../utils/utils';
+import BasicHeader from '../components/BasicHeader';
 
 const profile_img = 150;
 
@@ -33,17 +34,11 @@ const EditProfile = ({navigation}) => {
   return (
     <SafeAreaView style={containerStyle}>
       {/* 헤더 */}
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Text>B</Text>
-        </TouchableOpacity>
-        <Text style={{fontSize: 20, color: Colors.BOLD_TEXT_COLOR}}>
-          프로필 설정
-        </Text>
-        <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
-          <Text>S</Text>
-        </TouchableOpacity>
-      </View>
+      <BasicHeader
+        isBackButton={true}
+        title={'프로필 설정'}
+        rightIconName={'settings'}
+      />
 
       <Margin height={20} />
 

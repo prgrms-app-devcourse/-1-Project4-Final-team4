@@ -2,14 +2,14 @@ import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import Colors from '../utils/Colors';
+import {Colors} from '../utils/Colors';
 
 const MainHeader = () => {
   const navigation = useNavigation();
   return (
     <View style={styles.headerWrapper}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <TouchableOpacity onPress={() => navigation.navigate('MypageTab')}>
+        <TouchableOpacity onPress={() => navigation.navigate('MyPage')}>
           <Image
             source={{uri: 'https://picsum.photos/30'}}
             style={styles.profileImg}
@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     height: 68,
-    flex: 1,
     backgroundColor: Colors.main,
     paddingHorizontal: 24,
   },
