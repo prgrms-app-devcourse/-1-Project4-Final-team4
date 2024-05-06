@@ -38,8 +38,8 @@ import Calculator from './pages/Calculator';
 import Calendar from './pages/Calendar';
 
 // 마이페이지
-import Mypage from './pages/Mypage';
-import Setting from './pages/Setting';
+import MyPage from './pages/MyPage';
+import Settings from './pages/Settings';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -182,8 +182,8 @@ const MypageTab = () => {
       screenOptions={{
         headerShown: false,
       }}>
-      <Stack.Screen name="Mypage" component={Mypage} />
-      <Stack.Screen name="Setting" component={Setting} />
+      <Stack.Screen name="MyPage" component={MyPage} />
+      <Stack.Screen name="Settings" component={Settings} />
       <Stack.Screen name="Help" component={Help} />
     </Stack.Navigator>
   );
