@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import Colors from '../utils/Colors';
+import {Colors} from '../utils/Colors';
 
 const locationIcon = require('../assets/icons/searchIcon.png');
 

@@ -14,7 +14,7 @@ import {
 import MainHeader from '../components/MainHeader';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import BubbleIcon from 'react-native-vector-icons/SimpleLineIcons';
-import Colors from '../utils/Colors';
+import {Colors} from '../utils/Colors';
 import CategoryButton from '../components/CategoryButton';
 import {useNavigation} from '@react-navigation/native';
 import Carousel from 'react-native-snap-carousel';
