@@ -52,6 +52,11 @@ const MyPage = ({navigation}) => {
         <Text>포인트</Text>
         <Text style={{fontSize: 20}}>0P</Text>
       </View>
+      <Margin height={20} />
+
+      <TouchableOpacity style={styles.box}>
+        <Text style={{fontSize: 20}}>로그아웃</Text>
+      </TouchableOpacity>
 
       {/* 스케줄 관리 섹션 */}
     </SafeAreaView>
@@ -90,7 +95,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: 20,
+  },
+  box: {
+    borderRadius: 8,
+    backgroundColor: Colors.mint,
+    width: 350,
+    height: 50,
+    paddingHorizontal: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
