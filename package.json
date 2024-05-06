@@ -10,7 +10,9 @@
     "test": "jest"
   },
   "dependencies": {
-"@react-native-community/datetimepicker": "^8.0.0",
+    "firebase": "^10.11.1",
+    "react-navigation": "^5.0.0"
+    "@react-native-community/datetimepicker": "^8.0.0",
     "@react-native-firebase/app": "^19.2.2",
     "@react-native-firebase/auth": "^19.2.2",
     "@react-native-firebase/firestore": "^19.2.2",
