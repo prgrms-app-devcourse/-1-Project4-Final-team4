@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, TextInput, Text, TouchableOpacity } from 'react-native';
+import React, {useState} from 'react';
+import {View, TextInput, Text, TouchableOpacity} from 'react-native';
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -12,11 +12,7 @@ export default function ForgotPassword() {
 
   return (
     <View>
-      <TextInput
-        placeholder="Email"
-        onChangeText={setEmail}
-        value={email}
-      />
+      <TextInput placeholder="Email" onChangeText={setEmail} value={email} />
       <TouchableOpacity onPress={handleResetPassword}>
         <Text>Send Password Reset Link</Text>
       </TouchableOpacity>

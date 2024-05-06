@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {Colors} from '../utils/Colors';
 import Margin from '../components/Margin';
 import EditIcon from 'react-native-vector-icons/MaterialIcons';
 
