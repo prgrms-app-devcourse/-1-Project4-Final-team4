@@ -197,11 +197,11 @@ const MainTab = () => {
       screenOptions={{
         headerShown: false,
       }}>
-      <Tab.Screen name="Home" component={HomeTab} />
-      <Tab.Screen name="Search" component={SearchTab} />
-      <Tab.Screen name="Community" component={CommunityTab} />
-      <Tab.Screen name="Tool" component={ToolTab} />
-      <Tab.Screen name="Mypage" component={MypageTab} />
+      <Tab.Screen name="HomeTab" component={HomeTab} />
+      <Tab.Screen name="SearchTab" component={SearchTab} />
+      <Tab.Screen name="CommunityTab" component={CommunityTab} />
+      <Tab.Screen name="ToolTab" component={ToolTab} />
+      <Tab.Screen name="MypageTab" component={MypageTab} />
     </Tab.Navigator>
   );
 };
@@ -213,8 +213,8 @@ const Router = () => {
         headerShown: false,
       }}>
       <Stack.Screen name="Splash" component={Splash} />
-      <Stack.Screen name="Login" component={LoginTab} />
-      <Stack.Screen name="Main" component={MainTab} />
+      <Stack.Screen name="LoginTab" component={LoginTab} />
+      <Stack.Screen name="MainTab" component={MainTab} />
     </Stack.Navigator>
   );
 };

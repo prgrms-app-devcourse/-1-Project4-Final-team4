@@ -3,7 +3,7 @@ import {Image, StyleSheet, View, Animated, Easing, Text} from 'react-native';
 
 const Splash = ({navigation}) => {
   setTimeout(() => {
-    navigation.replace('MainTab');
+    navigation.replace('LoginTab');
   }, 2000);
 
   return (
