@@ -1,3 +1,5 @@
+import {SafeAreaView, View} from 'react-native';
+import {containerStyle} from '../utils/utils';
 import React from 'react';
 import {
   Image,
