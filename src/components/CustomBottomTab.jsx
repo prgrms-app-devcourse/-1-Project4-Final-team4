@@ -29,7 +29,7 @@ const CustomBottomTab = ({state, navigation, insets, descriptors}) => {
 
         const iconFlag = bool => {
           switch (label) {
-            case '홈':
+            case 'HomeTab':
               return (
                 <Icon
                   name="home"
@@ -37,7 +37,7 @@ const CustomBottomTab = ({state, navigation, insets, descriptors}) => {
                   size={30}
                 />
               );
-            case '검색':
+            case 'SearchTab':
               return (
                 <Icon
                   name="search1"
@@ -46,7 +46,7 @@ const CustomBottomTab = ({state, navigation, insets, descriptors}) => {
                 />
               );
 
-            case '커뮤니티':
+            case 'CommunityTab':
               return (
                 <Icons
                   name="people"
@@ -55,7 +55,7 @@ const CustomBottomTab = ({state, navigation, insets, descriptors}) => {
                 />
               );
 
-            case '일정':
+            case 'ToolTab':
               return (
                 <Icon
                   name="calendar"
