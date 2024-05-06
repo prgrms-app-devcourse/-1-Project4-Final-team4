@@ -19,6 +19,7 @@ const Login = () => {
     try {
       const response = await signInWithEmailAndPassword(auth, emailValue, passwordValue);
       console.log(response);
+      navigation.replace('MainTab');
     }
     catch(error) {
       console.log(error);
