@@ -1,7 +1,7 @@
-const palette ={
-    MAINGREEN: "#80D7CE",
-    SUBGREEN: "#BBE6D5",
-    COMMUNITYGRAY: "#748497",
+const palette = {
+  MAIN_GREEN: '#80D7CE',
+  SUB_GREEN: '#BBE6D5',
+  COMMUNITY_GRAY: '#748497',
 };
 
 export default palette;

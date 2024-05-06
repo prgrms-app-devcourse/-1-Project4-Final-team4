@@ -1,10 +1,14 @@
 import React from 'react';
 import 'react-native-gesture-handler';
 import Router from './src/router';
-import Community from './src/pages/Community';
+import {NavigationContainer} from '@react-navigation/native';
 
 function App(): React.JSX.Element {
-  return <Router />;
+  return (
+    <NavigationContainer>
+      <Router />
+    </NavigationContainer>
+  );
 }
 
 export default App;
