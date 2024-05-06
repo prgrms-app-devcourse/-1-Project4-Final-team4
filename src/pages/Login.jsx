@@ -30,7 +30,9 @@ const Login = () => {
         passwordValue,
       );
       console.log(response);
-    } catch (error) {
+      navigation.replace('MainTab');
+    }
+    catch(error) {
       console.log(error);
       Alert('로그인 실패' + error.message);
     } finally {
