@@ -1,20 +1,17 @@
-import {SafeAreaView, View} from 'react-native';
-import {containerStyle} from '../utils/utils';
 import React from 'react';
 import {
   Image,
-  SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
   ScrollView,
   ImageBackground,
+  SafeAreaView,
+  View,
 } from 'react-native';
 import MainHeader from '../components/MainHeader';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import BubbleIcon from 'react-native-vector-icons/SimpleLineIcons';
-import Colors from '../utils/Colors';
 import CategoryButton from '../components/CategoryButton';
 import {useNavigation} from '@react-navigation/native';
 import Carousel from 'react-native-snap-carousel';
@@ -22,6 +19,7 @@ import Carousel from 'react-native-snap-carousel';
 import reviewFrame from '../assets/images/reviewFrame.png';
 
 import {Dimensions} from 'react-native';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 const windowWidth = Dimensions.get('window').width;
 
 const tempData = [

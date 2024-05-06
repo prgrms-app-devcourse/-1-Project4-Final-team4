@@ -44,7 +44,7 @@ const Column = ({
       onPress={onPress}
       style={[
         styles.columnStyle,
-        {backgroundColor: isSelected ? Colors.ACTIVE_COLOR : 'transparent'},
+        {backgroundColor: isSelected ? Colors.mint : 'transparent'},
       ]}>
       <Text
         style={{color, opacity, fontWeight: hasSchedule ? 'bold' : 'normal'}}>
