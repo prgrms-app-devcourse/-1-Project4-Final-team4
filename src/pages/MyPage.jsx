@@ -54,7 +54,10 @@ const MyPage = ({navigation}) => {
       </View>
       <Margin height={20} />
 
-      <TouchableOpacity style={styles.box}>
+      <TouchableOpacity 
+        style={styles.box}
+        onPress={() => navigation.navigate('LoginTab')}
+      >
         <Text style={{fontSize: 20}}>로그아웃</Text>
       </TouchableOpacity>
 

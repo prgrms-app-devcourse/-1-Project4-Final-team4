@@ -12,6 +12,8 @@ import { useNavigation } from '@react-navigation/native';
 import { FIREBASE_AUTH } from '../firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import logo_fullname from '../assets/icons/logo_fullname.png';
+import google from '../assets/icons/google.svg';
+import facebook from '../assets/icons/facebook.svg';
 
 const Login = () => {
   const [emailValue, setEmailValue] = useState('');
@@ -40,9 +42,11 @@ const Login = () => {
     <View style={styles.container}>
       <Image source={logo_fullname} style={styles.title} />
       <TouchableOpacity style={styles.buttonSocial}>
+        <Image style={styles.social_logo} source={google} />
         <Text>Continue with Google</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.buttonSocial}>
+        <Image style={styles.social_logo} source={facebook} />
         <Text>Continue with Facebook</Text>
       </TouchableOpacity>
       <Text style={styles.or}>이메일로 로그인하기</Text>
@@ -65,7 +69,7 @@ const Login = () => {
       </TouchableOpacity>
       {errorMessage ? <Text style={styles.error}>{errorMessage}</Text> : null}
       <TouchableOpacity style={styles.button} onPress={login}>
-        <Text style={styles.or}>로그인</Text>
+        <Text style={styles.loginText}>로그인</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('Register')}>
         <Text>아직 회원이 아니세요? 회원가입</Text>
@@ -80,15 +84,14 @@ const Login = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
     backgroundColor: 'white'
   },
   title: {
-    marginTop: 100,
     width: 358,
     height: 76,
-    marginBottom: 30
   },
   input: {
     width: '100%',
@@ -99,12 +102,17 @@ const styles = StyleSheet.create({
     backgroundColor: "#d7fffb",
   },
   button: {
-    width: '90%',
+    width: '100%',
     padding: 15,
     marginVertical: 10,
-    backgroundColor: '#80d7ce',
+    backgroundColor: '#80D7CE',
     alignItems: 'center',
     borderRadius: 5,
+  },
+  loginText: {
+    color: '#333',
+    fontSize: 16,
+    fontWeight: 'bold'
   },
   buttonSocial: {
     width: 374,
@@ -115,12 +123,17 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
     marginVertical: 5,
+    flexDirection: 'row',
+  },
+  social_logo: {
+    width: 23,
+    height: 23,
+    marginLeft: 63,
+    marginRight: 12
   },
   or: {
     marginVertical: 20,
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333'
+    fontSize: 16
   },
   showPassword: {
     alignSelf: 'flex-end',
