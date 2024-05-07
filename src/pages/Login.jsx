@@ -65,7 +65,7 @@ const Login = () => {
       </TouchableOpacity>
       {errorMessage ? <Text style={styles.error}>{errorMessage}</Text> : null}
       <TouchableOpacity style={styles.button} onPress={login}>
-        <Text>Login</Text>
+        <Text style={styles.or}>로그인</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('Register')}>
         <Text>아직 회원이 아니세요? 회원가입</Text>
@@ -80,14 +80,15 @@ const Login = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
     backgroundColor: 'white'
   },
   title: {
+    marginTop: 100,
     width: 358,
     height: 76,
+    marginBottom: 30
   },
   input: {
     width: '100%',
@@ -101,10 +102,9 @@ const styles = StyleSheet.create({
     width: '90%',
     padding: 15,
     marginVertical: 10,
-    backgroundColor: '#00CFCF',
+    backgroundColor: '#80d7ce',
     alignItems: 'center',
     borderRadius: 5,
-    backgroundColor: '#'
   },
   buttonSocial: {
     width: 374,
@@ -118,7 +118,9 @@ const styles = StyleSheet.create({
   },
   or: {
     marginVertical: 20,
-    fontSize: 16
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#333'
   },
   showPassword: {
     alignSelf: 'flex-end',
