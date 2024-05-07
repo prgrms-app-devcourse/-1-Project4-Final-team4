@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   TextInput,
@@ -6,10 +6,12 @@ import {
   TouchableOpacity,
   StyleSheet,
   Alert,
+  Image
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {FIREBASE_AUTH} from '../firebase';
-import {signInWithEmailAndPassword} from 'firebase/auth';
+import { useNavigation } from '@react-navigation/native';
+import { FIREBASE_AUTH } from '../firebase';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import logo_fullname from '../assets/icons/logo_fullname.png';
 
 const Login = () => {
   const [emailValue, setEmailValue] = useState('');
@@ -19,22 +21,16 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const navigation = useNavigation();
-
   const auth = FIREBASE_AUTH;
 
   const login = async () => {
     try {
-      const response = await signInWithEmailAndPassword(
-        auth,
-        emailValue,
-        passwordValue,
-      );
+      const response = await signInWithEmailAndPassword(auth, emailValue, passwordValue);
       console.log(response);
       navigation.replace('MainTab');
-    }
-    catch(error) {
+    } catch (error) {
       console.log(error);
-      Alert('로그인 실패' + error.message);
+      Alert.alert('로그인 실패', error.message);
     } finally {
       setLoading(false);
     }
@@ -42,6 +38,14 @@ const Login = () => {
 
   return (
     <View style={styles.container}>
+      <Image source={logo_fullname} style={styles.title} />
+      <TouchableOpacity style={styles.buttonSocial}>
+        <Text>Continue with Google</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.buttonSocial}>
+        <Text>Continue with Facebook</Text>
+      </TouchableOpacity>
+      <Text style={styles.or}>이메일로 로그인하기</Text>
       <TextInput
         style={styles.input}
         placeholder="이메일"
@@ -56,24 +60,18 @@ const Login = () => {
         value={passwordValue}
         secureTextEntry={!showPassword} // 비밀번호 보이기/숨기기
       />
-      <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+      <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={styles.showPassword}>
         <Text>{showPassword ? 'Hide' : 'Show'}</Text>
       </TouchableOpacity>
       {errorMessage ? <Text style={styles.error}>{errorMessage}</Text> : null}
       <TouchableOpacity style={styles.button} onPress={login}>
         <Text>Login</Text>
       </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => {
-          navigation.navigate('Register');
-        }}>
-        <Text>Register</Text>
+      <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('Register')}>
+        <Text>아직 회원이 아니세요? 회원가입</Text>
       </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('ForgotPassword')}>
-        <Text>Forgot Password</Text>
+      <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('ForgotPassword')}>
+        <Text>비밀번호 찾기</Text>
       </TouchableOpacity>
     </View>
   );
@@ -85,18 +83,51 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
+    backgroundColor: 'white'
+  },
+  title: {
+    width: 358,
+    height: 76,
   },
   input: {
     width: '100%',
     margin: 10,
     padding: 10,
-    borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: '#333',
+    borderRadius: 5,
+    backgroundColor: "#d7fffb",
   },
   button: {
-    margin: 10,
-    padding: 10,
-    backgroundColor: '#ddd',
+    width: '90%',
+    padding: 15,
+    marginVertical: 10,
+    backgroundColor: '#00CFCF',
+    alignItems: 'center',
+    borderRadius: 5,
+    backgroundColor: '#'
+  },
+  buttonSocial: {
+    width: 374,
+    padding: 15,
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: '#777',
+    borderRadius: 5,
+    alignItems: 'center',
+    marginVertical: 5,
+  },
+  or: {
+    marginVertical: 20,
+    fontSize: 16
+  },
+  showPassword: {
+    alignSelf: 'flex-end',
+    marginRight: '5%',
+    marginBottom: 10
+  },
+  link: {
+    marginTop: 5,
+    color: 'blue'
   },
   error: {
     color: 'red',
