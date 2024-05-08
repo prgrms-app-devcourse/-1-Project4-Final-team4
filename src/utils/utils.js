@@ -10,7 +10,19 @@ export const STORAGE_KEY = {
 export const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} =
   Dimensions.get('screen');
 
-export const containerStyle = {flex: 1, backgroundColor: Colors.BG_COLOR};
+export const marginHorizontal = 16;
+export const containerStyle = {flex: 1, backgroundColor: Colors.background};
+export const shadow = {
+  shadowColor: '#353a3f',
+  shadowOffset: {
+    width: 4,
+    height: 4,
+  },
+  shadowOpacity: 0.4,
+  shadowRadius: 4,
+  elevation: 5,
+};
+
 export const ITEM_WIDTH = 330;
 export const BOTTOM_HEIGHT = 20;
 
