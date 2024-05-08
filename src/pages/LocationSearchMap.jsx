@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {containerStyle} from '../utils/utils';
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {Colors} from '../utils/Colors';
 import BasicHeader from '../components/BasicHeader';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
@@ -38,6 +38,21 @@ const dummyData = [
 ];
 
 const LocationSearchMap = ({navigation}) => {
+  // 하단 모달 동작 함수
+  const [expanded, setExpanded] = useState(false); // 터치 시 높이가 변경될지 여부를 결정하기 위한 상태
+
+  const modalHeight = useRef(new Animated.Value(144)).current;
+
+  const toggleHeight = () => {
+    const newHeight = expanded ? 144 : 652;
+    setExpanded(!expanded);
+    Animated.timing(modalHeight, {
+      toValue: newHeight,
+      duration: 300,
+      useNativeDriver: false,
+    }).start();
+  };
+
   return (
     <SafeAreaView style={containerStyle}>
       {/* 헤더 부분 */}
@@ -72,19 +87,26 @@ const LocationSearchMap = ({navigation}) => {
         />
         {/* 하단 모달 부분 */}
         <View style={styles.bottomModalWrapper}>
-          <TouchableOpacity>
-            <View style={{alignItems: 'center'}}>
-              <Icon name={'keyboard-arrow-up'} size={25} />
-            </View>
+          <Animated.View style={{height: modalHeight}}>
+            <TouchableOpacity activeOpacity={1} onPress={toggleHeight}>
+              <View style={{alignItems: 'center'}}>
+                <Icon name={'keyboard-arrow-up'} size={25} />
+              </View>
 
-            <Text style={styles.bottomModalText}>서울시 논현동</Text>
+              <Text style={styles.bottomModalText}>서울시 논현동</Text>
+            </TouchableOpacity>
             <FlatList
               data={dummyData}
               renderItem={data => {
                 return (
                   <View style={styles.bottomModalContentWrapper}>
                     <Image
-                      style={{width: 69, height: 69, borderRadius: 30}}
+                      style={{
+                        width: 69,
+                        height: 69,
+                        borderRadius: 30,
+                        marginBottom: 36,
+                      }}
                       src={data.item.img}
                     />
                     <View
@@ -93,17 +115,26 @@ const LocationSearchMap = ({navigation}) => {
                         marginLeft: 24,
                         gap: 9,
                       }}>
-                      <Text>{data.item.title}</Text>
-                      <Text style={{marginRight: 43}}>
+                      <Text style={{fontSize: 15, color: 'black'}}>
+                        {data.item.title}
+                      </Text>
+                      <Text
+                        style={{
+                          marginRight: 43,
+                          fontSize: 12,
+                          color: 'black',
+                        }}>
                         {data.item.content1}
                       </Text>
                     </View>
-                    <Text>{data.item.category}</Text>
+                    <Text style={{fontSize: 15, color: 'black'}}>
+                      {data.item.category}
+                    </Text>
                   </View>
                 );
               }}
             />
-          </TouchableOpacity>
+          </Animated.View>
         </View>
       </View>
     </SafeAreaView>
@@ -136,7 +167,6 @@ const styles = StyleSheet.create({
   },
   // 하단 모달 스타일
   bottomModalWrapper: {
-    height: 144,
     width: '100%',
     borderRadius: 20,
     backgroundColor: 'white',
