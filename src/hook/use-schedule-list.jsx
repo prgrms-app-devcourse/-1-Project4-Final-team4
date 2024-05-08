@@ -1,5 +1,7 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import dayjs from 'dayjs';
 import {useEffect, useState} from 'react';
+import {STORAGE_KEY} from '../utils/utils';
 
 const defaultScheduleList = [
   // {
@@ -16,10 +18,10 @@ export const useScheduleList = selectedDate => {
 
   const savedScheduleList = newScheduleList => {
     setScheduleList(newScheduleList);
-    // AsyncStorage.setItem(
-    //   STORAGE_KEY.SCHEDULE_KEY,
-    //   JSON.stringify(newScheduleList),
-    // );
+    AsyncStorage.setItem(
+      STORAGE_KEY.SCHEDULE_KEY,
+      JSON.stringify(newScheduleList),
+    );
   };
 
   const addSchedule = () => {
@@ -61,14 +63,14 @@ export const useScheduleList = selectedDate => {
   const resetInput = () => setInput('');
 
   useEffect(() => {
-    // init();
+    init();
   }, []);
 
-  // const init = async () => {
-  //   const result = await AsyncStorage.getItem(STORAGE_KEY.SCHEDULE_KEY);
-  //   const newScheduleList = JSON.parse(result);
-  //   setScheduleList(newScheduleList);
-  // };
+  const init = async () => {
+    const result = await AsyncStorage.getItem(STORAGE_KEY.SCHEDULE_KEY);
+    const newScheduleList = JSON.parse(result);
+    setScheduleList(newScheduleList);
+  };
 
   return {
     scheduleList,

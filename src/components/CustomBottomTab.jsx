@@ -29,37 +29,37 @@ const CustomBottomTab = ({state, navigation, insets, descriptors}) => {
 
         const iconFlag = bool => {
           switch (label) {
-            case '홈':
+            case 'HomeTab':
               return (
                 <Icon
                   name="home"
-                  color={isFocused ? '#000' : 'grey'}
+                  color={isFocused ? Colors.main : 'grey'}
                   size={30}
                 />
               );
-            case '검색':
+            case 'SearchTab':
               return (
                 <Icon
                   name="search1"
-                  color={isFocused ? '#000' : 'grey'}
+                  color={isFocused ? Colors.main : 'grey'}
                   size={30}
                 />
               );
 
-            case '커뮤니티':
+            case 'CommunityTab':
               return (
                 <Icons
                   name="people"
-                  color={isFocused ? '#000' : 'grey'}
+                  color={isFocused ? Colors.main : 'grey'}
                   size={30}
                 />
               );
 
-            case '일정':
+            case 'ToolTab':
               return (
                 <Icon
                   name="calendar"
-                  color={isFocused ? '#000' : 'grey'}
+                  color={isFocused ? Colors.main : 'grey'}
                   size={30}
                 />
               );
@@ -68,7 +68,7 @@ const CustomBottomTab = ({state, navigation, insets, descriptors}) => {
               return (
                 <Icon
                   name="setting"
-                  color={isFocused ? '#000' : 'grey'}
+                  color={isFocused ? Colors.main : 'grey'}
                   size={30}
                 />
               );
@@ -111,8 +111,8 @@ const styles = StyleSheet.create({
     borderTopWidth: 0.5,
     borderLeftWidth: 0.5,
     borderRightWidth: 0.5,
-    borderColor: '#000',
-    backgroundColor: Colors.main,
+    borderColor: Colors.main,
+    backgroundColor: '#fff',
     paddingTop: BOTTOM_HEIGHT,
     zIndex: 10,
   },

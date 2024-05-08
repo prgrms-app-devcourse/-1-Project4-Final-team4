@@ -1,20 +1,22 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {Children} from 'react';
+import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
-import Down from 'react-native-vector-icons/AntDesign';
-import Up from 'react-native-vector-icons/AntDesign';
+import ToggleArrow from 'react-native-vector-icons/AntDesign';
+
 import {Colors} from '../utils/Colors';
 import logo from '../assets/images/logo.png';
 import {SCREEN_WIDTH} from '../utils/utils';
+import DropdownModal from './DropdownModal';
 
-const MainHeader = ({title}) => {
-  const navigation = useNavigation();
+const SubHeader = ({title, toggle, onPress}) => {
   return (
     <View style={styles.headerWrapper}>
-      <TouchableOpacity onPress={() => navigation.navigate('MyPage')}>
-        <Image source={logo} style={styles.logo} />
-      </TouchableOpacity>
-      {title && <Text>{title}</Text>}
+      <Image source={logo} style={styles.logo} />
+      <View
+        onPress={onPress}
+        style={{flexDirection: 'row', alignItems: 'center', gap: 4}}>
+        <Text style={styles.title}>{title}</Text>
+      </View>
     </View>
   );
 };
@@ -39,4 +41,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MainHeader;
+export default SubHeader;
