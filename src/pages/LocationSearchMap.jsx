@@ -35,11 +35,35 @@ const dummyData = [
     category: '음식점',
     img: 'https://source.unsplash.com/random.jpg​',
   },
+  {
+    title: '산으로 간 삼치',
+    content1: '경기도 용인시 수지구 고기로 23+',
+    category: '음식점',
+    img: 'https://source.unsplash.com/random.jpg​',
+  },
+  {
+    title: '산으로 간 삼치',
+    content1: '경기도 용인시 수지구 고기로 23+',
+    category: '음식점',
+    img: 'https://source.unsplash.com/random.jpg​',
+  },
+  {
+    title: '산으로 간 삼치',
+    content1: '경기도 용인시 수지구 고기로 23+',
+    category: '음식점',
+    img: 'https://source.unsplash.com/random.jpg​',
+  },
+  {
+    title: '산으로 간 삼치',
+    content1: '경기도 용인시 수지구 고기로 23+',
+    category: '음식점',
+    img: 'https://source.unsplash.com/random.jpg​',
+  },
 ];
 
 const LocationSearchMap = ({navigation}) => {
   // 하단 모달 동작 함수
-  const [expanded, setExpanded] = useState(false); // 터치 시 높이가 변경될지 여부를 결정하기 위한 상태
+  const [expanded, setExpanded] = useState(false);
 
   const modalHeight = useRef(new Animated.Value(144)).current;
 
@@ -90,7 +114,12 @@ const LocationSearchMap = ({navigation}) => {
           <Animated.View style={{height: modalHeight}}>
             <TouchableOpacity activeOpacity={1} onPress={toggleHeight}>
               <View style={{alignItems: 'center'}}>
-                <Icon name={'keyboard-arrow-up'} size={25} />
+                {/* 하단 모달 아이콘 변화 기능 함수 */}
+                {expanded ? (
+                  <Icon name={'keyboard-arrow-down'} size={25} />
+                ) : (
+                  <Icon name={'keyboard-arrow-up'} size={25} />
+                )}
               </View>
 
               <Text style={styles.bottomModalText}>서울시 논현동</Text>
