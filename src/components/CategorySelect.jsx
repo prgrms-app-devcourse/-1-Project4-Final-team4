@@ -1,12 +1,12 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 
-const Concert = () => {
+const CategorySelect = () => {
   return (
     <View>
-      <Text>Concert</Text>
+      <Text>CategorySelect</Text>
     </View>
   );
 };
 
-export default Concert;
+export default CategorySelect;

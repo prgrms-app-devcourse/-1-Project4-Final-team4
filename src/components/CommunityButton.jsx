@@ -3,10 +3,10 @@ import {TouchableOpacity, Text, StyleSheet} from 'react-native';
 
 import palette from '../utils/Colors';
 
-const CommunityButton = ({text}) => {
+const CommunityButton = ({name}) => {
   return (
     <TouchableOpacity style={styles.buttonOn}>
-      <Text style={styles.textOn}>{text}</Text>
+      <Text style={styles.textOn}>{name}</Text>
     </TouchableOpacity>
   );
 };
@@ -14,15 +14,17 @@ const CommunityButton = ({text}) => {
 const styles = StyleSheet.create({
   buttonOn: {
     width: 50,
-    height: 22,
+    height: 25,
+    justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 15,
     backgroundColor: palette.COMMUNITY_GRAY,
   },
   textOn: {
-    fontSize: 10,
+    fontFamily: 'Pretendard-Regular',
+    fontSize: 12,
     color: 'white',
-    lineHeight: 22,
+    lineHeight: 24,
   },
 });
 

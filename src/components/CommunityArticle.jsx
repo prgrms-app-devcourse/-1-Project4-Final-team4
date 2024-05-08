@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -8,59 +8,55 @@ import {
   Dimensions,
 } from 'react-native';
 
-import palette from '../utils/Colors';
-import Category from './Category';
-
-const bookmark = require('../assets/icons/bookmark.png');
-const like = require('../assets/icons/like.png');
+const likeOff = require('../assets/icons/likeOff.png');
+const likeOn = require('../assets/icons/likeOn.png');
 const comment = require('../assets/icons/comment.png');
 
 const {width} = Dimensions.get('window');
 
-const CommunityArticle = ({
-  profile,
-  name,
-  date,
-  image,
-  body,
-  hash,
-  likeCount,
-  commentCount,
-}) => {
+const CommunityArticle = ({data}) => {
+  const [like, setLike] = useState(data.likes.length);
+
+  const likeArray = data.likes;
+
+  const countLike = () => {
+    if (!likeArray.includes(data.id)) {
+      likeArray.push(data.id);
+    } else if (likeArray.includes(data.id)) {
+      const idx = likeArray.indexOf(data.id);
+      likeArray.splice(idx, 1);
+    }
+    setLike(!like);
+  };
+
   return (
     <View style={{gap: 10, marginHorizontal: 16}}>
       <View style={styles.headerStyle}>
         <View style={styles.profileWrapper}>
-          <Image source={profile} style={styles.profileImage} />
+          <Image source={data.profile} style={styles.profileImage} />
           <View>
-            <Text style={styles.idText}>{name}</Text>
-            <Text style={styles.dateText}>{date}</Text>
+            <Text style={styles.idText}>{data.name}</Text>
+            <Text style={styles.dateText}>{data.date}</Text>
           </View>
         </View>
-        <TouchableOpacity>
-          <Image source={bookmark} style={{width: 20, height: 27}} />
-        </TouchableOpacity>
       </View>
       <View style={{gap: 8}}>
-        <Image source={image} style={styles.imageStyle} />
+        <Image source={data.image} style={styles.imageStyle} />
         <View style={styles.categoryWrapper}>
-          <Category name={'맛집'} />
-          <Category name={'영화'} />
+          <Text style={styles.categoryText}>#맛집</Text>
+          <Text style={styles.categoryText}>#영화</Text>
         </View>
-        <View>
-          <Text style={styles.bodyText}>{body}</Text>
-          <Text style={styles.hashText}>{hash}</Text>
-        </View>
+        <Text style={styles.bodyText}>{data.body}</Text>
         <View style={styles.iconWrapper}>
           <View style={styles.iconWrapper}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={countLike}>
               <Image
-                source={like}
+                source={like ? likeOn : likeOff}
                 style={styles.iconStyle}
                 resizeMode="contain"
               />
             </TouchableOpacity>
-            <Text style={styles.iconText}>{likeCount}</Text>
+            <Text style={styles.iconText}>{data.likes.length}</Text>
           </View>
           <View style={styles.iconWrapper}>
             <TouchableOpacity>
@@ -70,7 +66,7 @@ const CommunityArticle = ({
                 resizeMode="contain"
               />
             </TouchableOpacity>
-            <Text style={styles.iconText}>{commentCount}</Text>
+            <Text style={styles.iconText}>{data.commentCount}</Text>
           </View>
         </View>
       </View>
@@ -101,7 +97,7 @@ const styles = StyleSheet.create({
   },
   dateText: {
     fontFamily: 'Pretendard-Regular',
-    fontSize: 10,
+    fontSize: 12,
     color: '#AAA',
   },
   imageStyle: {
@@ -113,15 +109,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 4,
   },
+  categoryText: {
+    fontFamily: 'Pretendard-Regular',
+    fontSize: 14,
+    color: '#AAA',
+  },
   bodyText: {
     fontFamily: 'Pretendard-Medium',
-    fontSize: 12,
+    fontSize: 16,
     color: '#333',
-  },
-  hashText: {
-    fontFamily: 'Pretendard-Bold',
-    fontSize: 12,
-    color: palette.MAIN_GREEN,
   },
   iconWrapper: {
     flexDirection: 'row',
@@ -132,8 +128,8 @@ const styles = StyleSheet.create({
     height: 16,
   },
   iconText: {
-    fontFamily: 'Pretendard-Medium',
-    fontSize: 10,
+    fontFamily: 'Pretendard-Regular',
+    fontSize: 12,
     color: '#333',
   },
 });
