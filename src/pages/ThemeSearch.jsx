@@ -9,6 +9,8 @@ import {
   TouchableOpacity,
   View,
   Platform,
+  FlatList,
+  Image,
 } from 'react-native';
 import {containerStyle} from '../utils/utils';
 import React, {useState, useEffect} from 'react';
@@ -43,10 +45,14 @@ const ThemeSearch = () => {
     {label: '복합레포츠', value: 'A03 A0305'},
   ]);
 
-  const [contentList, setContentList] = useState([]);
-  const [contentList1, setContentList1] = useState([]);
-  const [contentList2, setContentList2] = useState([]);
+  const [locationContentList, setLocationContentList] = useState([]);
+  const [movieContentList, setMovieContentList] = useState([]);
+  const [showContentList, setShowContentList] = useState([]);
   const [themeContentList, setThemeContentList] = useState([]);
+
+  // 영화 버튼 선택 시 carousel 없어지고 영화 view 출력
+  const [movieToggle, setMovieToggle] = useState(false);
+  const [showToggle, setShowToggle] = useState(false);
 
   // 테마 호출 API
   useEffect(() => {
@@ -67,12 +73,16 @@ const ThemeSearch = () => {
   };
 
   const handleFoodValueChange = itemValue => {
+    setMovieToggle(false);
+    setShowToggle(false);
     const valueArray = itemValue.split(' ');
     fetchPlaceData(valueArray);
     setFoodValue(itemValue);
   };
 
   const handlePlayValueChange = itemValue => {
+    setMovieToggle(false);
+    setShowToggle(false);
     const valueArray = itemValue.split(' ');
     fetchPlaceData(valueArray);
     setPlayValue(itemValue);
@@ -87,7 +97,7 @@ const ThemeSearch = () => {
     try {
       const res = await getLocation();
       if (res) {
-        setContentList(res.response.body.items.item);
+        setLocationContentList(res.response.body.items.item);
         // console.log('Location : ', res.response.body.items.item);
         return;
       }
@@ -105,7 +115,7 @@ const ThemeSearch = () => {
     try {
       const res = await getMovie();
       if (res) {
-        setContentList1(res.boxOfficeResult.dailyBoxOfficeList);
+        setMovieContentList(res.boxOfficeResult.dailyBoxOfficeList);
         console.log('Movie : ', res.boxOfficeResult.dailyBoxOfficeList);
         return;
       }
@@ -122,8 +132,8 @@ const ThemeSearch = () => {
   const fetchShowData = async () => {
     try {
       const res = await getShow();
-      setContentList2(res);
-      console.log('show : ', res);
+      setShowContentList(res.boxofs.boxof);
+      console.log('show : ', res.boxofs.boxof);
       return;
     } catch (e) {
       console.error(e);
@@ -153,6 +163,36 @@ const ThemeSearch = () => {
             <Text style={styles.placeContent}>{item.addr1}</Text>
           </View>
         </ImageBackground>
+      </TouchableOpacity>
+    );
+  };
+
+  const renderMovieItem = ({item}) => (
+    <TouchableOpacity style={styles.flatWrapper}>
+      <Image
+        source={{uri: 'http://www.kopis.or.kr' + item.poster}}
+        style={{width: 50, height: 50}}
+      />
+      <View style={styles.flatItemContentWrapper}>
+        <Text style={styles.flatTitle}>{item.movieNm}</Text>
+        <Text style={styles.flatContent}>{item.rank}등</Text>
+      </View>
+    </TouchableOpacity>
+  );
+
+  //http://www.kopis.or.kr/upload/pfmPoster/PF_PF132236_161107_144405.jpg
+  const renderShowItem = ({item}) => {
+    return (
+      <TouchableOpacity style={styles.flatWrapper}>
+        <Image
+          source={{uri: 'http://www.kopis.or.kr' + item.poster}}
+          style={{width: 150, height: 200}}
+        />
+        <View style={styles.flatItemContentWrapper}>
+          <Text style={styles.flatTitle}>{item.prfnm}</Text>
+          <Text style={styles.flatContent}>{item.prfplcnm}</Text>
+          <Text style={styles.flatContent}>{item.prfpd[0]}</Text>
+        </View>
       </TouchableOpacity>
     );
   };
@@ -229,67 +269,69 @@ const ThemeSearch = () => {
         </View>
       </View>
       <View style={styles.themeBtnContainer}>
-        {/* <TouchableOpacity style={styles.btnContent} onPress={() => setMovieToggle(true)}> */}
-        <TouchableOpacity style={styles.btnContent}>
+        <TouchableOpacity
+          style={styles.btnContent}
+          onPress={() => {
+            setMovieToggle(true);
+            setShowToggle(false);
+          }}>
           <Text style={styles.btnText}>영화</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.btnContent}>
+        <TouchableOpacity
+          style={styles.btnContent}
+          onPress={() => {
+            setShowToggle(true);
+            setMovieToggle(false);
+          }}>
           <Text style={styles.btnText}>콘서트</Text>
         </TouchableOpacity>
       </View>
-      <ScrollView>
-        <View style={styles.placeMainContainer}>
-          <Text style={styles.placeMainTitle}>앱에서 추천하는 명소</Text>
-          <Carousel
-            data={themeContentList}
-            renderItem={placeRenderItems}
-            sliderWidth={windowWidth - 56}
-            itemWidth={260}
-            contentContainerCustomStyle={{alignItems: 'flex-start'}}
-            activeSlideAlignment={'start'}
-            enableSnap={true}
+      {movieToggle ? (
+        <View>
+          <Text style={styles.listTitle}>영화 목록</Text>
+          <FlatList
+            keyExtractor={item => item.id}
+            data={movieContentList}
+            renderItem={renderMovieItem}
           />
         </View>
-        <View style={styles.placeMainContainer}>
-          <Text style={styles.placeMainTitle}>앱에서 추천하는 명소</Text>
-          <Carousel
-            data={themeContentList}
-            renderItem={placeRenderItems}
-            sliderWidth={windowWidth - 56}
-            itemWidth={260}
-            contentContainerCustomStyle={{alignItems: 'flex-start'}}
-            activeSlideAlignment={'start'}
-            enableSnap={true}
+      ) : showToggle ? (
+        <View>
+          <Text style={styles.listTitle}>콘서트 목록</Text>
+          <FlatList
+            keyExtractor={item => item.id}
+            data={showContentList}
+            renderItem={renderShowItem}
           />
         </View>
-
-        {/* <Button
-          style={{
-            position: 'absolute',
-            top: 200,
-            marginVertical: 'auto',
-            fontSize: 50,
-            marginTop: 20,
-            fontFamily: 'Pretendard-Bold',
-            color: 'white',
-          }}
-          onPress={handleButton}
-          title="영화"
-        />
-        <Button
-          style={{
-            position: 'absolute',
-            top: 300,
-            marginVertical: 'auto',
-            fontSize: 50,
-            marginTop: 20,
-            fontFamily: 'Pretendard-Bold',
-            color: 'white',
-          }}
-          onPress={handleButton2}
-          title="연극"
-        /> */}
-      </ScrollView>
+      ) : (
+        <ScrollView>
+          <View style={styles.placeMainContainer}>
+            <Text style={styles.placeMainTitle}>앱에서 추천하는 명소</Text>
+            <Carousel
+              data={themeContentList}
+              renderItem={placeRenderItems}
+              sliderWidth={windowWidth - 56}
+              itemWidth={260}
+              contentContainerCustomStyle={{alignItems: 'flex-start'}}
+              activeSlideAlignment={'start'}
+              enableSnap={true}
+            />
+          </View>
+          <View style={styles.placeMainContainer}>
+            <Text style={styles.placeMainTitle}>앱에서 추천하는 명소</Text>
+            <Carousel
+              data={themeContentList}
+              renderItem={placeRenderItems}
+              sliderWidth={windowWidth - 56}
+              itemWidth={260}
+              contentContainerCustomStyle={{alignItems: 'flex-start'}}
+              activeSlideAlignment={'start'}
+              enableSnap={true}
+            />
+          </View>
+        </ScrollView>
+      )}
     </SafeAreaView>
   );
 };
@@ -357,6 +399,36 @@ const styles = StyleSheet.create({
     color: Colors.white,
     fontFamily: 'Pretendard',
     fontSize: 14,
+  },
+  listTitle: {
+    fontSize: 18,
+    fontFamily: 'PretendardBold',
+    margin: 16,
+  },
+  flatWrapper: {
+    padding: 16,
+    flexDirection: 'row',
+    borderWidth: 0.5,
+    borderColor: Colors.black,
+    borderRadius: 8,
+    marginHorizontal: 16,
+    marginVertical: 8,
+    backgroundColor: Colors.white,
+  },
+  flatItemContentWrapper: {
+    flex: 1,
+    paddingLeft: 16,
+    rowGap: 4,
+    justifyContent: 'center',
+  },
+  flatTitle: {
+    fontSize: 16,
+    fontFamily: 'PretendardBold',
+  },
+  flatContent: {
+    fontSize: 14,
+    fontFamily: 'Pretendard',
+    paddingBottom: 8,
   },
 });
 
