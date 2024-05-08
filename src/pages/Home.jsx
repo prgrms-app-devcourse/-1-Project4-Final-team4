@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   Image,
   StyleSheet,
@@ -19,7 +19,9 @@ import Carousel from 'react-native-snap-carousel';
 import reviewFrame from '../assets/images/reviewFrame.png';
 
 import {Dimensions} from 'react-native';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {marginHorizontal, shadow} from '../utils/utils';
+import {Colors} from '../utils/Colors';
+import Margin from '../components/Margin';
 const windowWidth = Dimensions.get('window').width;
 
 const tempData = [
@@ -163,7 +165,7 @@ const Home = () => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1, backgroundColor: Colors.background}}>
       <ScrollView style={{backgroundColor: Colors.background}}>
         <MainHeader />
         <View style={styles.contentWrapper}>
@@ -173,10 +175,12 @@ const Home = () => {
               <CategoryButton
                 title={'지역으로 검색!'}
                 content={'서울 찍고 경기 찍고 고고싱'}
+                search={'SearchLocaion'}
               />
               <CategoryButton
                 title={'장르별 검색!'}
                 content={'영화, 뮤지컬, 콘서트, 연극까지!'}
+                search={'SearchGenre'}
               />
             </View>
           </View>
@@ -187,10 +191,9 @@ const Home = () => {
                 flexDirection: 'row',
                 alignItems: 'center',
               }}
-              onPress={() => navigation.navigate('LocationSearch')}>
-              <Text style={styles.recTitle}>전체보기</Text>
-              <Icon name={'keyboard-arrow-right'} size={13} />
-            </TouchableOpacity>
+              onPress={() =>
+                navigation.navigate('LocationSearch')
+              }></TouchableOpacity>
           </View>
           <View style={{paddingLeft: 16}}>
             <Carousel
@@ -206,9 +209,9 @@ const Home = () => {
             <Carousel
               data={tempPlace}
               renderItem={placeRenderItems}
-              sliderWidth={windowWidth - 56}
+              sliderWidth={windowWidth}
               itemWidth={200}
-              contentContainerCustomStyle={{alignItems: 'flex-start'}}
+              contentContainerCustomStyle={[shadow, {alignItems: 'flex-start'}]}
               activeSlideAlignment={'start'}
               enableSnap={false}
             />
@@ -218,9 +221,9 @@ const Home = () => {
             <Carousel
               data={tempPlace}
               renderItem={placeRenderItems}
-              sliderWidth={windowWidth - 56}
+              sliderWidth={windowWidth}
               itemWidth={200}
-              contentContainerCustomStyle={{alignItems: 'flex-start'}}
+              contentContainerCustomStyle={[shadow, {alignItems: 'flex-start'}]}
               activeSlideAlignment={'start'}
               enableSnap={false}
             />
@@ -230,9 +233,9 @@ const Home = () => {
             <Carousel
               data={tempFood}
               renderItem={placeRenderItems}
-              sliderWidth={windowWidth - 56}
+              sliderWidth={windowWidth}
               itemWidth={200}
-              contentContainerCustomStyle={{alignItems: 'flex-start'}}
+              contentContainerCustomStyle={[shadow, {alignItems: 'flex-start'}]}
               activeSlideAlignment={'start'}
               enableSnap={false}
             />
@@ -242,16 +245,14 @@ const Home = () => {
             <Carousel
               data={tempMovie}
               renderItem={movieRenderItems}
-              sliderWidth={windowWidth - 56}
+              sliderWidth={windowWidth}
               itemWidth={200}
-              contentContainerCustomStyle={{alignItems: 'flex-start'}}
+              contentContainerCustomStyle={[shadow, {alignItems: 'flex-start'}]}
               activeSlideAlignment={'start'}
               enableSnap={false}
             />
           </View>
-          <TouchableOpacity
-            style={{paddingBottom: 64}}
-            onPress={() => navigation.navigate('Community')}>
+          <TouchableOpacity onPress={() => navigation.navigate('Community')}>
             <Image
               source={reviewFrame}
               style={{width: windowWidth}}
@@ -266,16 +267,16 @@ const Home = () => {
 
 const styles = StyleSheet.create({
   category: {
-    marginHorizontal: 28,
+    marginHorizontal,
     rowGap: 20,
   },
   titleText: {
     color: Colors.black,
     fontFamily: 'PretendardBold',
-    fontSize: 20,
+    fontSize: 18,
+    fontWeight: 700,
   },
   contentWrapper: {
-    flex: 1,
     justifyContent: 'center',
     paddingTop: 24,
   },
@@ -283,13 +284,12 @@ const styles = StyleSheet.create({
     rowGap: 12,
   },
   recContainer: {
-    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 28,
   },
   recdTitle: {
-    color: Colors.gray,
+    color: Colors.grey,
     fontFamily: 'Pretendard',
     fontSize: 13,
   },
@@ -306,29 +306,28 @@ const styles = StyleSheet.create({
   },
   itemContentContainer: {
     flexDirection: 'row',
-    paddingHorizontal: 12,
     paddingVertical: 16,
     columnGap: 16,
   },
   placeMainContainer: {
     backgroundColor: Colors.main,
     height: 375,
-    width: `${windowWidth} - 32`,
-    margin: 16,
-    padding: 24,
-    borderRadius: 8,
+    width: `${windowWidth} - 16`,
+    padding: 16,
   },
   placeMainTitle: {
-    color: '#FFF',
-    fontSize: 16,
+    color: '#fff',
+    fontSize: 18,
     fontFamily: 'PretendardBold',
     marginBottom: 12,
+    fontWeight: 'bold',
   },
   placeContentContainer: {
     position: 'absolute',
     bottom: 16,
     marginHorizontal: 12,
-    backgroundColor: '#313131',
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    borderRadius: 8,
     padding: 4,
   },
   placeTitle: {
