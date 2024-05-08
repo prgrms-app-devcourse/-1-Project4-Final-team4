@@ -40,9 +40,10 @@ const Register = () => {
   return (
     <View style={styles.container}>
       <Image source={logo_fullname} style={styles.title} />
+      <Text style={styles.register}>회원가입</Text>
       <TextInput 
         style={styles.input}
-        placeholder="유저 이름"
+        placeholder="닉네임"
         value={usernameValue}
         onChangeText={setUsernameValue}
       />
@@ -85,31 +86,36 @@ const styles = StyleSheet.create({
     width: 358,
     height: 76,
   },
+  register: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginVertical: 10,
+    color: '#333'  // 제목 색상
+  },
   input: {
-    width: '90%',
+    width: '100%',
     marginVertical: 8,
     padding: 12,
-    borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 5,
-    backgroundColor: '#fff'  // 입력 필드 배경색
+    backgroundColor: '#d7fffb'  // 입력 필드 배경색
   },
   registerButton: {
     backgroundColor: '#80D7CE',  // 버튼 색상
     padding: 12,
     marginVertical: 10,
-    width: '90%',
+    width: '100%',
     alignItems: 'center',
     borderRadius: 5
   },
   showPasswordButton: {
     marginVertical: 5,
-    width: '90%',
+    width: '100%',
     alignItems: 'center',
   },
   loginButton: {
     marginTop: 5,
-    width: '90%',
+    width: '100%',
     alignItems: 'center',
   }
 });

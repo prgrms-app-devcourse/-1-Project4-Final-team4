@@ -8,9 +8,10 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
-    "reset": "rimraf node_modules package-lock.json && npm install"
+    "reset": "powershell -Command \"Remove-Item -Path .\\node_modules -Recurse -Force; Remove-Item -Path .\\package-lock.json -Force; npm install\""
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.23.1",
     "@react-native-community/datetimepicker": "^8.0.0",
     "@react-native-firebase/app": "^19.2.2",
     "@react-native-firebase/auth": "^19.2.2",
