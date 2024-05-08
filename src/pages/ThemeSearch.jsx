@@ -41,6 +41,7 @@ const ThemeSearch = () => {
   const [playItems, setPlayItems] = useState([
     {label: '자연관광', value: 'A01 A0101'},
     {label: '문화시설', value: 'A02 A0206'},
+    {label: '육상레포츠', value: 'A03 A0302'},
     {label: '수상레포츠', value: 'A03 A0303'},
     {label: '복합레포츠', value: 'A03 A0305'},
   ]);
@@ -140,13 +141,6 @@ const ThemeSearch = () => {
     }
   };
 
-  // const handleButton = () => {
-  //   console.log('Movie : ', contentList1);
-  // };
-  // const handleButton2 = () => {
-  //   console.log('Show : ', contentList2);
-  // };
-
   const placeRenderItems = ({item, index}) => {
     const backgroundImage = item.firstimage
       ? {uri: item.firstimage}
@@ -175,6 +169,7 @@ const ThemeSearch = () => {
       />
       <View style={styles.flatItemContentWrapper}>
         <Text style={styles.flatTitle}>{item.movieNm}</Text>
+        <Text style={styles.flatContent}>누적관객수 : {item.audiAcc}명</Text>
         <Text style={styles.flatContent}>{item.rank}등</Text>
       </View>
     </TouchableOpacity>
