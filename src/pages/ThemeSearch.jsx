@@ -90,22 +90,22 @@ const ThemeSearch = () => {
   };
 
   // 지역 호출 API
-  useEffect(() => {
-    fetchLocationData();
-  }, []);
+  // useEffect(() => {
+  //   fetchLocationData();
+  // }, []);
 
-  const fetchLocationData = async () => {
-    try {
-      const res = await getLocation();
-      if (res) {
-        setLocationContentList(res.response.body.items.item);
-        // console.log('Location : ', res.response.body.items.item);
-        return;
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  };
+  // const fetchLocationData = async () => {
+  //   try {
+  //     const res = await getLocation();
+  //     if (res) {
+  //       setLocationContentList(res.response.body.items.item);
+  //       // console.log('Location : ', res.response.body.items.item);
+  //       return;
+  //     }
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+  // };
 
   // 영화 호출 API
   useEffect(() => {
