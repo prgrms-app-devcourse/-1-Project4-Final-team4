@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   Alert,
   FlatList,
@@ -26,6 +26,10 @@ import {
 } from '../utils/utils';
 import AddScheduleInput, {AddButton} from '../components/AddScheduleInput';
 import BasicHeader from '../components/BasicHeader';
+import FloatingButton from '../components/FloatingButton';
+import MainHeader from '../components/MainHeader';
+import SubHeader from '../components/SubHeader';
+import DropdownModal from '../components/DropdownModal';
 
 const columnSize = 50;
 
@@ -65,6 +69,8 @@ const ArrowButton = ({name, onPress}) => {
 
 const ScheduleList = () => {
   const now = dayjs();
+  const [isVisible, setIsVisible] = useState(false);
+
   const {
     seletedDate,
     setSelectedDate,
@@ -199,53 +205,63 @@ const ScheduleList = () => {
   const onFocus = () => {
     scrollToEnd();
   };
+
+  const onPressToggleArrow = () => {
+    setIsVisible(!isVisible);
+  };
   return (
     <SafeAreaView style={styles.container}>
-      <BasicHeader isTitle={true} title={'일정 관리'} />
-      <FlatList
-        data={columns}
-        keyExtractor={(_, index) => `column-${index}`}
-        scrollEnabled={false}
-        numColumns={7}
-        renderItem={renderItem}
-        ListHeaderComponent={ListHeaderComponent}
+      <SubHeader
+        title={'일정 관리'}
+        toggle={isVisible}
+        onPress={onPressToggleArrow}
       />
-
-      <View style={styles.marginDot} />
-      <Margin height={15} />
-
-      <View style={styles.textInputWrapper}>
-        <AddScheduleInput
-          value={input}
-          onChangeText={setInput}
-          placeholder={`${dayjs(seletedDate).format(
-            'MM.DD',
-          )} 에 추가할 일정 작성하기`}
-          onPressAdd={onPressAdd}
-          onSubmitEditing={onSubmitEditing}
-          onFocus={onFocus}
+      <View style={{alignItems: 'center'}}>
+        <FlatList
+          data={columns}
+          keyExtractor={(_, index) => `column-${index}`}
+          scrollEnabled={false}
+          numColumns={7}
+          renderItem={renderItem}
+          ListHeaderComponent={ListHeaderComponent}
         />
-        <AddButton onPressAdd={onPressAdd} />
+
+        <View style={styles.marginDot} />
+        <Margin height={15} />
+
+        <View style={styles.textInputWrapper}>
+          <AddScheduleInput
+            value={input}
+            onChangeText={setInput}
+            placeholder={`${dayjs(seletedDate).format(
+              'MM.DD',
+            )} 에 추가할 일정 작성하기`}
+            onPressAdd={onPressAdd}
+            onSubmitEditing={onSubmitEditing}
+            onFocus={onFocus}
+          />
+          <AddButton onPressAdd={onPressAdd} />
+        </View>
+        <Margin height={15} />
+
+        <FlatList
+          ref={flatListRef}
+          data={filteredScheduleList}
+          contentContainerStyle={{
+            width: 350,
+            height: 250,
+            paddingBottom: 40,
+          }}
+          renderItem={renderScheduleItem}
+        />
+
+        <DateTimePickerModal
+          isVisible={isDatePickerVisible}
+          mode="date"
+          onConfirm={handleConfirm}
+          onCancel={hideDatePicker}
+        />
       </View>
-      <Margin height={15} />
-
-      <FlatList
-        ref={flatListRef}
-        data={filteredScheduleList}
-        contentContainerStyle={{
-          width: 350,
-          height: 250,
-          paddingBottom: 40,
-        }}
-        renderItem={renderScheduleItem}
-      />
-
-      <DateTimePickerModal
-        isVisible={isDatePickerVisible}
-        mode="date"
-        onConfirm={handleConfirm}
-        onCancel={hideDatePicker}
-      />
     </SafeAreaView>
   );
 };
@@ -253,7 +269,7 @@ const ScheduleList = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.BG_COLOR,
+    backgroundColor: Colors.background,
     alignItems: 'center',
   },
   marginDot: {
