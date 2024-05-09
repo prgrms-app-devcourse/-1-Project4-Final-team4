@@ -39,11 +39,9 @@ export const getLocation = async () => {
 export const getPlace = async paramsArray => {
   try {
     if (!paramsArray) {
-      const lSort = 'A05';
-      const mSort = 'A0502';
-      const sSort = 'A05020100';
+      const lSort = 'C01';
       const res = await placeAPI.get(
-        `/areaBasedList1?serviceKey=${authKey}&numOfRows=${row}&pageNo=${page}&MobileOS=${os}&MobileApp=${name}&areaCode=${area}&cat1=${lSort}&cat2=${mSort}&cat3=${sSort}&_type=json`,
+        `/areaBasedList1?serviceKey=${authKey}&numOfRows=${row}&pageNo=${page}&MobileOS=${os}&MobileApp=${name}&areaCode=${area}&cat1=${lSort}&_type=json`,
       );
       if (res.ok) {
         const {data} = res;

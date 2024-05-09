@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Image,
   StyleSheet,
@@ -19,7 +19,10 @@ import Carousel from 'react-native-snap-carousel';
 import reviewFrame from '../assets/images/reviewFrame.png';
 
 import {Dimensions} from 'react-native';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {Colors} from '../utils/Colors.js';
+import CustomCarousel from '../components/CustomCarousel';
+import {getPlace} from '../apis/place';
+import {getMovie} from '../apis/movie';
 const windowWidth = Dimensions.get('window').width;
 
 const tempData = [
@@ -39,72 +42,7 @@ const tempData = [
   },
 ];
 
-const tempPlace = [
-  {
-    title: '경복궁',
-    address: '서울특별시 종로구 사직로 161',
-    navigateRoute: 'Place',
-    img: require('../assets/images/place1.jpg'),
-  },
-  {
-    title: 'N 서울 타워',
-    address: '서울특별시 종로구 사직로 161',
-    navigateRoute: 'Place',
-    img: require('../assets/images/place2.jpg'),
-  },
-  {
-    title: '한강공원',
-    address: '서울특별시 종로구 사직로 161',
-    navigateRoute: 'Place',
-    img: require('../assets/images/place3.jpg'),
-  },
-];
-
-const tempFood = [
-  {
-    title: '현경',
-    address: '서울특별시 강남구',
-    navigateRoute: 'Food',
-    img: require('../assets/images/food1.jpg'),
-  },
-  {
-    title: 'N 서울 타워점',
-    address: '서울특별시 종로구 사직로 161',
-    navigateRoute: 'Food',
-    img: require('../assets/images/food1.jpg'),
-  },
-  {
-    title: '한강공원점',
-    address: '서울특별시 종로구 사직로 161',
-    navigateRoute: 'Food',
-    img: require('../assets/images/food1.jpg'),
-  },
-];
-
-const tempMovie = [
-  {
-    title: '범죄도시4',
-    rank: 1,
-    navigateRoute: 'Movie',
-    img: require('../assets/images/movie1.jpg'),
-  },
-  {
-    title: '쿵푸팬더4',
-    rank: 2,
-    navigateRoute: 'Movie',
-    img: require('../assets/images/movie1.jpg'),
-  },
-  {
-    title: '혹성탈출',
-    rank: 3,
-    navigateRoute: 'Movie',
-    img: require('../assets/images/movie1.jpg'),
-  },
-];
-
-const Home = () => {
-  const navigation = useNavigation();
-
+const Home = ({navigation}) => {
   //아티클 콘텐츠 렌더
   const articleRenderItems = ({item, index}) => {
     return (
@@ -130,15 +68,19 @@ const Home = () => {
 
   //추천 명소 렌더
   const placeRenderItems = ({item, index}) => {
+    const backgroundImage = item.firstimage
+      ? {uri: item.firstimage}
+      : require('../assets/images/placeholder.jpg');
     return (
-      <TouchableOpacity onPress={() => navigation.navigate(item.navigateRoute)}>
+      // <TouchableOpacity onPress={() => navigation.navigate(item.navigateRoute)}>
+      <TouchableOpacity>
         <ImageBackground
-          source={item.img}
-          style={{width: 200, height: 264}}
-          imageStyle={{borderRadius: 16}}>
+          source={backgroundImage}
+          style={{width: 260, height: 264}}
+          imageStyle={{borderRadius: 8}}>
           <View style={styles.placeContentContainer}>
             <Text style={styles.placeTitle}>{item.title}</Text>
-            <Text style={styles.placeContent}>{item.address}</Text>
+            <Text style={styles.placeContent}>{item.addr1}</Text>
           </View>
         </ImageBackground>
       </TouchableOpacity>
@@ -146,20 +88,63 @@ const Home = () => {
   };
 
   //추천 영화 렌더
-  const movieRenderItems = ({item, index}) => {
-    return (
-      <TouchableOpacity onPress={() => navigation.navigate(item.navigateRoute)}>
-        <ImageBackground
-          source={item.img}
-          style={{width: 200, height: 264}}
-          imageStyle={{borderRadius: 16}}>
-          <View style={styles.placeContentContainer}>
-            <Text style={styles.placeTitle}>{item.title}</Text>
-            <Text style={styles.placeContent}>{item.rank}위</Text>
-          </View>
-        </ImageBackground>
-      </TouchableOpacity>
-    );
+  const movieRenderItems = ({item}) => (
+    <TouchableOpacity style={styles.flatWrapper}>
+      <View style={styles.flatItemContentWrapper}>
+        <Text style={styles.flatTitle}>{item.movieNm}</Text>
+        <Text style={styles.flatContent}>누적관객수 : {item.audiAcc}명</Text>
+        <Text style={styles.flatContent}>{item.rank}등</Text>
+      </View>
+    </TouchableOpacity>
+  );
+
+  const [recommandContentList, setRecommandContentList] = useState([]);
+  const [foodContentList, setFoodContentList] = useState([]);
+  const [movieContentList, setMovieContentList] = useState([]);
+
+  useEffect(() => {
+    fetchPlaceData();
+    fetchFoodData();
+    fetchMovieData();
+  }, []);
+
+  // 테마 호출 API
+  const fetchPlaceData = async valueArray => {
+    try {
+      const res = await getPlace(valueArray);
+      if (res) {
+        setRecommandContentList(res.response.body.items.item);
+        return;
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  // 음식 호출 API
+  const fetchFoodData = async () => {
+    try {
+      const valueArray = ['A05', 'A0502'];
+      const res = await getPlace(valueArray);
+      if (res) {
+        setFoodContentList(res.response.body.items.item);
+        return;
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const fetchMovieData = async () => {
+    try {
+      const res = await getMovie();
+      if (res) {
+        setMovieContentList(res.boxOfficeResult.dailyBoxOfficeList);
+        return;
+      }
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
@@ -173,10 +158,12 @@ const Home = () => {
               <CategoryButton
                 title={'지역으로 검색!'}
                 content={'서울 찍고 경기 찍고 고고싱'}
+                navigate={'LocationSearch'}
               />
               <CategoryButton
                 title={'장르별 검색!'}
                 content={'영화, 뮤지컬, 콘서트, 연극까지!'}
+                navigate={'ThemeSearch'}
               />
             </View>
           </View>
@@ -203,50 +190,30 @@ const Home = () => {
           </View>
           <View style={styles.placeMainContainer}>
             <Text style={styles.placeMainTitle}>앱에서 추천하는 명소</Text>
-            <Carousel
-              data={tempPlace}
+            <CustomCarousel
+              data={recommandContentList}
               renderItem={placeRenderItems}
-              sliderWidth={windowWidth - 56}
-              itemWidth={200}
-              contentContainerCustomStyle={{alignItems: 'flex-start'}}
-              activeSlideAlignment={'start'}
-              enableSnap={false}
             />
           </View>
           <View style={styles.placeMainContainer}>
             <Text style={styles.placeMainTitle}>사용자가 추천하는 명소</Text>
-            <Carousel
-              data={tempPlace}
+            <CustomCarousel
+              data={recommandContentList}
               renderItem={placeRenderItems}
-              sliderWidth={windowWidth - 56}
-              itemWidth={200}
-              contentContainerCustomStyle={{alignItems: 'flex-start'}}
-              activeSlideAlignment={'start'}
-              enableSnap={false}
             />
           </View>
           <View style={styles.placeMainContainer}>
             <Text style={styles.placeMainTitle}>맛집 추천</Text>
-            <Carousel
-              data={tempFood}
+            <CustomCarousel
+              data={foodContentList}
               renderItem={placeRenderItems}
-              sliderWidth={windowWidth - 56}
-              itemWidth={200}
-              contentContainerCustomStyle={{alignItems: 'flex-start'}}
-              activeSlideAlignment={'start'}
-              enableSnap={false}
             />
           </View>
           <View style={styles.placeMainContainer}>
             <Text style={styles.placeMainTitle}>영화 추천</Text>
-            <Carousel
-              data={tempMovie}
+            <CustomCarousel
+              data={movieContentList}
               renderItem={movieRenderItems}
-              sliderWidth={windowWidth - 56}
-              itemWidth={200}
-              contentContainerCustomStyle={{alignItems: 'flex-start'}}
-              activeSlideAlignment={'start'}
-              enableSnap={false}
             />
           </View>
           <TouchableOpacity
@@ -311,18 +278,15 @@ const styles = StyleSheet.create({
     columnGap: 16,
   },
   placeMainContainer: {
-    backgroundColor: Colors.main,
-    height: 375,
-    width: `${windowWidth} - 32`,
-    margin: 16,
-    padding: 24,
+    padding: 16,
     borderRadius: 8,
   },
   placeMainTitle: {
-    color: '#FFF',
-    fontSize: 16,
+    color: Colors.black,
+    fontSize: 18,
     fontFamily: 'PretendardBold',
     marginBottom: 12,
+    marginLeft: 16,
   },
   placeContentContainer: {
     position: 'absolute',
@@ -330,16 +294,18 @@ const styles = StyleSheet.create({
     marginHorizontal: 12,
     backgroundColor: '#313131',
     padding: 4,
+    opacity: 0.8,
+    borderRadius: 8,
   },
   placeTitle: {
-    color: '#FFF',
-    fontFamily: 'Pretendard',
-    fontSize: 13,
+    color: Colors.white,
+    fontFamily: 'PretendardBold',
+    fontSize: 16,
   },
   placeContent: {
-    color: '#FFF',
+    color: Colors.white,
     fontFamily: 'Pretendard',
-    fontSize: 11,
+    fontSize: 14,
   },
 });
 
