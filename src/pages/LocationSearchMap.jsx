@@ -8,13 +8,15 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
+  PermissionsAndroid,
 } from 'react-native';
 import {containerStyle} from '../utils/utils';
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {Colors} from '../utils/Colors';
 import BasicHeader from '../components/BasicHeader';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Geolocation from 'react-native-geolocation-service';
 
 const dummyData = [
   {
@@ -62,6 +64,49 @@ const dummyData = [
 ];
 
 const LocationSearchMap = ({navigation}) => {
+  const [initialRegion, setInitialRegion] = useState({
+    latitude: 37.5662952,
+    longitude: 126.9779451,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  });
+  // 초기 위치 서울시청
+  const [region, setRegion] = useState({
+    latitude: 37.5662952,
+    longitude: 126.9779451,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  });
+  console.log(initialRegion);
+
+  // 현재 위치 권한 요청
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+      );
+    } else {
+      Geolocation.requestAuthorization();
+    }
+  }, []);
+
+  useEffect(() => {
+    // 현재 위치 가져오기
+    Geolocation.getCurrentPosition(
+      position => {
+        const {latitude, longitude} = position.coords;
+        setInitialRegion({
+          latitude,
+          longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        });
+        
+      },
+      error => console.log(error),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
+    );
+  }, []);
   // 하단 모달 동작 함수
   const [expanded, setExpanded] = useState(false);
 
@@ -96,18 +141,21 @@ const LocationSearchMap = ({navigation}) => {
         <MapView
           style={{flex: 1}}
           provider={PROVIDER_GOOGLE}
-          initialRegion={{
-            latitude: 37.541,
-            longitude: 126.986,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          }}
+          region={region}
+          showsUserLocation={true}
+          zoomControlEnabled={true}
+          showsCompass={true}
+          showsMyLocationButton={true}
+          showsPointsOfInterest={true}
         />
         {/* 맵 마커 기능 함수 */}
         <Marker
-          coordinate={{latitude: 37.78825, longitude: -122.4324}}
-          title="this is a marker"
-          description="this is a marker example"
+          coordinate={{
+            latitude: initialRegion.latitude,
+            longitude: initialRegion.longitude,
+          }}
+          title={'현재 위치'}
+          description={'현재 위치입니다.'}
         />
         {/* 하단 모달 부분 */}
         <View style={styles.bottomModalWrapper}>
