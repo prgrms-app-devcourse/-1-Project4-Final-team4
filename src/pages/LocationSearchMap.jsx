@@ -106,19 +106,60 @@ const LocationSearchMap = ({navigation}) => {
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
     );
   }, []);
+
   // 상단 모달 동작 함수
+  const [topExpanded, setTopExpanded] = useState(false);
+  const topModalHeight = useRef(new Animated.Value(0)).current; // 모달 높이 변화 함수
+
+  const toggleTopHeight = () => {
+    const newTopHeight = topExpanded ? 0 : 480;
+    setTopExpanded(!topExpanded);
+    Animated.timing(topModalHeight, {
+      toValue: newTopHeight,
+      duration: 80,
+      useNativeDriver: false,
+    }).start();
+  };
+
+  // 상단 모달의 지역 검색 동작 함수
+  const [selectedRegion, setSelectedRegion] = useState(null);
+
+  const totalRegions = [
+    {id: 1, name: '송파구', latitude: 37.5045, longitude: 127.1108},
+    {id: 2, name: '강남구', latitude: 37.5172, longitude: 127.0473},
+    {id: 3, name: '용산구', latitude: 37.5311, longitude: 126.978},
+    {id: 4, name: '마포구', latitude: 37.5665, longitude: 126.9018},
+    {id: 5, name: '중구', latitude: 37.5639, longitude: 126.9975},
+    {id: 6, name: '종로구', latitude: 37.5724, longitude: 126.9846},
+    {id: 7, name: '강서구', latitude: 37.5658, longitude: 126.8227},
+    {id: 8, name: '서초구', latitude: 37.4839, longitude: 127.0326},
+    {id: 9, name: '노원구', latitude: 37.6542, longitude: 127.0568},
+  ];
+
+  const handleRegionPress = totalregion => {
+    setSelectedRegion(totalregion);
+  };
+
+  // 지역검색 버튼 출력 함수
+  const renderRegionItem = ({item}) => (
+    <TouchableOpacity
+      style={styles.button}
+      onPress={() => handleRegionPress(item)}>
+      <Text style={styles.buttonText}>{item.name}</Text>
+    </TouchableOpacity>
+  );
 
   // 하단 모달 동작 함수
   const [expanded, setExpanded] = useState(false);
 
-  const modalHeight = useRef(new Animated.Value(144)).current;
+  const modalHeight = useRef(new Animated.Value(144)).current; // 모달 높이 변화 함수
 
   const toggleHeight = () => {
     const newHeight = expanded ? 144 : 652;
     setExpanded(!expanded);
     Animated.timing(modalHeight, {
       toValue: newHeight,
-      duration: 300,
+      duration: 80,
       useNativeDriver: false,
     }).start();
   };
@@ -129,13 +170,40 @@ const LocationSearchMap = ({navigation}) => {
       <BasicHeader isBackButton={true} />
       <View style={styles.LocationSelectWrapper}>
         <Text style={styles.LocationSelectTitleText}>지역별 검색</Text>
+
         <TouchableOpacity
+          activeOpacity={1}
           style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
-          <Text style={styles.LocationSelectText}>지역 선택</Text>
+          <Text style={styles.LocationSelectText} onPress={toggleTopHeight}>
+            지역 선택
+          </Text>
           <Icon name={'keyboard-arrow-right'} size={25} />
         </TouchableOpacity>
       </View>
       {/* 상단 모달 부분 */}
+      <Animated.View style={[styles.topModalWrapper, {height: topModalHeight}]}>
+        <View
+          style={{
+            flex: 1,
+            alignItems: 'center',
+          }}>
+          {/* 지역 검색 터치버튼 부분 */}
+          <View style={{flex: 1, width: '100%', height: '100%'}}>
+            <FlatList
+              data={totalRegions}
+              numColumns={3}
+              renderItem={renderRegionItem}
+              keyExtractor={item => item.id.toString()}
+              contentContainerStyle={styles.buttonContainer}
+            />
+          </View>
+          <TouchableOpacity
+            style={{justifyContent: 'flex-end'}}
+            onPress={toggleTopHeight}>
+            <Icon name={'keyboard-arrow-up'} size={25} />
+          </TouchableOpacity>
+        </View>
+      </Animated.View>
 
       {/* 맵 기능 함수 */}
       <View style={styles.mapContainer}>
@@ -224,9 +292,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: 390,
+    width: '100%',
     height: 53,
-    marginLeft: 21,
+    paddingHorizontal: 21,
+    backgroundColor: '#ffffff',
   },
   LocationSelectTitleText: {
     color: Colors.black,
@@ -234,7 +303,7 @@ const styles = StyleSheet.create({
     fontFamily: 'PretendardBold',
   },
   LocationSelectText: {
-    color: Colors.black,
+    color: 'black',
     fontSize: 15,
     fontFamily: 'Pretendard',
   },
@@ -242,6 +311,32 @@ const styles = StyleSheet.create({
     flex: 1,
     height: '100%',
     width: '100%',
+  },
+  // 상단 모달 스타일
+  topModalWrapper: {
+    width: '100%',
+    backgroundColor: '#ffffff',
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+  },
+  buttonContainer: {
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 14,
+  },
+  button: {
+    // flex: 1,
+    margin: 5,
+    height: 108,
+    width: 110,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    fontSize: 20,
+    fontFamily: 'PretendardBold',
+    color: 'black',
   },
   // 하단 모달 스타일
   bottomModalWrapper: {
