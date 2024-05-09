@@ -6,12 +6,12 @@ import {Colors} from '../utils/Colors';
 
 const locationIcon = require('../assets/icons/searchIcon.png');
 
-const CategoryButton = ({title, content}) => {
+const CategoryButton = ({title, content, navigate}) => {
   const navigation = useNavigation();
   return (
     <TouchableOpacity
       style={styles.contentWrapper}
-      onPress={() => navigation.navigate('LocationSearch')}>
+      onPress={() => navigation.navigate(navigate)}>
       <Image source={locationIcon} style={styles.imgWrapper} />
       <View
         style={{

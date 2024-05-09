@@ -73,7 +73,8 @@ const HomeTab = () => {
         headerShown: false,
       }}>
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="searchTab" component={SearchTab} />
+      <Stack.Screen name="LocationSearch" component={LocationSearch} />
+      <Stack.Screen name="ThemeSearch" component={ThemeSearch} />
       <Stack.Screen name="Article" component={ArticleTab} />
       <Stack.Screen name="ArticleDetail" component={ArticleDetail} />
     </Stack.Navigator>
