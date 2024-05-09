@@ -21,9 +21,7 @@ import {getMovie} from '../apis/movie';
 import {getShow} from '../apis/show';
 import {getLocation, getPlace} from '../apis/place';
 import DropDownPicker from 'react-native-dropdown-picker';
-import Carousel from 'react-native-snap-carousel';
-
-const windowWidth = Dimensions.get('window').width;
+import CustomCarousel from '../components/CustomCarousel';
 
 const ThemeSearch = () => {
   const [foodOpen, setFoodOpen] = useState(false);
@@ -46,7 +44,7 @@ const ThemeSearch = () => {
     {label: '복합레포츠', value: 'A03 A0305'},
   ]);
 
-  const [locationContentList, setLocationContentList] = useState([]);
+  // const [locationContentList, setLocationContentList] = useState([]);
   const [movieContentList, setMovieContentList] = useState([]);
   const [showContentList, setShowContentList] = useState([]);
   const [themeContentList, setThemeContentList] = useState([]);
@@ -55,19 +53,46 @@ const ThemeSearch = () => {
   const [movieToggle, setMovieToggle] = useState(false);
   const [showToggle, setShowToggle] = useState(false);
 
-  // 테마 호출 API
   useEffect(() => {
     fetchPlaceData();
+    fetchMovieData();
+    fetchShowData();
   }, []);
 
+  // 테마 호출 API
   const fetchPlaceData = async valueArray => {
     try {
       const res = await getPlace(valueArray);
       if (res) {
         setThemeContentList(res.response.body.items.item);
-        // console.log('Place : ', res.response.body.items.item);
         return;
       }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  // 영화 호출 API
+  const fetchMovieData = async () => {
+    try {
+      const res = await getMovie();
+      if (res) {
+        setMovieContentList(res.boxOfficeResult.dailyBoxOfficeList);
+        // console.log('Movie : ', res.boxOfficeResult.dailyBoxOfficeList);
+        return;
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  // 연극 호출 API
+  const fetchShowData = async () => {
+    try {
+      const res = await getShow();
+      setShowContentList(res.boxofs.boxof);
+      // console.log('show : ', res.boxofs.boxof);
+      return;
     } catch (e) {
       console.error(e);
     }
@@ -107,40 +132,22 @@ const ThemeSearch = () => {
   //   }
   // };
 
-  // 영화 호출 API
-  useEffect(() => {
-    fetchMovieData();
-  }, []);
+  /*
+  const getBoxOffice = async() => {
+    const response = await(await (
+        await fetch(
+            `https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=${key1}&targetDt=${targetDT}`
+        )
+    ).json()).boxOfficeResult.dailyBoxOfficeList;
+    const boxOffice = await(response.map((movie) => getMovies(movie)));
+    await Promise.all(boxOffice).then((result) => {
+        console.log(result);
+        setMovies(result);
+        setLoading(false);
+    });
+  }*/
 
-  const fetchMovieData = async () => {
-    try {
-      const res = await getMovie();
-      if (res) {
-        setMovieContentList(res.boxOfficeResult.dailyBoxOfficeList);
-        console.log('Movie : ', res.boxOfficeResult.dailyBoxOfficeList);
-        return;
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  // 연극 호출 API
-  useEffect(() => {
-    fetchShowData();
-  }, []);
-
-  const fetchShowData = async () => {
-    try {
-      const res = await getShow();
-      setShowContentList(res.boxofs.boxof);
-      console.log('show : ', res.boxofs.boxof);
-      return;
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
+  // 장소 flatlist render
   const placeRenderItems = ({item, index}) => {
     const backgroundImage = item.firstimage
       ? {uri: item.firstimage}
@@ -161,12 +168,24 @@ const ThemeSearch = () => {
     );
   };
 
+  // 영화 flatlist render
   const renderMovieItem = ({item}) => (
     <TouchableOpacity style={styles.flatWrapper}>
       <Image
-        source={{uri: 'http://www.kopis.or.kr' + item.poster}}
+        source={{
+          uri: `http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2&detail=Y&title=${
+            item.movieNm
+          }&releaseDts=${item.openDt.replaceAll(
+            '-',
+            '',
+          )}&ServiceKey=D557PK8Y0HVCZHC4Z28D`,
+        }}
         style={{width: 50, height: 50}}
       />
+      {/* <Image
+        source={{uri: 'http://www.kopis.or.kr' + item.poster}}
+        style={{width: 50, height: 50}}
+      /> */}
       <View style={styles.flatItemContentWrapper}>
         <Text style={styles.flatTitle}>{item.movieNm}</Text>
         <Text style={styles.flatContent}>누적관객수 : {item.audiAcc}명</Text>
@@ -175,7 +194,7 @@ const ThemeSearch = () => {
     </TouchableOpacity>
   );
 
-  //http://www.kopis.or.kr/upload/pfmPoster/PF_PF132236_161107_144405.jpg
+  // 공연 flatlist render
   const renderShowItem = ({item}) => {
     return (
       <TouchableOpacity style={styles.flatWrapper}>
@@ -288,6 +307,7 @@ const ThemeSearch = () => {
             keyExtractor={item => item.id}
             data={movieContentList}
             renderItem={renderMovieItem}
+            style={{height: '65%'}}
           />
         </View>
       ) : showToggle ? (
@@ -297,34 +317,26 @@ const ThemeSearch = () => {
             keyExtractor={item => item.id}
             data={showContentList}
             renderItem={renderShowItem}
+            style={{height: '65%'}}
           />
         </View>
       ) : (
         <ScrollView>
           <View style={styles.placeMainContainer}>
             <Text style={styles.placeMainTitle}>앱에서 추천하는 명소</Text>
-            <Carousel
+            <CustomCarousel
               data={themeContentList}
               renderItem={placeRenderItems}
-              sliderWidth={windowWidth - 56}
-              itemWidth={260}
-              contentContainerCustomStyle={{alignItems: 'flex-start'}}
-              activeSlideAlignment={'start'}
-              enableSnap={true}
             />
           </View>
           <View style={styles.placeMainContainer}>
-            <Text style={styles.placeMainTitle}>앱에서 추천하는 명소</Text>
-            <Carousel
+            <Text style={styles.placeMainTitle}>사용자가 추천하는 명소</Text>
+            <CustomCarousel
               data={themeContentList}
               renderItem={placeRenderItems}
-              sliderWidth={windowWidth - 56}
-              itemWidth={260}
-              contentContainerCustomStyle={{alignItems: 'flex-start'}}
-              activeSlideAlignment={'start'}
-              enableSnap={true}
             />
           </View>
+          <View style={{height: 100}} />
         </ScrollView>
       )}
     </SafeAreaView>
@@ -384,6 +396,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 12,
     backgroundColor: '#313131',
     padding: 4,
+    opacity: 0.8,
+    borderRadius: 8,
   },
   placeTitle: {
     color: Colors.white,
