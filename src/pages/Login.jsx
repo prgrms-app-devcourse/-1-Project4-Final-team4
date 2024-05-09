@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   TextInput,
@@ -6,11 +6,13 @@ import {
   TouchableOpacity,
   StyleSheet,
   Alert,
-  Image
+  Image,
+  Switch
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { FIREBASE_AUTH } from '../firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import logo_fullname from '../assets/icons/logo_fullname.png';
 import google from '../assets/icons/google.svg';
 import facebook from '../assets/icons/facebook.svg';
@@ -19,17 +21,42 @@ const Login = () => {
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [autoLogin, setAutoLogin] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   const navigation = useNavigation();
   const auth = FIREBASE_AUTH;
 
-  const login = async () => {
+  useEffect(() => {
+    retrieveCredentials();
+  }, []);
+
+  const retrieveCredentials = async () => {
     try {
-      const response = await signInWithEmailAndPassword(auth, emailValue, passwordValue);
+      const email = await AsyncStorage.getItem('email');
+      const password = await AsyncStorage.getItem('password');
+      if (email && password) {
+        setEmailValue(email);
+        setPasswordValue(password);
+        if (autoLogin) {
+          login(email, password);
+        }
+      }
+    } catch (error) {
+      console.error('Failed to load credentials', error);
+    }
+  };
+
+  const login = async (email, password) => {
+    try {
+      const response = await signInWithEmailAndPassword(auth, email, password);
       console.log(response);
       navigation.replace('MainTab');
+      if (autoLogin) {
+        AsyncStorage.setItem('email', email);
+        AsyncStorage.setItem('password', password);
+      }
     } catch (error) {
       console.log(error);
       Alert.alert('로그인 실패', error.message);
@@ -64,11 +91,15 @@ const Login = () => {
         value={passwordValue}
         secureTextEntry={!showPassword} // 비밀번호 보이기/숨기기
       />
+      <Switch
+        value={autoLogin}
+        onValueChange={setAutoLogin}
+      />
       <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={styles.showPassword}>
         <Text>{showPassword ? 'Hide' : 'Show'}</Text>
       </TouchableOpacity>
       {errorMessage ? <Text style={styles.error}>{errorMessage}</Text> : null}
-      <TouchableOpacity style={styles.button} onPress={login}>
+      <TouchableOpacity style={styles.button} onPress={() => login(emailValue, passwordValue)}>
         <Text style={styles.loginText}>로그인</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('Register')}>
