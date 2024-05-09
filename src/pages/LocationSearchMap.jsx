@@ -64,7 +64,7 @@ const dummyData = [
 ];
 
 const LocationSearchMap = ({navigation}) => {
-  const [initialRegion, setInitialRegion] = useState({
+  const [currentRegion, setcurrentRegion] = useState({
     latitude: 37.5662952,
     longitude: 126.9779451,
     latitudeDelta: 0.0922,
@@ -77,7 +77,7 @@ const LocationSearchMap = ({navigation}) => {
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   });
-  console.log(initialRegion);
+  console.log(currentRegion);
 
   // 현재 위치 권한 요청
   useEffect(() => {
@@ -95,18 +95,19 @@ const LocationSearchMap = ({navigation}) => {
     Geolocation.getCurrentPosition(
       position => {
         const {latitude, longitude} = position.coords;
-        setInitialRegion({
+        setcurrentRegion({
           latitude,
           longitude,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         });
-        
       },
       error => console.log(error),
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
     );
   }, []);
+  // 상단 모달 동작 함수
+
   // 하단 모달 동작 함수
   const [expanded, setExpanded] = useState(false);
 
@@ -151,8 +152,8 @@ const LocationSearchMap = ({navigation}) => {
         {/* 맵 마커 기능 함수 */}
         <Marker
           coordinate={{
-            latitude: initialRegion.latitude,
-            longitude: initialRegion.longitude,
+            latitude: currentRegion.latitude,
+            longitude: currentRegion.longitude,
           }}
           title={'현재 위치'}
           description={'현재 위치입니다.'}
