@@ -3,12 +3,12 @@ import {
   Text,
   View,
   StyleSheet,
-  Modal,
   Animated,
   FlatList,
   Image,
   TouchableOpacity,
   PermissionsAndroid,
+  Dimensions,
 } from 'react-native';
 import {containerStyle} from '../utils/utils';
 import React, {useState, useRef, useEffect} from 'react';
@@ -77,7 +77,6 @@ const LocationSearchMap = ({navigation}) => {
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   });
-  console.log(currentRegion);
 
   // 현재 위치 권한 요청
   useEffect(() => {
@@ -116,7 +115,7 @@ const LocationSearchMap = ({navigation}) => {
     setTopExpanded(!topExpanded);
     Animated.timing(topModalHeight, {
       toValue: newTopHeight,
-      duration: 80,
+      duration: 150,
       useNativeDriver: false,
     }).start();
   };
@@ -159,7 +158,7 @@ const LocationSearchMap = ({navigation}) => {
     setExpanded(!expanded);
     Animated.timing(modalHeight, {
       toValue: newHeight,
-      duration: 80,
+      duration: 150,
       useNativeDriver: false,
     }).start();
   };
@@ -208,84 +207,88 @@ const LocationSearchMap = ({navigation}) => {
       {/* 맵 기능 함수 */}
       <View style={styles.mapContainer}>
         <MapView
-          style={{flex: 1}}
+          style={{width: '100%', height: '100%', top: 0}}
           provider={PROVIDER_GOOGLE}
-          region={region}
+          region={region || currentRegion}
+          j
           showsUserLocation={true}
-          zoomControlEnabled={true}
-          showsCompass={true}
           showsMyLocationButton={true}
-          showsPointsOfInterest={true}
-        />
-        {/* 맵 마커 기능 함수 */}
-        <Marker
-          coordinate={{
-            latitude: currentRegion.latitude,
-            longitude: currentRegion.longitude,
-          }}
-          title={'현재 위치'}
-          description={'현재 위치입니다.'}
-        />
-        {/* 하단 모달 부분 */}
-        <View style={styles.bottomModalWrapper}>
-          <Animated.View style={{height: modalHeight}}>
-            <TouchableOpacity activeOpacity={1} onPress={toggleHeight}>
-              <View style={{alignItems: 'center'}}>
-                {/* 하단 모달 아이콘 변화 기능 함수 */}
-                {expanded ? (
-                  <Icon name={'keyboard-arrow-down'} size={25} />
-                ) : (
-                  <Icon name={'keyboard-arrow-up'} size={25} />
-                )}
-              </View>
+          showsCompass={true}
+          showsPointsOfInterest={true}>
+          {/* {currentRegion && (
+            <Marker
+              coordinate={{
+                latitude: currentRegion.latitude,
+                longitude: currentRegion.longitude,
+              }}
+              title={'현재 위치'}
+              description={'현재 위치입니다.'}
+            />
+          )} */}
+        </MapView>
+      </View>
+      {/* 하단 모달 부분 */}
+      <View style={styles.bottomModalWrapper}>
+        <Animated.View style={{height: modalHeight}}>
+          <TouchableOpacity activeOpacity={1} onPress={toggleHeight}>
+            <View style={{alignItems: 'center'}}>
+              {/* 하단 모달 아이콘 변화 기능 함수 */}
+              {expanded ? (
+                <Icon name={'keyboard-arrow-down'} size={25} />
+              ) : (
+                <Icon name={'keyboard-arrow-up'} size={25} />
+              )}
+            </View>
 
-              <Text style={styles.bottomModalText}>서울시 논현동</Text>
-            </TouchableOpacity>
-            <FlatList
-              data={dummyData}
-              renderItem={data => {
-                return (
-                  <View style={styles.bottomModalContentWrapper}>
-                    <Image
-                      style={{
-                        width: 69,
-                        height: 69,
-                        borderRadius: 30,
-                        marginBottom: 36,
-                      }}
-                      src={data.item.img}
-                    />
-                    <View
-                      style={{
-                        flexDirection: 'column',
-                        marginLeft: 24,
-                        gap: 9,
-                      }}>
-                      <Text style={{fontSize: 15, color: 'black'}}>
-                        {data.item.title}
-                      </Text>
-                      <Text
-                        style={{
-                          marginRight: 43,
-                          fontSize: 12,
-                          color: 'black',
-                        }}>
-                        {data.item.content1}
-                      </Text>
-                    </View>
+            <Text style={styles.bottomModalText}>서울시 논현동</Text>
+          </TouchableOpacity>
+          <FlatList
+            data={dummyData}
+            renderItem={data => {
+              return (
+                <View style={styles.bottomModalContentWrapper}>
+                  <Image
+                    style={{
+                      width: 69,
+                      height: 69,
+                      borderRadius: 30,
+                      marginBottom: 36,
+                    }}
+                    src={data.item.img}
+                  />
+                  <View
+                    style={{
+                      flexDirection: 'column',
+                      marginLeft: 24,
+                      gap: 9,
+                    }}>
                     <Text style={{fontSize: 15, color: 'black'}}>
-                      {data.item.category}
+                      {data.item.title}
+                    </Text>
+                    <Text
+                      style={{
+                        marginRight: 43,
+                        fontSize: 12,
+                        color: 'black',
+                      }}>
+                      {data.item.content1}
                     </Text>
                   </View>
-                );
-              }}
-            />
-          </Animated.View>
-        </View>
+                  <Text style={{fontSize: 15, color: 'black'}}>
+                    {data.item.category}
+                  </Text>
+                </View>
+              );
+            }}
+          />
+        </Animated.View>
       </View>
     </SafeAreaView>
   );
 };
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
   LocationSelectWrapper: {
@@ -308,9 +311,8 @@ const styles = StyleSheet.create({
     fontFamily: 'Pretendard',
   },
   mapContainer: {
-    flex: 1,
-    height: '100%',
-    width: '100%',
+    width: windowWidth,
+    height: windowHeight * 0.8,
   },
   // 상단 모달 스타일
   topModalWrapper: {
@@ -326,7 +328,6 @@ const styles = StyleSheet.create({
     gap: 14,
   },
   button: {
-    // flex: 1,
     margin: 5,
     height: 108,
     width: 110,
@@ -340,9 +341,13 @@ const styles = StyleSheet.create({
   },
   // 하단 모달 스타일
   bottomModalWrapper: {
-    width: '100%',
-    borderRadius: 20,
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
     backgroundColor: 'white',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
   bottomModalContentWrapper: {
     flex: 1,
