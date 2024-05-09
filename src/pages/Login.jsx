@@ -91,10 +91,13 @@ const Login = () => {
         value={passwordValue}
         secureTextEntry={!showPassword} // 비밀번호 보이기/숨기기
       />
-      <Switch
-        value={autoLogin}
-        onValueChange={setAutoLogin}
-      />
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Text>자동 로그인</Text>
+        <Switch
+          value={autoLogin}
+          onValueChange={setAutoLogin}
+        />
+      </View>
       <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={styles.showPassword}>
         <Text>{showPassword ? 'Hide' : 'Show'}</Text>
       </TouchableOpacity>
