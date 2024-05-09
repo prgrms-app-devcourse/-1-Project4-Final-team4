@@ -11,7 +11,7 @@ const CategoryButton = ({title, content}) => {
   return (
     <TouchableOpacity
       style={styles.contentWrapper}
-      onPress={() => navigation.navigate('LocationSearch')}>
+      onPress={() => navigation.navigate('LocationSearchMap')}>
       <Image source={locationIcon} style={styles.imgWrapper} />
       <View
         style={{
