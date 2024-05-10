@@ -175,9 +175,8 @@ const Home = ({navigation}) => {
                 flexDirection: 'row',
                 alignItems: 'center',
               }}
-              onPress={() =>
-                navigation.navigate('LocationSearch')
-              }></TouchableOpacity>
+              onPress={() => navigation.navigate('Article')}
+            />
           </View>
           <View style={{paddingLeft: 16}}>
             <Carousel
@@ -231,7 +230,7 @@ const Home = ({navigation}) => {
 
 const styles = StyleSheet.create({
   category: {
-    marginHorizontal,
+    marginHorizontal: 28,
     rowGap: 20,
   },
   titleText: {
@@ -291,7 +290,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 4,
     opacity: 0.8,
-    borderRadius: 8,
   },
   placeTitle: {
     color: Colors.white,
