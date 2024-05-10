@@ -82,7 +82,7 @@ const EditProfileModal = ({isVisible, setIsVisible}) => {
               <Text
                 style={{
                   fontSize: 16,
-                  fontWeight: 'bold',
+                  fontFamily: 'PretendardBold',
                   color: Colors.black,
                 }}>
                 수정하기

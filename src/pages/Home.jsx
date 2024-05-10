@@ -274,7 +274,6 @@ const styles = StyleSheet.create({
     color: Colors.black,
     fontFamily: 'PretendardBold',
     fontSize: 18,
-    fontWeight: 700,
   },
   contentWrapper: {
     justifyContent: 'center',
@@ -320,7 +319,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: 'PretendardBold',
     marginBottom: 12,
-    fontWeight: 'bold',
   },
   placeContentContainer: {
     position: 'absolute',

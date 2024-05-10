@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
   loginText: {
     color: '#333',
     fontSize: 16,
-    fontWeight: 'bold'
+    fontFamily: 'PretendardBold'
   },
   buttonSocial: {
     width: 374,
