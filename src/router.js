@@ -43,7 +43,6 @@ import Settings from './pages/Settings';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
-const TopTab = createMaterialTopTabNavigator();
 
 // 바텀탭
 const renderBottomBar = props => <CustomBottomTab {...props} />;
