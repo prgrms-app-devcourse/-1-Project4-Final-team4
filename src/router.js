@@ -215,6 +215,7 @@ const Router = () => {
       <Stack.Screen name="Splash" component={Splash} />
       <Stack.Screen name="LoginTab" component={LoginTab} />
       <Stack.Screen name="MainTab" component={MainTab} />
+      <Stack.Screen name="MyPage" component={MyPage} />
     </Stack.Navigator>
   );
 };

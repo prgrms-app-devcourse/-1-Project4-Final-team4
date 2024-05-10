@@ -14,13 +14,15 @@ import EditIcon from 'react-native-vector-icons/MaterialIcons';
 import {useState} from 'react';
 import {useImagePikcer} from '../hook/use-image-picker';
 import EditProfileModal from '../components/EditProfileModal';
-import {containerStyle} from '../utils/utils';
+import {SCREEN_HEIGHT, SCREEN_WIDTH, containerStyle} from '../utils/utils';
 import BasicHeader from '../components/BasicHeader';
+import {Colors} from '../utils/Colors';
+import SubHeader from '../components/SubHeader';
 
-const profile_img = 150;
+export const profile_img = 150;
 
 const EditProfile = ({navigation}) => {
-  const {pickImage, image} = useImagePikcer();
+  const {pickImage, image, removeImage} = useImagePikcer();
 
   const [isVisible, setIsVisible] = useState(false);
 
@@ -31,21 +33,31 @@ const EditProfile = ({navigation}) => {
     setIsVisible(!isVisible);
   };
 
+  const onPressRemoveImageButton = () => {
+    removeImage();
+  };
   return (
     <SafeAreaView style={containerStyle}>
       {/* 헤더 */}
-      <BasicHeader
-        isBackButton={true}
-        title={'프로필 설정'}
-        rightIconName={'settings'}
-      />
-
-      <Margin height={20} />
+      <BasicHeader isBackButton={true} title={'프로필 편집'} />
+      <Margin height={40} />
 
       {/* 프로필 섹션 */}
       <View style={styles.profile}>
-        <Image source={image} style={styles.image} />
-        <Button title="앨범 열기" onPress={onPressOpenAlbum} />
+        {image ? (
+          <Image source={image} style={styles.image} />
+        ) : (
+          <View style={styles.noImage}>
+            <Text>no image.</Text>
+          </View>
+        )}
+        <Margin height={12} />
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Button title="앨범 열기" onPress={onPressOpenAlbum} />
+          <TouchableOpacity onPress={onPressRemoveImageButton}>
+            <Text style={{fontSize: 18}}>이미지 삭제</Text>
+          </TouchableOpacity>
+        </View>
         <Margin height={20} />
         <View style={styles.name}>
           <Text style={{fontSize: 40}}>moko</Text>
@@ -69,17 +81,32 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   profile: {
-    borderRadius: 8,
-    backgroundColor: '#fff',
+    borderRadius: 40,
+    backgroundColor: Colors.mint,
+    width: SCREEN_WIDTH,
+    height: SCREEN_HEIGHT,
     paddingHorizontal: 20,
     alignItems: 'center',
     alignSelf: 'center',
   },
   image: {
-    width: profile_img,
-    height: profile_img,
-    borderRadius: profile_img / 2,
-    backgroundColor: '#423549',
+    width: 150,
+    height: 150,
+    borderRadius: 150 / 2,
+    marginTop: -50,
+    borderWidth: 3,
+    borderColor: Colors.main,
+  },
+  noImage: {
+    width: 150,
+    height: 150,
+    borderRadius: 150 / 2,
+    marginTop: -50,
+    borderWidth: 3,
+    borderColor: Colors.main,
+    backgroundColor: Colors.grey,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   name: {
     flexDirection: 'row',
