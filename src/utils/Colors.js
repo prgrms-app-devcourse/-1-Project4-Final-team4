@@ -8,3 +8,4 @@ export const Colors = {
   bold_text: '#093E65',
   border_color: '#EAEAEA',
 };
+
