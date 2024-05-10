@@ -148,7 +148,7 @@ const Home = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1, backgroundColor: Colors.background}}>
       <ScrollView style={{backgroundColor: Colors.background}}>
         <MainHeader />
         <View style={styles.contentWrapper}>
@@ -174,10 +174,9 @@ const Home = ({navigation}) => {
                 flexDirection: 'row',
                 alignItems: 'center',
               }}
-              onPress={() => navigation.navigate('LocationSearch')}>
-              <Text style={styles.recTitle}>전체보기</Text>
-              <Icon name={'keyboard-arrow-right'} size={13} />
-            </TouchableOpacity>
+              onPress={() =>
+                navigation.navigate('LocationSearch')
+              }></TouchableOpacity>
           </View>
           <View style={{paddingLeft: 16}}>
             <Carousel
@@ -216,9 +215,7 @@ const Home = ({navigation}) => {
               renderItem={movieRenderItems}
             />
           </View>
-          <TouchableOpacity
-            style={{paddingBottom: 64}}
-            onPress={() => navigation.navigate('Community')}>
+          <TouchableOpacity onPress={() => navigation.navigate('Community')}>
             <Image
               source={reviewFrame}
               style={{width: windowWidth}}
@@ -233,16 +230,15 @@ const Home = ({navigation}) => {
 
 const styles = StyleSheet.create({
   category: {
-    marginHorizontal: 28,
+    marginHorizontal,
     rowGap: 20,
   },
   titleText: {
     color: Colors.black,
     fontFamily: 'PretendardBold',
-    fontSize: 20,
+    fontSize: 18,
   },
   contentWrapper: {
-    flex: 1,
     justifyContent: 'center',
     paddingTop: 24,
   },
@@ -250,13 +246,12 @@ const styles = StyleSheet.create({
     rowGap: 12,
   },
   recContainer: {
-    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 28,
   },
   recdTitle: {
-    color: Colors.gray,
+    color: Colors.grey,
     fontFamily: 'Pretendard',
     fontSize: 13,
   },
@@ -273,7 +268,6 @@ const styles = StyleSheet.create({
   },
   itemContentContainer: {
     flexDirection: 'row',
-    paddingHorizontal: 12,
     paddingVertical: 16,
     columnGap: 16,
   },
@@ -292,7 +286,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 16,
     marginHorizontal: 12,
-    backgroundColor: '#313131',
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    borderRadius: 8,
     padding: 4,
     opacity: 0.8,
     borderRadius: 8,

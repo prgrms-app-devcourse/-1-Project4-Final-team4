@@ -19,7 +19,9 @@ const EditProfileModal = ({isVisible, setIsVisible}) => {
   const onSubmitEditing = () => {
     resetInput();
   };
-  const onPressEditNameButton = () => {};
+  const onPressEditNameButton = () => {
+    // 파이어베이스 스토리지의 회원 정보 수정
+  };
   return (
     <SafeAreaView>
       <Modal
@@ -43,7 +45,7 @@ const EditProfileModal = ({isVisible, setIsVisible}) => {
           style={{
             width: SCREEN_WIDTH,
             height: 200,
-            backgroundColor: Colors.BG_COLOR,
+            backgroundColor: Colors.background,
             alignSelf: 'center',
           }}>
           <View
@@ -58,7 +60,7 @@ const EditProfileModal = ({isVisible, setIsVisible}) => {
               style={{
                 borderRadius: 8,
                 borderWidth: 1,
-                borderColor: Colors.ACTIVE_COLOR,
+                borderColor: Colors.main,
               }}>
               <AddScheduleInput
                 value={input}
@@ -73,15 +75,15 @@ const EditProfileModal = ({isVisible, setIsVisible}) => {
               style={{
                 paddingHorizontal: 16,
                 paddingVertical: 12,
-                backgroundColor: Colors.ACTIVE_COLOR,
+                backgroundColor: Colors.main,
                 borderRadius: 8,
                 alignItems: 'center',
               }}>
               <Text
                 style={{
                   fontSize: 16,
-                  fontWeight: 'bold',
-                  color: Colors.BOLD_TEXT_COLOR,
+                  fontFamily: 'PretendardBold',
+                  color: Colors.black,
                 }}>
                 수정하기
               </Text>
