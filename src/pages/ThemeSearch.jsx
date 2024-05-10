@@ -17,7 +17,7 @@ import React, {useState, useEffect} from 'react';
 import {Colors} from '../utils/Colors';
 import BasicHeader from '../components/BasicHeader';
 import MainHeader from '../components/MainHeader';
-import {getMovie} from '../apis/movie';
+import {getMovie, getMoviePoster} from '../apis/movie';
 import {getShow} from '../apis/show';
 import {getLocation, getPlace} from '../apis/place';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -78,7 +78,7 @@ const ThemeSearch = () => {
       const res = await getMovie();
       if (res) {
         setMovieContentList(res.boxOfficeResult.dailyBoxOfficeList);
-        // console.log('Movie : ', res.boxOfficeResult.dailyBoxOfficeList);
+        // console.log('Movie : ', res);
         return;
       }
     } catch (e) {
@@ -168,31 +168,54 @@ const ThemeSearch = () => {
     );
   };
 
+  // const fetchMoviePosterData = async () => {
+  //   try {
+  //     const res = await getMoviePoster();
+  //     console.log('Poster : ', res);
+  //     // setShowContentList(res.boxofs.boxof);
+  //     return;
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+  // };
+
   // 영화 flatlist render
-  const renderMovieItem = ({item}) => (
-    <TouchableOpacity style={styles.flatWrapper}>
-      <Image
-        source={{
-          uri: `http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2&detail=Y&title=${
-            item.movieNm
-          }&releaseDts=${item.openDt.replaceAll(
-            '-',
-            '',
-          )}&ServiceKey=D557PK8Y0HVCZHC4Z28D`,
-        }}
-        style={{width: 50, height: 50}}
-      />
-      {/* <Image
+  const renderMovieItem = ({item}) => {
+    // console.log(item.movieNm);
+    // const res = fetchMoviePosterData(item.movieNm);
+    // console.log(res);
+    // const uri = `http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2&detail=Y&title=${
+    //   item.movieNm
+    // }&releaseDts=${item.openDt.replaceAll(
+    //   '-',
+    //   '',
+    // )}&ServiceKey=D557PK8Y0HVCZHC4Z28D`;
+    // console.log(uri);
+    return (
+      <TouchableOpacity style={styles.flatWrapper}>
+        {/* <Image
+          source={{
+            uri: `http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2&detail=Y&title=${
+              item.movieNm
+            }&releaseDts=${item.openDt.replaceAll(
+              '-',
+              '',
+            )}&ServiceKey=D557PK8Y0HVCZHC4Z28D`,
+          }}
+          style={{width: 50, height: 50}}
+        /> */}
+        {/* <Image
         source={{uri: 'http://www.kopis.or.kr' + item.poster}}
         style={{width: 50, height: 50}}
       /> */}
-      <View style={styles.flatItemContentWrapper}>
-        <Text style={styles.flatTitle}>{item.movieNm}</Text>
-        <Text style={styles.flatContent}>누적관객수 : {item.audiAcc}명</Text>
-        <Text style={styles.flatContent}>{item.rank}등</Text>
-      </View>
-    </TouchableOpacity>
-  );
+        <View style={styles.flatItemContentWrapper}>
+          <Text style={styles.flatTitle}>{item.movieNm}</Text>
+          <Text style={styles.flatContent}>누적관객수 : {item.audiAcc}명</Text>
+          <Text style={styles.flatContent}>{item.rank}등</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
 
   // 공연 flatlist render
   const renderShowItem = ({item}) => {
