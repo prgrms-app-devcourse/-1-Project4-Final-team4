@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   },
   register: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontFamily: 'PretendardBold',
     marginVertical: 10,
     color: '#333'  // 제목 색상
   },

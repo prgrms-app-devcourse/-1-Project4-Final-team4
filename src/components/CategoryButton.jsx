@@ -44,13 +44,11 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: 16,
-    fontWeight: 600,
     color: Colors.black,
     fontFamily: 'PretendardBold',
   },
   contentText: {
     fontSize: 14,
-    fontWeight: 500,
     color: '#999',
     fontFamily: 'PretendardLight',
   },

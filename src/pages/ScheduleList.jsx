@@ -29,7 +29,7 @@ import BasicHeader from '../components/BasicHeader';
 import FloatingButton from '../components/FloatingButton';
 import MainHeader from '../components/MainHeader';
 import SubHeader from '../components/SubHeader';
-import DropdownModal from '../components/DropdownModal';
+// import DropdownModal from '../components/DropdownModal';
 
 const columnSize = 50;
 

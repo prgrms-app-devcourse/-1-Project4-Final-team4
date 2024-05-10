@@ -6,7 +6,7 @@ import ToggleArrow from 'react-native-vector-icons/AntDesign';
 import {Colors} from '../utils/Colors';
 import logo from '../assets/images/logo.png';
 import {SCREEN_WIDTH} from '../utils/utils';
-import DropdownModal from './DropdownModal';
+// import DropdownModal from './DropdownModal';
 
 const SubHeader = ({title, toggle, onPress}) => {
   return (

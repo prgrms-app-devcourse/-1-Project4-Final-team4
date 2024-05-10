@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 80,
-    fontWeight: 'bold',
+    fontFamily: 'PretendardBold',
     color: Colors.black,
   },
 });
