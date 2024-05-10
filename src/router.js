@@ -1,11 +1,9 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import React from 'react';
 
 // 탭 컴포넌트
 import CustomBottomTab from './components/CustomBottomTab';
-import CustomTopTab from './components/CustomTopTab';
 
 // init 페이지
 import Splash from './pages/Splash';
@@ -46,8 +44,6 @@ const Tab = createBottomTabNavigator();
 
 // 바텀탭
 const renderBottomBar = props => <CustomBottomTab {...props} />;
-// 상단탭
-const renderTopTab = props => <CustomTopTab {...props} />;
 
 // login 탭 (로그인, 회원가입, 도움말 페이지)
 const LoginTab = () => {
