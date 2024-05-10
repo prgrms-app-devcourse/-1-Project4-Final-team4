@@ -4,8 +4,8 @@ import { useNavigation } from '@react-navigation/native';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { FIREBASE_AUTH } from '../firebase';
 import logo_fullname from '../assets/icons/logo_fullname.png';
-import google from '../assets/icons/google.svg';
-import facebook from '../assets/icons/facebook.svg';
+import google from '../assets/icons/google.png';
+import facebook from '../assets/icons/facebook.png';
 
 const Register = () => {
   const [usernameValue, setUsernameValue] = useState('');

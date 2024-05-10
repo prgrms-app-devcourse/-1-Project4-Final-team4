@@ -14,8 +14,8 @@ import { FIREBASE_AUTH } from '../firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import logo_fullname from '../assets/icons/logo_fullname.png';
-import google from '../assets/icons/google.svg';
-import facebook from '../assets/icons/facebook.svg';
+import google from '../assets/icons/google.png';
+import facebook from '../assets/icons/facebook.png';
 
 const Login = () => {
   const [emailValue, setEmailValue] = useState('');
