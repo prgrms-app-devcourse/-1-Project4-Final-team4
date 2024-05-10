@@ -1,9 +1,11 @@
-const palette = {
-  MAIN_GREEN: '#1FD2C0',
-  SUB_GREEN: '#BBE6D5',
-  COMMUNITY_GRAY: '#748497',
-  COMMUNITY_BLACK: '#333333',
-  BG: '#FBFCFD',
+export const Colors = {
+  main: '#1FD2C0',
+  background: '#FBFCFD',
+  black: '#313131',
+  white: '#FFFFFF',
+  mint: '#BBE6D5',
+  grey: '#748497',
+  bold_text: '#093E65',
+  border_color: '#EAEAEA',
 };
 
-export default palette;
