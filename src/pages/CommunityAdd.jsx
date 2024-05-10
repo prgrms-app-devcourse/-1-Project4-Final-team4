@@ -7,6 +7,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  Dimensions,
 } from 'react-native';
 
 import palette from '../utils/Colors';
@@ -14,6 +15,8 @@ import CommunityButton from '../components/CommunityButton';
 
 const cancel = require('../assets/icons/cancel.png');
 const camera = require('../assets/icons/camera.png');
+
+const {width} = Dimensions.get('window');
 
 const CommunityAdd = ({navigation}) => {
   const [text, onChangeText] = useState('');
@@ -45,13 +48,18 @@ const CommunityAdd = ({navigation}) => {
           <View>
             <TextInput
               multiline
-              onChangeText={text => onChangeText(text)}
-              value={text}
+              maxLength={1000}
               placeholder="내용을 입력하세요."
-              placeholderTextColor={'#999'}
+              placeholderTextColor={palette.COMMUNITY_GRAY}
+              autoCapitalize="none"
+              spellCheck={false}
+              autoCorrect={false}
+              value={text}
+              onChangeText={text => onChangeText(text)}
             />
           </View>
         </View>
+        <View style={styles.line} />
       </View>
     </SafeAreaView>
   );
@@ -68,7 +76,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Pretendard-Bold',
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#333',
+    color: palette.COMMUNITY_BLACK,
   },
   photoAdd: {
     width: 70,
@@ -87,6 +95,12 @@ const styles = StyleSheet.create({
   categoryWrapper: {
     flexDirection: 'row',
     gap: 4,
+  },
+  line: {
+    width,
+    height: 1,
+    backgroundColor: '#DDD',
+    marginVertical: 20,
   },
 });
 

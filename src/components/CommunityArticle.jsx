@@ -6,18 +6,43 @@ import {
   TouchableOpacity,
   StyleSheet,
   Dimensions,
+  TextInput,
+  FlatList,
 } from 'react-native';
+import Modal from 'react-native-modal';
+import Carousel from 'react-native-snap-carousel';
+
+import palette from '../utils/Colors';
 
 const likeOff = require('../assets/icons/likeOff.png');
 const likeOn = require('../assets/icons/likeOn.png');
 const comment = require('../assets/icons/comment.png');
+const cancel = require('../assets/icons/cancel.png');
+const send = require('../assets/icons/send.png');
+const mainSample = require('../assets/images/sample.png');
 
-const {width} = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
+
+const dummy_image = [mainSample, mainSample, mainSample];
 
 const CommunityArticle = ({data}) => {
-  const [like, setLike] = useState(data.likes.length);
+  const [like, setLike] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const [commentValue, setCommentValue] = useState('');
 
   const likeArray = data.likes;
+
+  const renderComment = ({item}) => {
+    return (
+      <View style={styles.commentList}>
+        <Image source={item.profile} style={styles.commentProfile} />
+        <View style={styles.commentTextWrapper}>
+          <Text style={styles.commentUserName}>{item.name}</Text>
+          <Text style={styles.commentContent}>{item.comment}</Text>
+        </View>
+      </View>
+    );
+  };
 
   const countLike = () => {
     if (!likeArray.includes(data.id)) {
@@ -27,6 +52,10 @@ const CommunityArticle = ({data}) => {
       likeArray.splice(idx, 1);
     }
     setLike(!like);
+  };
+
+  const renderImage = ({item}) => {
+    return <Image source={item} style={styles.imageStyle} />;
   };
 
   return (
@@ -41,7 +70,13 @@ const CommunityArticle = ({data}) => {
         </View>
       </View>
       <View style={{gap: 8}}>
-        <Image source={data.image} style={styles.imageStyle} />
+        <FlatList
+          data={dummy_image}
+          renderItem={renderImage}
+          horizontal={true}
+          removeClippedSubviews
+          showsHorizontalScrollIndicator={false}
+        />
         <View style={styles.categoryWrapper}>
           <Text style={styles.categoryText}>#맛집</Text>
           <Text style={styles.categoryText}>#영화</Text>
@@ -53,23 +88,66 @@ const CommunityArticle = ({data}) => {
               <Image
                 source={like ? likeOn : likeOff}
                 style={styles.iconStyle}
-                resizeMode="contain"
               />
             </TouchableOpacity>
             <Text style={styles.iconText}>{data.likes.length}</Text>
           </View>
           <View style={styles.iconWrapper}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => setIsVisible(!isVisible)}>
               <Image
                 source={comment}
                 style={styles.iconStyle}
                 resizeMode="contain"
               />
             </TouchableOpacity>
-            <Text style={styles.iconText}>{data.commentCount}</Text>
+            <Text style={styles.iconText}>{data.commentList.length}</Text>
           </View>
         </View>
       </View>
+      <Modal
+        useNativeDriver
+        isVisible={isVisible}
+        backdropColor="black"
+        backdropOpacity={0.5}
+        onBackdropPress={() => setIsVisible(!isVisible)}
+        hideModalContentWhileAnimating
+        style={styles.modalWrapper}>
+        <View style={styles.modalStyle}>
+          <View style={styles.modalHeader}>
+            <View />
+            <Text style={styles.modelTitle}>댓글</Text>
+            <TouchableOpacity onPress={() => setIsVisible(!isVisible)}>
+              <Image source={cancel} style={{width: 24, height: 24}} />
+            </TouchableOpacity>
+          </View>
+          <FlatList
+            data={data.commentList}
+            renderItem={renderComment}
+            keyExtractor={item => item.id}
+            removeClippedSubviews
+            showsVerticalScrollIndicator={false}
+          />
+          <View style={styles.modalCommentWrapper}>
+            <View style={styles.commentInputWrapper}>
+              <TextInput
+                multiline
+                maxLength={200}
+                placeholder="댓글을 입력하세요."
+                placeholderTextColor={palette.COMMUNITY_GRAY}
+                autoCapitalize="none"
+                spellCheck={false}
+                autoCorrect={false}
+                style={styles.commentInput}
+                value={commentValue}
+                onChangeText={text => setCommentValue(text)}
+              />
+              <TouchableOpacity>
+                <Image source={send} style={{width: 40, height: 40}} />
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -93,7 +171,7 @@ const styles = StyleSheet.create({
   idText: {
     fontFamily: 'Pretendard-Bold',
     fontSize: 18,
-    color: '#333',
+    color: palette.COMMUNITY_BLACK,
   },
   dateText: {
     fontFamily: 'Pretendard-Regular',
@@ -117,7 +195,7 @@ const styles = StyleSheet.create({
   bodyText: {
     fontFamily: 'Pretendard-Medium',
     fontSize: 16,
-    color: '#333',
+    color: palette.COMMUNITY_BLACK,
   },
   iconWrapper: {
     flexDirection: 'row',
@@ -130,7 +208,76 @@ const styles = StyleSheet.create({
   iconText: {
     fontFamily: 'Pretendard-Regular',
     fontSize: 12,
-    color: '#333',
+    color: palette.COMMUNITY_BLACK,
+  },
+  modalWrapper: {
+    margin: 0,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+  modalStyle: {
+    width,
+    height: (height * 2) / 3,
+    backgroundColor: palette.BG,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    paddingTop: 20,
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 16,
+    marginBottom: 16,
+  },
+  modelTitle: {
+    fontFamily: 'Pretendard-Bold',
+    fontSize: 16,
+    color: palette.COMMUNITY_BLACK,
+  },
+  modalCommentWrapper: {
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderTopWidth: 1,
+    borderTopColor: '#DDD',
+  },
+  commentInputWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    maxHeight: 150,
+  },
+  commentInput: {
+    width: width - 80,
+    minHeight: 40,
+    maxHeight: 120,
+    paddingLeft: 20,
+    borderRadius: 50,
+    backgroundColor: '#EEE',
+  },
+  commentList: {
+    flexDirection: 'row',
+    marginHorizontal: 16,
+    marginBottom: 16,
+    gap: 8,
+  },
+  commentProfile: {
+    width: 40,
+    height: 40,
+    borderRadius: 50,
+  },
+  commentTextWrapper: {
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+  },
+  commentUserName: {
+    fontFamily: 'Pretendard-Bold',
+    fontSize: 14,
+    color: palette.COMMUNITY_BLACK,
+  },
+  commentContent: {
+    fontFamily: 'Pretendard-Regular',
+    fontSize: 14,
+    color: palette.COMMUNITY_BLACK,
   },
 });
 
