@@ -1,6 +1,8 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useEffect, useState} from 'react';
 import {Alert} from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
+import {STORAGE_KEY} from '../utils/utils';
 
 export const useImagePikcer = () => {
   const [image, setImage] = useState(null);
@@ -20,21 +22,28 @@ export const useImagePikcer = () => {
       const uris = [];
       response.assets?.forEach(value => uris.push(value));
 
-      // AsyncStorage.setItem(
-      //   STORAGE_KEY.PROFILE_IMAGE_KEY,
-      //   JSON.stringify(uris[0]),
-      // );
+      AsyncStorage.setItem(
+        STORAGE_KEY.PROFILE_IMAGE_KEY,
+        JSON.stringify(uris[0]),
+      );
       setImage(uris[0]);
     }
   };
+
+  const removeImage = async () => {
+    AsyncStorage.removeItem(STORAGE_KEY.PROFILE_IMAGE_KEY);
+    const result = await AsyncStorage.getItem(STORAGE_KEY.PROFILE_IMAGE_KEY);
+    console.log('삭제 되었습니다.', result);
+    setImage(result);
+  };
   useEffect(() => {
-    // init();
+    init();
   }, []);
 
-  // const init = async () => {
-  //   const result = await AsyncStorage.getItem(STORAGE_KEY.PROFILE_IMAGE_KEY);
-  //   const newImage = JSON.parse(result);
-  //   setImage(newImage);
-  // };
-  return {pickImage, setImage, image};
+  const init = async () => {
+    const result = await AsyncStorage.getItem(STORAGE_KEY.PROFILE_IMAGE_KEY);
+    const newImage = JSON.parse(result);
+    setImage(newImage);
+  };
+  return {pickImage, setImage, image, removeImage, init};
 };
