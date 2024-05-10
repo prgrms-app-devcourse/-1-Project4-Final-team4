@@ -103,6 +103,15 @@ const MyPage = ({navigation}) => {
         <ContentsBox />
         <ContentsBox content={'로그아웃'} />
       </View>
+      <Margin height={20} />
+
+      <TouchableOpacity 
+        style={styles.box}
+        onPress={() => navigation.navigate('LoginTab')}
+      >
+        <Text style={{fontSize: 20}}>로그아웃</Text>
+      </TouchableOpacity>
+
       {/* 스케줄 관리 섹션 */}
     </SafeAreaView>
   );

@@ -86,4 +86,4 @@ ios/
 # src에 있는 firebase.ts 파일 예외처리
 src/firebase.ts
 
-.package-lock.json
+package-lock.json
