@@ -1,6 +1,5 @@
 import {create} from 'apisauce';
-// import {authKey} from '../../env/authKey';
-import {parseString} from 'react-native-xml2js';
+import {PLACE_API_KEY} from './authKey';
 
 const baseURL = 'https://apis.data.go.kr/B551011/KorService1';
 
@@ -8,7 +7,7 @@ const placeAPI = create({
   baseURL,
 });
 
-const authKey = process.env.REACT_APP_PLACE_API_KEY;
+const authKey = PLACE_API_KEY;
 const row = '25';
 const os = 'ETC';
 const name = 'naganora';
@@ -19,6 +18,7 @@ const area = '1';
 // 강남구, 강동구 등 구 출력 API
 export const getLocation = async () => {
   try {
+    console.log(authKey);
     const res = await placeAPI.get(
       `/areaCode1?serviceKey=${authKey}&numOfRows=${row}&pageNo=${page}&MobileOS=${os}&MobileApp=${name}&areaCode=${area}&_type=json`,
     );

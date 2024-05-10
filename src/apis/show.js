@@ -1,6 +1,6 @@
 import {create} from 'apisauce';
-// import {authKey} from '../../env/authKey';
 import {parseString} from 'react-native-xml2js';
+import {SHOW_API_KEY} from './authKey';
 
 const baseURL = 'http://kopis.or.kr/openApi/restful';
 
@@ -9,7 +9,7 @@ const showAPI = create({
   baseURL,
 });
 
-const authKey = process.env.REACT_APP_SHOW_API_KEY;
+const authKey = SHOW_API_KEY;
 const today = new Date();
 const curDate = `${today.getFullYear()}${String(today.getMonth() + 1).padStart(
   2,
