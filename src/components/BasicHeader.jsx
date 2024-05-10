@@ -1,7 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {View, TouchableOpacity, StyleSheet, Text} from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
 import BackIcon from 'react-native-vector-icons/FontAwesome6';
 import {Colors} from '../utils/Colors';
 import {SCREEN_WIDTH} from '../utils/utils';

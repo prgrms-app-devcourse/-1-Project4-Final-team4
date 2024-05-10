@@ -1,8 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {Children} from 'react';
 import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
-import Down from 'react-native-vector-icons/AntDesign';
-import Up from 'react-native-vector-icons/AntDesign';
 import {Colors} from '../utils/Colors';
 import logo from '../assets/images/logo.png';
 import {SCREEN_WIDTH} from '../utils/utils';
