@@ -10,7 +10,6 @@ import {
   FlatList,
 } from 'react-native';
 import Modal from 'react-native-modal';
-import Carousel from 'react-native-snap-carousel';
 
 import palette from '../utils/Colors';
 
