@@ -1,27 +1,18 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
+import React, {Children} from 'react';
 import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
 import {Colors} from '../utils/Colors';
+import logo from '../assets/images/logo.png';
+import {SCREEN_WIDTH} from '../utils/utils';
 
-const MainHeader = () => {
+const MainHeader = ({title}) => {
   const navigation = useNavigation();
   return (
     <View style={styles.headerWrapper}>
-      <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <TouchableOpacity onPress={() => navigation.navigate('MyPage')}>
-          <Image
-            source={{uri: 'https://picsum.photos/30'}}
-            style={styles.profileImg}
-          />
-        </TouchableOpacity>
-        <View style={{marginLeft: 8}}>
-          <Text style={styles.profileText}>~~~ 님</Text>
-        </View>
-      </View>
-      <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
-        <Icon name={'menu'} size={25} />
+      <TouchableOpacity onPress={() => navigation.navigate('MyPage')}>
+        <Image source={logo} style={styles.logo} />
       </TouchableOpacity>
+      {title && <Text>{title}</Text>}
     </View>
   );
 };
@@ -29,22 +20,20 @@ const MainHeader = () => {
 const styles = StyleSheet.create({
   headerWrapper: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    justifyContent: 'space-between',
+    width: SCREEN_WIDTH,
     height: 68,
-    backgroundColor: Colors.main,
+    backgroundColor: Colors.background,
     paddingHorizontal: 24,
   },
-  profileText: {
-    fontSize: 12,
-    color: Colors.black,
-    fontFamily: 'PretendardBold',
-    textAlign: 'center',
+  logo: {
+    width: 100,
+    height: 50,
   },
-  profileImg: {
-    width: 30,
-    height: 30,
-    borderRadius: 16,
+  title: {
+    fontSize: 18,
+    color: Colors.black,
   },
 });
 

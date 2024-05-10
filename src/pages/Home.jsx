@@ -158,12 +158,12 @@ const Home = ({navigation}) => {
               <CategoryButton
                 title={'지역으로 검색!'}
                 content={'서울 찍고 경기 찍고 고고싱'}
-                navigate={'LocationSearch'}
+                search={'LocationSearchMap'}
               />
               <CategoryButton
                 title={'장르별 검색!'}
                 content={'영화, 뮤지컬, 콘서트, 연극까지!'}
-                navigate={'ThemeSearch'}
+                search={'ThemeSearch'}
               />
             </View>
           </View>
