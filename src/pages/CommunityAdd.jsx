@@ -10,8 +10,8 @@ import {
   Dimensions,
 } from 'react-native';
 
-import palette from '../utils/Colors';
 import CommunityButton from '../components/CommunityButton';
+import {Colors} from '../utils/Colors';
 
 const cancel = require('../assets/icons/cancel.png');
 const camera = require('../assets/icons/camera.png');
@@ -22,7 +22,7 @@ const CommunityAdd = ({navigation}) => {
   const [text, onChangeText] = useState('');
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: palette.BG}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: Colors.background}}>
       <View style={{flex: 1}}>
         <View style={styles.headerStyle}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -50,7 +50,7 @@ const CommunityAdd = ({navigation}) => {
               multiline
               maxLength={1000}
               placeholder="내용을 입력하세요."
-              placeholderTextColor={palette.COMMUNITY_GRAY}
+              placeholderTextColor={Colors.grey}
               autoCapitalize="none"
               spellCheck={false}
               autoCorrect={false}
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Pretendard-Bold',
     fontSize: 16,
     fontWeight: 'bold',
-    color: palette.COMMUNITY_BLACK,
+    color: Colors.black,
   },
   photoAdd: {
     width: 70,
@@ -84,13 +84,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: palette.COMMUNITY_GRAY,
+    borderColor: Colors.grey,
     borderRadius: 15,
   },
   photoText: {
     fontFamily: 'Pretendard-Regular',
     fontSize: 12,
-    color: palette.COMMUNITY_GRAY,
+    color: Colors.grey,
   },
   categoryWrapper: {
     flexDirection: 'row',
