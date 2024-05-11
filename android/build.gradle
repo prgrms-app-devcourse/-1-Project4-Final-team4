@@ -6,7 +6,6 @@ buildscript {
         targetSdkVersion = 34
         ndkVersion = "26.1.10909125"
         kotlinVersion = "1.9.22"
-        // Geolocation 라이브러리 충돌 해결을 위한 추가
         playServicesLocationVersion = "21.0.1"
     }
     repositories {
@@ -22,3 +21,4 @@ buildscript {
 }
 
 apply plugin: "com.facebook.react.rootproject"
+
