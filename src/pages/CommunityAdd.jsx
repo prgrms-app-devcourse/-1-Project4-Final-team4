@@ -7,16 +7,15 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
-  Dimensions,
 } from 'react-native';
 
-import CommunityButton from '../components/CommunityButton';
 import {Colors} from '../utils/Colors';
+import {SCREEN_WIDTH} from '../utils/utils';
+
+import CommunityButton from '../components/CommunityButton';
 
 const cancel = require('../assets/icons/cancel.png');
 const camera = require('../assets/icons/camera.png');
-
-const {width} = Dimensions.get('window');
 
 const CommunityAdd = ({navigation}) => {
   const [text, onChangeText] = useState('');
@@ -87,7 +86,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   photoText: {
-    fontFamily: 'Pretendard-Regular',
+    fontFamily: 'Pretendard',
     fontSize: 12,
     color: Colors.grey,
   },
@@ -96,9 +95,9 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   line: {
-    width,
+    width: SCREEN_WIDTH,
     height: 1,
-    backgroundColor: '#DDD',
+    backgroundColor: Colors.border_color,
     marginVertical: 20,
   },
 });

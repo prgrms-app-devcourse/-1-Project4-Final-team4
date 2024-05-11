@@ -5,12 +5,13 @@ import {
   SafeAreaView,
   StatusBar,
   StyleSheet,
-  Dimensions,
   FlatList,
   TouchableOpacity,
 } from 'react-native';
 
 import {Colors} from '../utils/Colors';
+import {SCREEN_WIDTH} from '../utils/utils';
+
 import CommunityButton from '../components/CommunityButton';
 import CommunityArticle from '../components/CommunityArticle';
 
@@ -19,8 +20,6 @@ const profile1 = require('../assets/images/profile1.png');
 const profile2 = require('../assets/images/profile2.jpg');
 const profile3 = require('../assets/images/profile3.jpg');
 const mainSample = require('../assets/images/sample.png');
-
-const {width} = Dimensions.get('window');
 
 const dummy_data = [
   {
@@ -145,9 +144,9 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   line: {
-    width,
+    width: SCREEN_WIDTH,
     height: 1,
-    backgroundColor: '#EEE',
+    backgroundColor: Colors.border_color,
     marginVertical: 20,
   },
   addButton: {
@@ -161,10 +160,10 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.main,
   },
   addIcon: {
-    fontFamily: 'Pretendard-Regular',
+    fontFamily: 'Pretendard',
     fontSize: 50,
     lineHeight: 54,
-    color: 'white',
+    color: Colors.white,
   },
 });
 

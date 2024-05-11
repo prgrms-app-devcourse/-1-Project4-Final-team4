@@ -21,9 +21,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.grey,
   },
   textOn: {
-    fontFamily: 'Pretendard-Regular',
+    fontFamily: 'Pretendard',
     fontSize: 12,
-    color: '#fff',
+    color: Colors.white,
     lineHeight: 24,
   },
 });

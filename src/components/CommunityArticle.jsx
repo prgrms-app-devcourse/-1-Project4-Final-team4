@@ -5,12 +5,13 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
-  Dimensions,
   TextInput,
   FlatList,
 } from 'react-native';
 import Modal from 'react-native-modal';
+
 import {Colors} from '../utils/Colors';
+import {SCREEN_WIDTH, SCREEN_HEIGHT} from '../utils/utils';
 
 const likeOff = require('../assets/icons/likeOff.png');
 const likeOn = require('../assets/icons/likeOn.png');
@@ -18,8 +19,6 @@ const comment = require('../assets/icons/comment.png');
 const cancel = require('../assets/icons/cancel.png');
 const send = require('../assets/icons/send.png');
 const mainSample = require('../assets/images/sample.png');
-
-const {width, height} = Dimensions.get('window');
 
 const dummy_image = [mainSample, mainSample, mainSample];
 
@@ -105,7 +104,7 @@ const CommunityArticle = ({data}) => {
       <Modal
         useNativeDriver
         isVisible={isVisible}
-        backdropColor="black"
+        backdropColor={Colors.black}
         backdropOpacity={0.5}
         onBackdropPress={() => setIsVisible(!isVisible)}
         hideModalContentWhileAnimating
@@ -167,18 +166,18 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   idText: {
-    fontFamily: 'Pretendard-Bold',
+    fontFamily: 'PretendardBold',
     fontSize: 18,
     color: Colors.black,
   },
   dateText: {
-    fontFamily: 'Pretendard-Regular',
+    fontFamily: 'Pretendard',
     fontSize: 12,
-    color: '#AAA',
+    color: Colors.grey,
   },
   imageStyle: {
-    width: width - 32,
-    height: width - 32,
+    width: SCREEN_WIDTH - 32,
+    height: SCREEN_WIDTH - 32,
     borderRadius: 15,
   },
   categoryWrapper: {
@@ -186,12 +185,12 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   categoryText: {
-    fontFamily: 'Pretendard-Regular',
+    fontFamily: 'Pretendard',
     fontSize: 14,
-    color: '#AAA',
+    color: Colors.grey,
   },
   bodyText: {
-    fontFamily: 'Pretendard-Medium',
+    fontFamily: 'PretendardMedium',
     fontSize: 16,
     color: Colors.black,
   },
@@ -204,7 +203,7 @@ const styles = StyleSheet.create({
     height: 16,
   },
   iconText: {
-    fontFamily: 'Pretendard-Regular',
+    fontFamily: 'Pretendard',
     fontSize: 12,
     color: Colors.black,
   },
@@ -214,8 +213,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   modalStyle: {
-    width,
-    height: (height * 2) / 3,
+    width: SCREEN_WIDTH,
+    height: (SCREEN_HEIGHT * 2) / 3,
     backgroundColor: Colors.background,
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
@@ -228,15 +227,15 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   modelTitle: {
-    fontFamily: 'Pretendard-Bold',
+    fontFamily: 'PretendardBold',
     fontSize: 16,
-    color: Colors.blackK,
+    color: Colors.black,
   },
   modalCommentWrapper: {
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderTopWidth: 1,
-    borderTopColor: '#DDD',
+    borderTopColor: Colors.grey,
   },
   commentInputWrapper: {
     flexDirection: 'row',
@@ -245,12 +244,12 @@ const styles = StyleSheet.create({
     maxHeight: 150,
   },
   commentInput: {
-    width: width - 80,
+    width: SCREEN_WIDTH - 80,
     minHeight: 40,
     maxHeight: 120,
     paddingLeft: 20,
     borderRadius: 50,
-    backgroundColor: '#EEE',
+    backgroundColor: Colors.border_color,
   },
   commentList: {
     flexDirection: 'row',
@@ -268,12 +267,12 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   commentUserName: {
-    fontFamily: 'Pretendard-Bold',
+    fontFamily: 'PretendardBold',
     fontSize: 14,
     color: Colors.black,
   },
   commentContent: {
-    fontFamily: 'Pretendard-Regular',
+    fontFamily: 'Pretendard',
     fontSize: 14,
     color: Colors.black,
   },
