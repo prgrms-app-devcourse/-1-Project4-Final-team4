@@ -15,10 +15,10 @@
 
 ## 🐣 팀원소개
 
-|                                       |                                     |                                     |                                       |                                          |
-| :-----------------------------------: | :---------------------------------: | :---------------------------------: | :-----------------------------------: | :--------------------------------------: |
-|       ![alt text](image-1.png)        |       ![alt text](image.png)        |      ![alt text](image-3.png)       |       ![alt text](image-4.png)        |         ![alt text](image-2.png)         |
-| [이준영](https://github.com/moko0428) | [조윤서](https://github.com/zyyyun) | [문서진](https://github.com/ba-bam) | [정지민](https://github.com/wlals262) | [성동현](https://github.com/babycat1526) |
+|                                              |                                            |                                              |                                              |                                              |
+| :------------------------------------------: | :----------------------------------------: | :------------------------------------------: | :------------------------------------------: | :------------------------------------------: |
+| <img src="./src/assets/images/image-1.png"/> | <img src="./src/assets/images/image.png"/> | <img src="./src/assets/images/image-3.png"/> | <img src="./src/assets/images/image-4.png"/> | <img src="./src/assets/images/image-2.png"/> |
+|    [이준영](https://github.com/moko0428)     |    [조윤서](https://github.com/zyyyun)     |     [문서진](https://github.com/ba-bam)      |    [정지민](https://github.com/wlals262)     |   [성동현](https://github.com/babycat1526)   |
 
 ## 🐣 프로젝트 소개
 
