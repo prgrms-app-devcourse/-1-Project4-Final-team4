@@ -73,9 +73,8 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   headerText: {
-    fontFamily: 'Pretendard-Bold',
     fontSize: 16,
-    fontWeight: 'bold',
+    fontFamily: 'PretendardBold',
     color: Colors.black,
   },
   photoAdd: {

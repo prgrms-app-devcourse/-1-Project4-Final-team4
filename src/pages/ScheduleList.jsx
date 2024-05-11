@@ -51,7 +51,11 @@ const Column = ({
         {backgroundColor: isSelected ? Colors.mint : 'transparent'},
       ]}>
       <Text
-        style={{color, opacity, fontWeight: hasSchedule ? 'bold' : 'normal'}}>
+        style={{
+          color,
+          opacity,
+          fontFamily: hasSchedule ? 'PretendardBold' : 'Pretendard',
+        }}>
         {text}
       </Text>
     </TouchableOpacity>
