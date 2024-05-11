@@ -1,7 +1,7 @@
 import React from 'react';
 import {TouchableOpacity, Text, StyleSheet} from 'react-native';
 
-import palette from '../utils/Colors';
+import {Colors} from '../utils/Colors';
 
 const CommunityButton = ({name}) => {
   return (
@@ -18,12 +18,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 15,
-    backgroundColor: palette.COMMUNITY_GRAY,
+    backgroundColor: Colors.grey,
   },
   textOn: {
     fontFamily: 'Pretendard-Regular',
     fontSize: 12,
-    color: 'white',
+    color: '#fff',
     lineHeight: 24,
   },
 });

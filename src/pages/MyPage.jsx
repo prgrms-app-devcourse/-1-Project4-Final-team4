@@ -74,7 +74,12 @@ const MyPage = ({navigation}) => {
         )}
 
         <View style={{flexDirection: 'row', gap: 4}}>
-          <Text style={{fontSize: 24, color: Colors.black, fontWeight: 700}}>
+          <Text
+            style={{
+              fontSize: 24,
+              color: Colors.black,
+              fontFamily: 'PretendardBold',
+            }}>
             moko
           </Text>
           <TouchableOpacity onPress={() => navigation.navigate('EditProfile')}>
@@ -105,10 +110,9 @@ const MyPage = ({navigation}) => {
       </View>
       <Margin height={20} />
 
-      <TouchableOpacity 
+      <TouchableOpacity
         style={styles.box}
-        onPress={() => navigation.navigate('LoginTab')}
-      >
+        onPress={() => navigation.navigate('LoginTab')}>
         <Text style={{fontSize: 20}}>로그아웃</Text>
       </TouchableOpacity>
 

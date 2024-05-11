@@ -10,8 +10,7 @@ import {
   FlatList,
 } from 'react-native';
 import Modal from 'react-native-modal';
-
-import palette from '../utils/Colors';
+import {Colors} from '../utils/Colors';
 
 const likeOff = require('../assets/icons/likeOff.png');
 const likeOn = require('../assets/icons/likeOn.png');
@@ -132,7 +131,7 @@ const CommunityArticle = ({data}) => {
                 multiline
                 maxLength={200}
                 placeholder="댓글을 입력하세요."
-                placeholderTextColor={palette.COMMUNITY_GRAY}
+                placeholderTextColor={Colors.grey}
                 autoCapitalize="none"
                 spellCheck={false}
                 autoCorrect={false}
@@ -170,7 +169,7 @@ const styles = StyleSheet.create({
   idText: {
     fontFamily: 'Pretendard-Bold',
     fontSize: 18,
-    color: palette.COMMUNITY_BLACK,
+    color: Colors.black,
   },
   dateText: {
     fontFamily: 'Pretendard-Regular',
@@ -194,7 +193,7 @@ const styles = StyleSheet.create({
   bodyText: {
     fontFamily: 'Pretendard-Medium',
     fontSize: 16,
-    color: palette.COMMUNITY_BLACK,
+    color: Colors.black,
   },
   iconWrapper: {
     flexDirection: 'row',
@@ -207,7 +206,7 @@ const styles = StyleSheet.create({
   iconText: {
     fontFamily: 'Pretendard-Regular',
     fontSize: 12,
-    color: palette.COMMUNITY_BLACK,
+    color: Colors.black,
   },
   modalWrapper: {
     margin: 0,
@@ -217,7 +216,7 @@ const styles = StyleSheet.create({
   modalStyle: {
     width,
     height: (height * 2) / 3,
-    backgroundColor: palette.BG,
+    backgroundColor: Colors.background,
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
     paddingTop: 20,
@@ -231,7 +230,7 @@ const styles = StyleSheet.create({
   modelTitle: {
     fontFamily: 'Pretendard-Bold',
     fontSize: 16,
-    color: palette.COMMUNITY_BLACK,
+    color: Colors.blackK,
   },
   modalCommentWrapper: {
     paddingHorizontal: 16,
@@ -271,12 +270,12 @@ const styles = StyleSheet.create({
   commentUserName: {
     fontFamily: 'Pretendard-Bold',
     fontSize: 14,
-    color: palette.COMMUNITY_BLACK,
+    color: Colors.black,
   },
   commentContent: {
     fontFamily: 'Pretendard-Regular',
     fontSize: 14,
-    color: palette.COMMUNITY_BLACK,
+    color: Colors.black,
   },
 });
 
