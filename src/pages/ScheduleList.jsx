@@ -26,7 +26,6 @@ import {
 } from '../utils/utils';
 import AddScheduleInput, {AddButton} from '../components/AddScheduleInput';
 import SubHeader from '../components/SubHeader';
-// import DropdownModal from '../components/DropdownModal';
 
 const columnSize = 50;
 
