@@ -12,7 +12,7 @@ import {
 import {Colors} from '../utils/Colors';
 import {SCREEN_WIDTH} from '../utils/utils';
 
-import CommunityButton from '../components/CommunityButton';
+import SortButton from '../components/SortButton';
 import CommunityArticle from '../components/CommunityArticle';
 import SubHeader from '../components/SubHeader';
 
@@ -116,8 +116,8 @@ const Community = ({navigation}) => {
         />
         <SubHeader title={'커뮤니티'} />
         <View style={styles.sortWrapper}>
-          <CommunityButton name={'최신순'} />
-          <CommunityButton name={'추천순'} />
+          <SortButton name={'최신순'} />
+          <SortButton name={'추천순'} />
         </View>
 
         <FlatList

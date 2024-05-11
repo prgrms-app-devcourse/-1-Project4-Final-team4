@@ -12,7 +12,7 @@ import {
 import {Colors} from '../utils/Colors';
 import {SCREEN_WIDTH} from '../utils/utils';
 
-import CommunityButton from '../components/CommunityButton';
+import CategorySelectButton from '../components/CategorySelectButton';
 
 const cancel = require('../assets/icons/cancel.png');
 const camera = require('../assets/icons/camera.png');
@@ -38,11 +38,11 @@ const CommunityAdd = ({navigation}) => {
             <Text style={styles.photoText}>사진 추가</Text>
           </TouchableOpacity>
           <View style={styles.categoryWrapper}>
-            <CommunityButton name={'맛집'} />
-            <CommunityButton name={'영화'} />
-            <CommunityButton name={'콘서트'} />
-            <CommunityButton name={'뮤지컬'} />
-            <CommunityButton name={'연극'} />
+            <CategorySelectButton name={'맛집'} />
+            <CategorySelectButton name={'영화'} />
+            <CategorySelectButton name={'콘서트'} />
+            <CategorySelectButton name={'뮤지컬'} />
+            <CategorySelectButton name={'연극'} />
           </View>
           <View>
             <TextInput
