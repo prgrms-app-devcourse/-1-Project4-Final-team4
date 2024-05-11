@@ -14,6 +14,7 @@ import {SCREEN_WIDTH} from '../utils/utils';
 
 import CommunityButton from '../components/CommunityButton';
 import CommunityArticle from '../components/CommunityArticle';
+import SubHeader from '../components/SubHeader';
 
 const profile = require('../assets/images/dummyProfile.jpg');
 const profile1 = require('../assets/images/profile1.png');
@@ -107,12 +108,13 @@ const Community = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: Colors.background}}>
+    <SafeAreaView style={styles.windowWrapper}>
       <View style={{flex: 1}}>
         <StatusBar
           backgroundColor={Colors.background}
           barStyle="dark-content"
         />
+        <SubHeader title={'커뮤니티'} />
         <View style={styles.sortWrapper}>
           <CommunityButton name={'최신순'} />
           <CommunityButton name={'추천순'} />
@@ -137,17 +139,23 @@ const Community = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
+  windowWrapper: {
+    flex: 1,
+    marginBottom: 50,
+    backgroundColor: Colors.background,
+  },
   sortWrapper: {
     flexDirection: 'row',
+    justifyContent: 'flex-end',
     marginHorizontal: 16,
-    marginVertical: 10,
+    marginBottom: 8,
     gap: 4,
   },
   line: {
     width: SCREEN_WIDTH,
     height: 1,
     backgroundColor: Colors.border_color,
-    marginVertical: 20,
+    marginBottom: 20,
   },
   addButton: {
     position: 'absolute',

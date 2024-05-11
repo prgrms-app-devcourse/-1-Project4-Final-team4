@@ -27,9 +27,9 @@ const CommunityAdd = ({navigation}) => {
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Image source={cancel} style={{width: 24, height: 24}} />
           </TouchableOpacity>
-          <Text>포스트 작성</Text>
+          <Text style={styles.headerText}>포스트 작성</Text>
           <TouchableOpacity>
-            <Text>등록</Text>
+            <Text style={styles.headerText}>등록</Text>
           </TouchableOpacity>
         </View>
         <View style={{marginHorizontal: 16, gap: 16}}>
