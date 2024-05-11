@@ -1,4 +1,3 @@
-
 import React, {useEffect, useState} from 'react';
 import {
   Image,
@@ -11,19 +10,16 @@ import {
   View,
 } from 'react-native';
 import MainHeader from '../components/MainHeader';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import BubbleIcon from 'react-native-vector-icons/SimpleLineIcons';
 import CategoryButton from '../components/CategoryButton';
-import {useNavigation} from '@react-navigation/native';
 import Carousel from 'react-native-snap-carousel';
-
 import reviewFrame from '../assets/images/reviewFrame.png';
-
 import {Dimensions} from 'react-native';
 import {Colors} from '../utils/Colors.js';
 import CustomCarousel from '../components/CustomCarousel';
 import {getPlace} from '../apis/place';
 import {getMovie} from '../apis/movie';
+
 const windowWidth = Dimensions.get('window').width;
 
 const tempData = [
