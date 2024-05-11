@@ -10,7 +10,7 @@ import {
   Switch
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { FIREBASE_AUTH } from '../firebase';
+import { FIREBASE_AUTH } from '../firebase/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import logo_fullname from '../assets/icons/logo_fullname.png';
@@ -53,6 +53,7 @@ const Login = () => {
       const response = await signInWithEmailAndPassword(auth, email, password);
       console.log(response);
       navigation.replace('MainTab');
+      await AsyncStorage.setItem('userEmail', email);
       if (autoLogin) {
         AsyncStorage.setItem('email', email);
         AsyncStorage.setItem('password', password);

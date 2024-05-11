@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Button,
   Image,
@@ -7,11 +7,13 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Alert,
 } from 'react-native';
 import Margin from '../components/Margin';
 import EditIcon from 'react-native-vector-icons/MaterialIcons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import {useState} from 'react';
+import {uploadImageToStorage} from '../firebase/storage';
 import {useImagePikcer} from '../hook/use-image-picker';
 import EditProfileModal from '../components/EditProfileModal';
 import {SCREEN_HEIGHT, SCREEN_WIDTH, containerStyle} from '../utils/utils';
@@ -20,6 +22,22 @@ import {Colors} from '../utils/Colors';
 import SubHeader from '../components/SubHeader';
 
 export const profile_img = 150;
+
+const handleUploadImage = async (image) => {
+  try {
+    const userEmail = await AsyncStorage.getItem('email');  // 이메일 주소 불러오기
+    if (userEmail && image) {
+      const url = await uploadImageToStorage(image, userEmail);  // 이메일을 사용자 ID로 사용
+      setImageUrl(url);  // 업로드된 이미지 URL을 상태에 저장
+      Alert.alert('업로드 성공', '이미지가 성공적으로 업로드되었습니다!');
+    } else {
+      Alert.alert('업로드 실패', '이메일 정보를 불러올 수 없습니다.');
+    }
+  } catch (error) {
+    console.error('업로드 실패:', error);
+    Alert.alert('업로드 실패', '이미지 업로드 중 문제가 발생했습니다.');
+  }
+};
 
 const EditProfile = ({navigation}) => {
   const {pickImage, image, removeImage} = useImagePikcer();
@@ -60,16 +78,17 @@ const EditProfile = ({navigation}) => {
         </View>
         <Margin height={20} />
         <View style={styles.name}>
-          <Text style={{fontSize: 40}}>moko</Text>
+          <Text style={{fontSize: 40}}>yoon</Text>
           <TouchableOpacity onPress={onPressEditProfileModal}>
             <EditIcon name="edit" color={'#aeaeae'} size={20} />
           </TouchableOpacity>
         </View>
+        <TouchableOpacity style={styles.saveButton} onPress={handleUploadImage}>
+          <Text style={{color: Colors.black, fontSize: 18}}>저장</Text>
+        </TouchableOpacity>
       </View>
       <EditProfileModal isVisible={isVisible} setIsVisible={setIsVisible} />
       <Margin height={20} />
-
-      {/* 스케줄 관리 섹션 */}
     </SafeAreaView>
   );
 };
@@ -113,6 +132,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 5,
     alignSelf: 'center',
+  },
+  saveButton: {
+    backgroundColor: Colors.main,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 15,
+    paddingHorizontal: 40,
+    borderRadius: 10,
+    marginTop: 30,
   },
 });
 
