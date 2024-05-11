@@ -213,7 +213,7 @@ const Home = ({navigation}) => {
           <TouchableOpacity onPress={() => navigation.navigate('Community')}>
             <Image
               source={reviewFrame}
-              style={{SCREEN_WIDTH}}
+              style={{width: SCREEN_WIDTH}}
               resizeMode="contain"
             />
           </TouchableOpacity>
