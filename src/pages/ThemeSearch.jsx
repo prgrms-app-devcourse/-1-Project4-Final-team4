@@ -1,6 +1,4 @@
 import {
-  Button,
-  Dimensions,
   ImageBackground,
   SafeAreaView,
   ScrollView,
@@ -8,7 +6,6 @@ import {
   Text,
   TouchableOpacity,
   View,
-  Platform,
   FlatList,
   Image,
 } from 'react-native';
