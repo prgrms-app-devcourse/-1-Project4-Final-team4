@@ -19,8 +19,7 @@ import {Colors} from '../utils/Colors.js';
 import CustomCarousel from '../components/CustomCarousel';
 import {getPlace} from '../apis/place';
 import {getMovie} from '../apis/movie';
-
-const windowWidth = Dimensions.get('window').width;
+import {SCREEN_WIDTH} from '../utils/utils';
 
 const tempData = [
   {
@@ -178,7 +177,7 @@ const Home = ({navigation}) => {
             <Carousel
               data={tempData}
               renderItem={articleRenderItems}
-              sliderWidth={windowWidth}
+              sliderWidth={SCREEN_WIDTH}
               itemWidth={260}
               activeSlideAlignment={'start'}
             />
@@ -214,7 +213,7 @@ const Home = ({navigation}) => {
           <TouchableOpacity onPress={() => navigation.navigate('Community')}>
             <Image
               source={reviewFrame}
-              style={{width: windowWidth}}
+              style={{width: SCREEN_WIDTH}}
               resizeMode="contain"
             />
           </TouchableOpacity>
