@@ -25,9 +25,6 @@ import {
   getDayText,
 } from '../utils/utils';
 import AddScheduleInput, {AddButton} from '../components/AddScheduleInput';
-import BasicHeader from '../components/BasicHeader';
-import FloatingButton from '../components/FloatingButton';
-import MainHeader from '../components/MainHeader';
 import SubHeader from '../components/SubHeader';
 // import DropdownModal from '../components/DropdownModal';
 
@@ -51,7 +48,11 @@ const Column = ({
         {backgroundColor: isSelected ? Colors.mint : 'transparent'},
       ]}>
       <Text
-        style={{color, opacity, fontWeight: hasSchedule ? 'bold' : 'normal'}}>
+        style={{
+          color,
+          opacity,
+          fontFamily: hasSchedule ? 'PretendardBold' : 'Pretendard',
+        }}>
         {text}
       </Text>
     </TouchableOpacity>
