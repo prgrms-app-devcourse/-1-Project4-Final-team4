@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   PermissionsAndroid,
   Dimensions,
+  Platform,
 } from 'react-native';
 import {containerStyle} from '../utils/utils';
 import React, {useState, useRef, useEffect} from 'react';
