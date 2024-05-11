@@ -80,7 +80,7 @@ yarn-error.log
 # 각 컴퓨터 환경에 맞도록 OS 폴더 예외처리
 # android/
 ios/
-
+android/src/google-services.json
 
 package-lock.json
 firebase.ts
