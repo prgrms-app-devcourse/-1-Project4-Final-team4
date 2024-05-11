@@ -16,10 +16,9 @@ import {containerStyle} from '../utils/utils';
 import React, {useState, useEffect} from 'react';
 import {Colors} from '../utils/Colors';
 import BasicHeader from '../components/BasicHeader';
-import MainHeader from '../components/MainHeader';
 import {getMovie, getMoviePoster} from '../apis/movie';
 import {getShow} from '../apis/show';
-import {getLocation, getPlace} from '../apis/place';
+import {getPlace} from '../apis/place';
 import DropDownPicker from 'react-native-dropdown-picker';
 import CustomCarousel from '../components/CustomCarousel';
 
@@ -44,7 +43,6 @@ const ThemeSearch = () => {
     {label: '복합레포츠', value: 'A03 A0305'},
   ]);
 
-  // const [locationContentList, setLocationContentList] = useState([]);
   const [movieContentList, setMovieContentList] = useState([]);
   const [showContentList, setShowContentList] = useState([]);
   const [themeContentList, setThemeContentList] = useState([]);
@@ -114,39 +112,6 @@ const ThemeSearch = () => {
     setPlayValue(itemValue);
   };
 
-  // 지역 호출 API
-  // useEffect(() => {
-  //   fetchLocationData();
-  // }, []);
-
-  // const fetchLocationData = async () => {
-  //   try {
-  //     const res = await getLocation();
-  //     if (res) {
-  //       setLocationContentList(res.response.body.items.item);
-  //       // console.log('Location : ', res.response.body.items.item);
-  //       return;
-  //     }
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  // };
-
-  /*
-  const getBoxOffice = async() => {
-    const response = await(await (
-        await fetch(
-            `https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=${key1}&targetDt=${targetDT}`
-        )
-    ).json()).boxOfficeResult.dailyBoxOfficeList;
-    const boxOffice = await(response.map((movie) => getMovies(movie)));
-    await Promise.all(boxOffice).then((result) => {
-        console.log(result);
-        setMovies(result);
-        setLoading(false);
-    });
-  }*/
-
   // 장소 flatlist render
   const placeRenderItems = ({item, index}) => {
     const backgroundImage = item.firstimage
@@ -168,46 +133,10 @@ const ThemeSearch = () => {
     );
   };
 
-  // const fetchMoviePosterData = async () => {
-  //   try {
-  //     const res = await getMoviePoster();
-  //     console.log('Poster : ', res);
-  //     // setShowContentList(res.boxofs.boxof);
-  //     return;
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  // };
-
   // 영화 flatlist render
   const renderMovieItem = ({item}) => {
-    // console.log(item.movieNm);
-    // const res = fetchMoviePosterData(item.movieNm);
-    // console.log(res);
-    // const uri = `http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2&detail=Y&title=${
-    //   item.movieNm
-    // }&releaseDts=${item.openDt.replaceAll(
-    //   '-',
-    //   '',
-    // )}&ServiceKey=D557PK8Y0HVCZHC4Z28D`;
-    // console.log(uri);
     return (
       <TouchableOpacity style={styles.flatWrapper}>
-        {/* <Image
-          source={{
-            uri: `http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2&detail=Y&title=${
-              item.movieNm
-            }&releaseDts=${item.openDt.replaceAll(
-              '-',
-              '',
-            )}&ServiceKey=D557PK8Y0HVCZHC4Z28D`,
-          }}
-          style={{width: 50, height: 50}}
-        /> */}
-        {/* <Image
-        source={{uri: 'http://www.kopis.or.kr' + item.poster}}
-        style={{width: 50, height: 50}}
-      /> */}
         <View style={styles.flatItemContentWrapper}>
           <Text style={styles.flatTitle}>{item.movieNm}</Text>
           <Text style={styles.flatContent}>누적관객수 : {item.audiAcc}명</Text>
