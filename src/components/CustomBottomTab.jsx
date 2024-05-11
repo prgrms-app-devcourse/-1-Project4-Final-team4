@@ -29,7 +29,7 @@ const CustomBottomTab = ({state, navigation, insets, descriptors}) => {
 
         const iconFlag = bool => {
           switch (label) {
-            case 'HomeTab':
+            case 'Home':
               return (
                 <Icon
                   name="home"
@@ -37,16 +37,7 @@ const CustomBottomTab = ({state, navigation, insets, descriptors}) => {
                   size={30}
                 />
               );
-            case 'SearchTab':
-              return (
-                <Icon
-                  name="search1"
-                  color={isFocused ? Colors.main : 'grey'}
-                  size={30}
-                />
-              );
-
-            case 'CommunityTab':
+            case 'Community':
               return (
                 <Icons
                   name="people"
@@ -55,7 +46,7 @@ const CustomBottomTab = ({state, navigation, insets, descriptors}) => {
                 />
               );
 
-            case 'ToolTab':
+            case 'ScheduleList':
               return (
                 <Icon
                   name="calendar"

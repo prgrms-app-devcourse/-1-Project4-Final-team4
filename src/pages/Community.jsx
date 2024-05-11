@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import palette from '../utils/Colors';
+import {Colors} from '../utils/Colors';
 import CommunityButton from '../components/CommunityButton';
 import CommunityArticle from '../components/CommunityArticle';
 
@@ -108,9 +108,12 @@ const Community = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: palette.BG}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: Colors.background}}>
       <View style={{flex: 1}}>
-        <StatusBar backgroundColor={palette.BG} barStyle="dark-content" />
+        <StatusBar
+          backgroundColor={Colors.background}
+          barStyle="dark-content"
+        />
         <View style={styles.sortWrapper}>
           <CommunityButton name={'최신순'} />
           <CommunityButton name={'추천순'} />
@@ -126,7 +129,7 @@ const Community = ({navigation}) => {
 
         <TouchableOpacity
           style={styles.addButton}
-          onPress={() => navigation.navigate('Add')}>
+          onPress={() => navigation.navigate('CommunityAdd')}>
           <Text style={styles.addIcon}>+</Text>
         </TouchableOpacity>
       </View>
@@ -155,7 +158,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 50,
     alignItems: 'center',
-    backgroundColor: palette.MAIN_GREEN,
+    backgroundColor: Colors.main,
   },
   addIcon: {
     fontFamily: 'Pretendard-Regular',
