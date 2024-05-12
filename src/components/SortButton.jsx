@@ -3,7 +3,7 @@ import {TouchableOpacity, Text, StyleSheet} from 'react-native';
 
 import {Colors} from '../utils/Colors';
 
-const CommunityButton = ({name}) => {
+const SortButton = ({name}) => {
   return (
     <TouchableOpacity style={styles.buttonOn}>
       <Text style={styles.textOn}>{name}</Text>
@@ -21,11 +21,11 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.grey,
   },
   textOn: {
-    fontFamily: 'Pretendard-Regular',
+    fontFamily: 'Pretendard',
     fontSize: 12,
-    color: '#fff',
+    color: Colors.white,
     lineHeight: 24,
   },
 });
 
-export default CommunityButton;
+export default SortButton;
