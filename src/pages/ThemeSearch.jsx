@@ -19,7 +19,7 @@ import {getPlace} from '../apis/place';
 import DropDownPicker from 'react-native-dropdown-picker';
 import CustomCarousel from '../components/CustomCarousel';
 
-const ThemeSearch = () => {
+const ThemeSearch = ({navigation}) => {
   const [foodOpen, setFoodOpen] = useState(false);
   const [foodValue, setFoodValue] = useState(null);
   const [foodItems, setFoodItems] = useState([
@@ -109,14 +109,18 @@ const ThemeSearch = () => {
     setPlayValue(itemValue);
   };
 
+  const navigateDetail = (item, type) => {
+    navigation.navigate('ContentDetail', {item, type});
+  };
+
+  // 타입, content 타입을 줘서 movie냐 place냐에 따라 다른 결과 수행
   // 장소 flatlist render
   const placeRenderItems = ({item, index}) => {
     const backgroundImage = item.firstimage
       ? {uri: item.firstimage}
       : require('../assets/images/placeholder.jpg');
     return (
-      // <TouchableOpacity onPress={() => navigation.navigate(item.navigateRoute)}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigateDetail(item, 'place')}>
         <ImageBackground
           source={backgroundImage}
           style={{width: 260, height: 264}}
@@ -133,7 +137,9 @@ const ThemeSearch = () => {
   // 영화 flatlist render
   const renderMovieItem = ({item}) => {
     return (
-      <TouchableOpacity style={styles.flatWrapper}>
+      <TouchableOpacity
+        style={styles.flatWrapper}
+        onPress={() => navigateDetail(item, 'movie')}>
         <View style={styles.flatItemContentWrapper}>
           <Text style={styles.flatTitle}>{item.movieNm}</Text>
           <Text style={styles.flatContent}>누적관객수 : {item.audiAcc}명</Text>
@@ -146,7 +152,9 @@ const ThemeSearch = () => {
   // 공연 flatlist render
   const renderShowItem = ({item}) => {
     return (
-      <TouchableOpacity style={styles.flatWrapper}>
+      <TouchableOpacity
+        style={styles.flatWrapper}
+        onPress={() => navigateDetail(item, 'show')}>
         <Image
           source={{uri: 'http://www.kopis.or.kr' + item.poster}}
           style={{width: 150, height: 200}}

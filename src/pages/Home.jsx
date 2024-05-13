@@ -62,14 +62,17 @@ const Home = ({navigation}) => {
     );
   };
 
+  const navigateDetail = (item, type) => {
+    navigation.navigate('ContentDetail', {item, type});
+  };
+
   //추천 명소 렌더
   const placeRenderItems = ({item, index}) => {
     const backgroundImage = item.firstimage
       ? {uri: item.firstimage}
       : require('../assets/images/placeholder.jpg');
     return (
-      // <TouchableOpacity onPress={() => navigation.navigate(item.navigateRoute)}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigateDetail(item, 'place')}>
         <ImageBackground
           source={backgroundImage}
           style={{width: 260, height: 264}}
@@ -85,7 +88,9 @@ const Home = ({navigation}) => {
 
   //추천 영화 렌더
   const movieRenderItems = ({item}) => (
-    <TouchableOpacity style={styles.flatWrapper}>
+    <TouchableOpacity
+      style={styles.flatWrapper}
+      onPress={() => navigateDetail(item, 'movie')}>
       <View style={styles.flatItemContentWrapper}>
         <Text style={styles.flatTitle}>{item.movieNm}</Text>
         <Text style={styles.flatContent}>누적관객수 : {item.audiAcc}명</Text>
