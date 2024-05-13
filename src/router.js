@@ -12,6 +12,7 @@ import LocationSearchMap from './pages/LocationSearchMap';
 import ThemeSearch from './pages/ThemeSearch';
 import EditProfile from './pages/EditProfile';
 import CommunityAdd from './pages/CommunityAdd';
+import ContentDetail from './pages/ContentDetail';
 // import Register from './pages/Register';
 // import Login from './pages/Login';
 
@@ -52,6 +53,7 @@ const Router = () => {
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
       <Stack.Screen name="EditProfile" component={EditProfile} />
       <Stack.Screen name="CommunityAdd" component={CommunityAdd} />
+      <Stack.Screen name="ContentDetail" component={ContentDetail} />
     </Stack.Navigator>
   );
 };
