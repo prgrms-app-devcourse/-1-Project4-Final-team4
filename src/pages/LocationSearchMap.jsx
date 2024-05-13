@@ -109,8 +109,9 @@ const LocationSearchMap = ({navigation}) => {
 
   // 상단 모달 동작 함수
   const [topExpanded, setTopExpanded] = useState(false);
-  const topModalHeight = useRef(new Animated.Value(0)).current; // 모달 높이 변화 함수
+  const topModalHeight = useRef(new Animated.Value(0)).current;
 
+  // 모달 높이 변화 함수
   const toggleTopHeight = () => {
     const newTopHeight = topExpanded ? 0 : 480;
     setTopExpanded(!topExpanded);
@@ -152,7 +153,8 @@ const LocationSearchMap = ({navigation}) => {
   // 하단 모달 동작 함수
   const [expanded, setExpanded] = useState(false);
 
-  const modalHeight = useRef(new Animated.Value(144)).current; // 모달 높이 변화 함수
+  // 모달 높이 변화 함수
+  const modalHeight = useRef(new Animated.Value(144)).current;
 
   const toggleHeight = () => {
     const newHeight = expanded ? 144 : 652;
@@ -195,6 +197,7 @@ const LocationSearchMap = ({navigation}) => {
               renderItem={renderRegionItem}
               keyExtractor={item => item.id.toString()}
               contentContainerStyle={styles.buttonContainer}
+              onPress={toggleTopHeight}
             />
           </View>
           <TouchableOpacity
@@ -210,8 +213,7 @@ const LocationSearchMap = ({navigation}) => {
         <MapView
           style={{width: '100%', height: '100%', top: 0}}
           provider={PROVIDER_GOOGLE}
-          region={region || currentRegion}
-          j
+          region={currentRegion || region}
           showsUserLocation={true}
           showsMyLocationButton={true}
           showsCompass={true}
