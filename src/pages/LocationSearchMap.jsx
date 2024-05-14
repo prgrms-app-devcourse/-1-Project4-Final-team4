@@ -18,6 +18,8 @@ import BasicHeader from '../components/BasicHeader';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Geolocation from 'react-native-geolocation-service';
+import {getLocation} from '../apis/place.js';
+import {getPlace} from '../apis/place.js';
 
 const dummyData = [
   {
@@ -72,7 +74,7 @@ const LocationSearchMap = ({navigation}) => {
     longitudeDelta: 0.0421,
   });
   // 초기 위치 서울시청
-  const [region, setRegion] = useState({
+  const [initialRegion, setinitialRegion] = useState({
     latitude: 37.5662952,
     longitude: 126.9779451,
     latitudeDelta: 0.0922,
@@ -113,7 +115,7 @@ const LocationSearchMap = ({navigation}) => {
 
   // 모달 높이 변화 함수
   const toggleTopHeight = () => {
-    const newTopHeight = topExpanded ? 0 : 480;
+    const newTopHeight = topExpanded ? 0 : 350;
     setTopExpanded(!topExpanded);
     Animated.timing(topModalHeight, {
       toValue: newTopHeight,
@@ -123,29 +125,50 @@ const LocationSearchMap = ({navigation}) => {
   };
 
   // 상단 모달의 지역 검색 동작 함수
-  const [selectedRegion, setSelectedRegion] = useState(null);
+
+  const [selectedLocation, setSelectedLocation] = useState(null);
+
+  const handleLocationPress = region => {
+    setSelectedLocation(region);
+  };
 
   const totalRegions = [
-    {id: 1, name: '송파구', latitude: 37.5045, longitude: 127.1108},
-    {id: 2, name: '강남구', latitude: 37.5172, longitude: 127.0473},
-    {id: 3, name: '용산구', latitude: 37.5311, longitude: 126.978},
-    {id: 4, name: '마포구', latitude: 37.5665, longitude: 126.9018},
-    {id: 5, name: '중구', latitude: 37.5639, longitude: 126.9975},
-    {id: 6, name: '종로구', latitude: 37.5724, longitude: 126.9846},
-    {id: 7, name: '강서구', latitude: 37.5658, longitude: 126.8227},
-    {id: 8, name: '서초구', latitude: 37.4839, longitude: 127.0326},
-    {id: 9, name: '노원구', latitude: 37.6542, longitude: 127.0568},
+    {
+      id: 1,
+      name: '송파',
+      coordinates: {latitude: 37.5045, longitude: 127.1108},
+    },
+    {
+      id: 2,
+      name: '강남',
+      coordinates: {latitude: 37.5172, longitude: 127.0473},
+    },
+    {id: 3, name: '용산', coordinates: {latitude: 37.5311, longitude: 126.978}},
+    {
+      id: 4,
+      name: '마포',
+      coordinates: {latitude: 37.5665, longitude: 126.9018},
+    },
+    // {id: 5, name: '중구', latitude: 37.5639, longitude: 126.9975},
+    {
+      id: 6,
+      name: '종로',
+      coordinates: {latitude: 37.5724, longitude: 126.9846},
+    },
+    // {id: 7, name: '강서', latitude: 37.5658, longitude: 126.8227},
+    {
+      id: 8,
+      name: '서초',
+      coordinates: {latitude: 37.4839, longitude: 127.0326},
+    },
+    // {id: 9, name: '노원', latitude: 37.6542, longitude: 127.0568},
   ];
-
-  const handleRegionPress = totalregion => {
-    setSelectedRegion(totalregion);
-  };
 
   // 지역검색 버튼 출력 함수
   const renderRegionItem = ({item}) => (
     <TouchableOpacity
       style={styles.button}
-      onPress={() => handleRegionPress(item)}>
+      onPress={() => handleLocationPress(item)}>
       <Text style={styles.buttonText}>{item.name}</Text>
     </TouchableOpacity>
   );
@@ -197,7 +220,7 @@ const LocationSearchMap = ({navigation}) => {
               renderItem={renderRegionItem}
               keyExtractor={item => item.id.toString()}
               contentContainerStyle={styles.buttonContainer}
-              onPress={toggleTopHeight}
+              onPress={modalHeight}
             />
           </View>
           <TouchableOpacity
@@ -211,23 +234,29 @@ const LocationSearchMap = ({navigation}) => {
       {/* 맵 기능 함수 */}
       <View style={styles.mapContainer}>
         <MapView
-          style={{width: '100%', height: '100%', top: 0}}
+          style={{width: '100%', height: '100%'}}
           provider={PROVIDER_GOOGLE}
-          region={currentRegion || region}
+          initialRegion={currentRegion}
+          region={
+            selectedLocation
+              ? {
+                  ...currentRegion,
+                  latitude: selectedLocation.coordinates.latitude,
+                  longitude: selectedLocation.coordinates.longitude,
+                }
+              : currentRegion
+          }
           showsUserLocation={true}
           showsMyLocationButton={true}
           showsCompass={true}
           showsPointsOfInterest={true}>
-          {/* {currentRegion && (
+          {selectedLocation && (
             <Marker
-              coordinate={{
-                latitude: currentRegion.latitude,
-                longitude: currentRegion.longitude,
-              }}
+              coordinate={selectedLocation.coordinates}
               title={'현재 위치'}
               description={'현재 위치입니다.'}
             />
-          )} */}
+          )}
         </MapView>
       </View>
       {/* 하단 모달 부분 */}
