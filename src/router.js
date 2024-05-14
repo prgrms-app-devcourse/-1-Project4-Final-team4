@@ -12,8 +12,10 @@ import LocationSearchMap from './pages/LocationSearchMap';
 import ThemeSearch from './pages/ThemeSearch';
 import EditProfile from './pages/EditProfile';
 import CommunityAdd from './pages/CommunityAdd';
-// import Register from './pages/Register';
-// import Login from './pages/Login';
+import ContentDetail from './pages/ContentDetail';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Article from './pages/Article';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -45,13 +47,15 @@ const Router = () => {
       }}>
       <Stack.Screen name="Splash" component={Splash} />
       <Stack.Screen name="MainTab" component={MainTab} />
-      {/* <Stack.Screen name="Login" component={Login} /> */}
-      {/* <Stack.Screen name="Register" component={Register} /> */}
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Register" component={Register} />
+      <Stack.Screen name="Article" component={Article} />
       <Stack.Screen name="LocationSearchMap" component={LocationSearchMap} />
       <Stack.Screen name="ThemeSearch" component={ThemeSearch} />
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
       <Stack.Screen name="EditProfile" component={EditProfile} />
       <Stack.Screen name="CommunityAdd" component={CommunityAdd} />
+      <Stack.Screen name="ContentDetail" component={ContentDetail} />
     </Stack.Navigator>
   );
 };
