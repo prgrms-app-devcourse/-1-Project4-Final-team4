@@ -95,8 +95,14 @@ const MyPage = ({navigation}) => {
        */}
       <View style={{flexDirection: 'row'}}>
         <ContentsBox content={'돌림판'} />
-        <ContentsBox content={'N빵'} />
-        <ContentsBox content={'가계부'} />
+        <ContentsBox
+          content={'N빵'}
+          onPress={() => navigation.navigate('Division')}
+        />
+        <ContentsBox
+          content={'가계부'}
+          onPress={() => navigation.navigate('AccountBook')}
+        />
       </View>
       <View style={{flexDirection: 'row'}}>
         <ContentsBox />
