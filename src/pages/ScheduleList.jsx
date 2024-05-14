@@ -50,10 +50,17 @@ const Column = ({
         style={{
           color,
           opacity,
-          fontFamily: hasSchedule ? 'PretendardBold' : 'Pretendard',
         }}>
         {text}
       </Text>
+      <View
+        style={{
+          width: 10,
+          height: 10,
+          borderRadius: 5,
+          backgroundColor: hasSchedule ? Colors.main : 'transparent',
+        }}
+      />
     </TouchableOpacity>
   );
 };
