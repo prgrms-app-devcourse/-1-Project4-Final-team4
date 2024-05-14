@@ -130,6 +130,8 @@ const LocationSearchMap = ({navigation}) => {
 
   const handleLocationPress = region => {
     setSelectedLocation(region);
+    // 상단 모달 접기
+    toggleTopHeight();
   };
 
   const totalRegions = [
@@ -220,7 +222,6 @@ const LocationSearchMap = ({navigation}) => {
               renderItem={renderRegionItem}
               keyExtractor={item => item.id.toString()}
               contentContainerStyle={styles.buttonContainer}
-              onPress={modalHeight}
             />
           </View>
           <TouchableOpacity
