@@ -28,6 +28,7 @@ const tempData = [
     content2: '인당 1발 이상씩 쏴드립니다!',
     navigateRoute: 'Article',
     img: require('../assets/images/johnWick.png'),
+    id: 1,
   },
   {
     title: '쉬어매드니스',
@@ -35,16 +36,21 @@ const tempData = [
     content2: '오늘은 내가 코난?!',
     navigateRoute: 'Article',
     img: require('../assets/images/madness.png'),
+    id: 2,
   },
 ];
 
 const Home = ({navigation}) => {
+  const navigateArticle = (id, title) => {
+    navigation.navigate('Article', {id, title});
+  };
+
   //아티클 콘텐츠 렌더
   const articleRenderItems = ({item, index}) => {
     return (
       <TouchableOpacity
         style={styles.itemContainer}
-        onPress={() => navigation.navigate(item.navigateRoute)}>
+        onPress={() => navigateArticle('Article', item.title)}>
         <View>
           <Image
             source={item.img}
