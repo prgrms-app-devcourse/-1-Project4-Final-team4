@@ -205,9 +205,13 @@ const ScheduleList = () => {
     scrollToEnd();
   };
   const onSubmitEditing = () => {
-    addSchedule();
-    resetInput();
-    scrollToEnd();
+    if (input.length < 1) {
+      Alert.alert('한글자 이상 입력해주세요.');
+    } else {
+      addSchedule();
+      resetInput();
+      scrollToEnd();
+    }
   };
   const onFocus = () => {
     scrollToEnd();
