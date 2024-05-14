@@ -9,6 +9,7 @@ import {
   FlatList,
 } from 'react-native';
 import Modal from 'react-native-modal';
+import Carousel from 'react-native-snap-carousel';
 
 import {Colors} from '../utils/Colors';
 import {SCREEN_WIDTH, SCREEN_HEIGHT} from '../utils/utils';
@@ -55,6 +56,12 @@ const CommunityArticle = ({data}) => {
     return <Image source={item} style={styles.imageStyle} />;
   };
 
+  const categoryList = data.category.map((name, index) => (
+    <Text style={styles.categoryText} key={index}>
+      {name}
+    </Text>
+  ));
+
   return (
     <View style={{gap: 10, marginHorizontal: 16}}>
       <View style={styles.headerStyle}>
@@ -67,17 +74,16 @@ const CommunityArticle = ({data}) => {
         </View>
       </View>
       <View style={{gap: 8}}>
-        <FlatList
-          data={dummy_image}
+        <Carousel
+          data={data.image}
           renderItem={renderImage}
-          horizontal={true}
-          removeClippedSubviews
-          showsHorizontalScrollIndicator={false}
+          sliderWidth={SCREEN_WIDTH}
+          itemWidth={SCREEN_WIDTH - 32}
+          contentContainerCustomStyle={{alignItems: 'flex-start'}}
+          activeSlideAlignment={'start'}
+          enableSnap={true}
         />
-        <View style={styles.categoryWrapper}>
-          <Text style={styles.categoryText}>#맛집</Text>
-          <Text style={styles.categoryText}>#영화</Text>
-        </View>
+        <View style={styles.categoryWrapper}>{categoryList}</View>
         <Text style={styles.bodyText}>{data.body}</Text>
         <View style={styles.iconWrapper}>
           <View style={styles.iconWrapper}>
@@ -178,7 +184,6 @@ const styles = StyleSheet.create({
   imageStyle: {
     width: SCREEN_WIDTH - 32,
     height: SCREEN_WIDTH - 32,
-    borderRadius: 15,
   },
   categoryWrapper: {
     flexDirection: 'row',
@@ -214,7 +219,7 @@ const styles = StyleSheet.create({
   },
   modalStyle: {
     width: SCREEN_WIDTH,
-    height: (SCREEN_HEIGHT * 2) / 3,
+    height: SCREEN_HEIGHT / 2,
     backgroundColor: Colors.background,
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,

@@ -28,7 +28,7 @@ const dummy_data = [
     profile: profile,
     name: 'hyunjinab',
     date: '2024.05.08. 16:15',
-    image: mainSample,
+    image: [mainSample, mainSample, mainSample],
     category: ['#맛집', '#영화'],
     body: '부끄러운 맘이 숨은 멋진 밤에 별빛에 떨림을 더해 네게 질문을 던져 그러다가 맘을 들켜 너는 웃어',
     likes: [5, 6],
@@ -52,8 +52,8 @@ const dummy_data = [
     profile: profile1,
     name: 'lnxexu',
     date: '2024.04.30. 11:44',
-    image: mainSample,
-    category: ['#맛집', '#영화'],
+    image: [mainSample],
+    category: ['#콘서트'],
     body: '부끄러운 맘이 숨은 멋진 밤에 별빛에 떨림을 더해 네게 질문을 던져 그러다가 맘을 들켜 너는 웃어',
     likes: [],
     commentList: [
@@ -82,8 +82,8 @@ const dummy_data = [
     profile: profile2,
     name: '0ct0ber19',
     date: '2024.05.05. 18:48',
-    image: mainSample,
-    category: ['#맛집', '#영화'],
+    image: [mainSample, mainSample, mainSample, mainSample],
+    category: ['#맛집', '#뮤지컬'],
     body: '부끄러운 맘이 숨은 멋진 밤에 별빛에 떨림을 더해 네게 질문을 던져 그러다가 맘을 들켜 너는 웃어',
     likes: [8],
     commentList: [
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
   addIcon: {
     fontFamily: 'Pretendard',
     fontSize: 50,
-    lineHeight: 54,
+    lineHeight: 50,
     color: Colors.white,
   },
 });
