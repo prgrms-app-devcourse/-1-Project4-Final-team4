@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import {
   Image,
   SafeAreaView,
@@ -6,17 +7,16 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect} from 'react';
 import {Colors} from '../utils/Colors';
 import Margin from '../components/Margin';
 import {useImagePikcer} from '../hook/use-image-picker';
 import {containerStyle, shadow} from '../utils/utils';
-import BasicHeader from '../components/BasicHeader';
-import EditIcon from 'react-native-vector-icons/MaterialIcons';
-import {profile_img} from './EditProfile';
 import SubHeader from '../components/SubHeader';
+import EditIcon from 'react-native-vector-icons/MaterialIcons';
+import {FIREBASE_AUTH} from '../firebase/firebase';
+import {getImageFromStorage} from '../firebase/storage';
 
-const ContentsBox = ({content, onPress}) => {
+const ContentsBox = ({ content, onPress }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -37,17 +37,31 @@ const ContentsBox = ({content, onPress}) => {
   );
 };
 
-const MyPage = ({navigation}) => {
-  const {image, setImage, init} = useImagePikcer();
+const MyPage = ({ navigation }) => {
+  const { image, setImage, init } = useImagePikcer();
+  const [profileImageUrl, setProfileImageUrl] = useState(null);
 
-  // useEffect(() => {
-  //   init();
-  // }, []);
+  useEffect(() => {
+    const fetchProfileImage = async () => {
+      try {
+        const user = FIREBASE_AUTH.currentUser;
+        if (user) {
+          const url = await getImageFromStorage(user.email);
+          setProfileImageUrl(url);
+          console.log('Profile image URL:', url);
+        }
+      } catch (error) {
+        console.error('Error fetching profile image:', error);
+      }
+    };
+
+    fetchProfileImage();
+  }, []);
+
   return (
-    <SafeAreaView style={[containerStyle, {alignItems: 'center'}]}>
+    <SafeAreaView style={[containerStyle, { alignItems: 'center' }]}>
       {/* 헤더 */}
       <SubHeader title={'마이페이지'} />
-
       <Margin height={40} />
 
       {/* 프로필 섹션 */}
@@ -65,16 +79,16 @@ const MyPage = ({navigation}) => {
           shadow,
         ]}>
         {/* 재접을 해야만 반영이 됨 */}
-        {image ? (
-          <Image source={image} style={[styles.image]} />
+        {profileImageUrl ? (
+          <Image source={{ uri: profileImageUrl }} style={styles.image} />
         ) : (
           <View style={styles.noImage}>
             <Text>no image.</Text>
           </View>
         )}
 
-        <View style={{flexDirection: 'row', gap: 4}}>
-          <Text style={{fontSize: 24, color: Colors.black, fontWeight: 700}}>
+        <View style={{ flexDirection: 'row', gap: 4 }}>
+          <Text style={{ fontSize: 24, color: Colors.black, fontWeight: 700 }}>
             moko
           </Text>
           <TouchableOpacity onPress={() => navigation.navigate('EditProfile')}>
@@ -84,21 +98,18 @@ const MyPage = ({navigation}) => {
       </View>
 
       <Margin height={20} />
-      {/* 컨텐츠 섹션
-       * @todo - 텍스트를 이미지로 넣어야함.
-       *       - 로그아웃 파이어베이스와 연동
-       */}
-      <View style={{flexDirection: 'row'}}>
+      {/* 컨텐츠 섹션 */}
+      <View style={{ flexDirection: 'row' }}>
         <ContentsBox content={'돌림판'} />
         <ContentsBox content={'N빵'} />
         <ContentsBox content={'가계부'} />
       </View>
-      <View style={{flexDirection: 'row'}}>
+      <View style={{ flexDirection: 'row' }}>
         <ContentsBox />
         <ContentsBox />
         <ContentsBox />
       </View>
-      <View style={{flexDirection: 'row'}}>
+      <View style={{ flexDirection: 'row' }}>
         <ContentsBox />
         <ContentsBox />
         <ContentsBox content={'로그아웃'} />
@@ -109,7 +120,7 @@ const MyPage = ({navigation}) => {
         style={styles.box}
         onPress={() => navigation.navigate('LoginTab')}
       >
-        <Text style={{fontSize: 20}}>로그아웃</Text>
+        <Text style={{ fontSize: 20 }}>로그아웃</Text>
       </TouchableOpacity>
 
       {/* 스케줄 관리 섹션 */}

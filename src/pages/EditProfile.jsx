@@ -12,12 +12,12 @@ import {
 import Margin from '../components/Margin';
 import EditIcon from 'react-native-vector-icons/MaterialIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { uploadImageToStorage } from '../firebase/storage';
-import { useImagePikcer } from '../hook/use-image-picker';
+import {uploadImageToStorage} from '../firebase/storage';
+import {useImagePikcer} from '../hook/use-image-picker';
 import EditProfileModal from '../components/EditProfileModal';
-import { SCREEN_HEIGHT, SCREEN_WIDTH, containerStyle } from '../utils/utils';
+import {SCREEN_HEIGHT, SCREEN_WIDTH, containerStyle} from '../utils/utils';
 import BasicHeader from '../components/BasicHeader';
-import { Colors } from '../utils/Colors';
+import {Colors} from '../utils/Colors';
 
 export const profile_img = 150;
 
@@ -35,6 +35,7 @@ const EditProfile = ({ navigation }) => {
   const handleUploadImage = async (uri) => {
     try {
       const userEmail = await AsyncStorage.getItem('email'); // 이메일 주소 불러오기
+      const userName = await AsyncStorage.getItem('displayName'); // 사용자 이름 불러오기
       if (userEmail && uri) {
         const url = await uploadImageToStorage(uri, userEmail); // 이메일을 사용자 ID로 사용
         setImageUrl(url); // 업로드된 이미지 URL을 상태에 저장

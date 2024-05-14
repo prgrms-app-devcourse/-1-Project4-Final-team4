@@ -16,3 +16,14 @@ export const uploadImageToStorage = async (fileUri, userId) => {
     throw error;
   }
 };
+
+export const getImageFromStorage = async (userEmail) => {
+  try {
+    const imageRef = ref(FIREBASE_STORAGE, `profile_images/${userEmail}.jpg`);
+    const url = await getDownloadURL(imageRef);
+    return url;
+  } catch (error) {
+    console.error('Error getting profile image:', error);
+    throw error;
+  }
+};
