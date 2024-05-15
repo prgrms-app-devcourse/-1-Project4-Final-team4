@@ -26,11 +26,11 @@ const dummy_data = [
     id: 1,
     profile: profile,
     name: 'hyunjinab',
-    date: '2024.05.08. 16:15',
+    date: '20240508',
     image: [mainSample, mainSample, mainSample],
     category: ['#맛집', '#영화'],
     body: '부끄러운 맘이 숨은 멋진 밤에 별빛에 떨림을 더해 네게 질문을 던져 그러다가 맘을 들켜 너는 웃어',
-    likes: [5, 6],
+    likes: [5],
     commentList: [
       {
         id: 1,
@@ -50,7 +50,7 @@ const dummy_data = [
     id: 2,
     profile: profile1,
     name: 'lnxexu',
-    date: '2024.04.30. 11:44',
+    date: '20240505',
     image: [mainSample],
     category: ['#콘서트'],
     body: '부끄러운 맘이 숨은 멋진 밤에 별빛에 떨림을 더해 네게 질문을 던져 그러다가 맘을 들켜 너는 웃어',
@@ -80,11 +80,11 @@ const dummy_data = [
     id: 3,
     profile: profile2,
     name: '0ct0ber19',
-    date: '2024.05.05. 18:48',
+    date: '20240430',
     image: [mainSample, mainSample, mainSample, mainSample],
     category: ['#맛집', '#뮤지컬'],
     body: '부끄러운 맘이 숨은 멋진 밤에 별빛에 떨림을 더해 네게 질문을 던져 그러다가 맘을 들켜 너는 웃어',
-    likes: [8],
+    likes: [6, 8],
     commentList: [
       {
         id: 1,
@@ -96,13 +96,22 @@ const dummy_data = [
   },
 ];
 
-const sortList = [
-  {value: 'latest', name: '최신순'},
-  {value: 'likest', name: '추천순'},
-];
-
 const Community = ({navigation}) => {
   const [sortValue, setSortValue] = useState('latest');
+
+  const sortClick = value => {
+    setSortValue(value);
+
+    const compare = (a, b) => {
+      if (value === 'latest') {
+        return parseInt(b.date) - parseInt(a.date);
+      } else if (value === 'likest') {
+        return parseInt(b.likes.length) - parseInt(a.likes.length);
+      }
+    };
+
+    dummy_data.sort(compare);
+  };
 
   const renderFeed = ({item}) => {
     return (
@@ -123,22 +132,22 @@ const Community = ({navigation}) => {
         <SubHeader title={'커뮤니티'} />
 
         <View style={styles.sortWrapper}>
-          {sortList.map(item => {
-            return (
-              <TouchableOpacity
-                onPress={() => setSortValue(item.value)}
-                style={
-                  item.value === sortValue ? styles.buttonOn : styles.buttonOff
-                }>
-                <Text
-                  style={
-                    item.value === sortValue ? styles.textOn : styles.textOff
-                  }>
-                  {item.name}
-                </Text>
-              </TouchableOpacity>
-            );
-          })}
+          <TouchableOpacity
+            onPress={() => sortClick('latest')}
+            style={sortValue === 'latest' ? styles.buttonOn : styles.buttonOff}>
+            <Text
+              style={sortValue === 'latest' ? styles.textOn : styles.textOff}>
+              최신순
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => sortClick('likest')}
+            style={sortValue === 'likest' ? styles.buttonOn : styles.buttonOff}>
+            <Text
+              style={sortValue === 'likest' ? styles.textOn : styles.textOff}>
+              추천순
+            </Text>
+          </TouchableOpacity>
         </View>
 
         <FlatList
