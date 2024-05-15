@@ -17,54 +17,9 @@ import BasicHeader from '../components/BasicHeader';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Geolocation from 'react-native-geolocation-service';
-import {getLocation} from '../apis/place.js';
 import {getLocationContent} from '../apis/location.js';
 import {SCREEN_WIDTH, SCREEN_HEIGHT} from '../utils/utils';
-
-const dummyData = [
-  {
-    title: '산으로 간 고등어',
-    content1: '경기도 용인시 수지구 고기로 23+',
-    category: '음식점',
-    img: 'https://source.unsplash.com/random.jpg​',
-  },
-  {
-    title: '산으로 간 연어',
-    content1: '경기도 용인시 수지구 고기로 23+',
-    category: '음식점',
-    img: 'https://source.unsplash.com/random.jpg​',
-  },
-  {
-    title: '산으로 간 삼치',
-    content1: '경기도 용인시 수지구 고기로 23+',
-    category: '음식점',
-    img: 'https://source.unsplash.com/random.jpg​',
-  },
-  {
-    title: '산으로 간 삼치',
-    content1: '경기도 용인시 수지구 고기로 23+',
-    category: '음식점',
-    img: 'https://source.unsplash.com/random.jpg​',
-  },
-  {
-    title: '산으로 간 삼치',
-    content1: '경기도 용인시 수지구 고기로 23+',
-    category: '음식점',
-    img: 'https://source.unsplash.com/random.jpg​',
-  },
-  {
-    title: '산으로 간 삼치',
-    content1: '경기도 용인시 수지구 고기로 23+',
-    category: '음식점',
-    img: 'https://source.unsplash.com/random.jpg​',
-  },
-  {
-    title: '산으로 간 삼치',
-    content1: '경기도 용인시 수지구 고기로 23+',
-    category: '음식점',
-    img: 'https://source.unsplash.com/random.jpg​',
-  },
-];
+import Margin from '../components/Margin.jsx';
 
 const LocationSearchMap = ({navigation}) => {
   const [currentRegion, setcurrentRegion] = useState({
@@ -353,6 +308,7 @@ const LocationSearchMap = ({navigation}) => {
             />
           </View>
         </Animated.View>
+        <Margin height={70} />
       </View>
     </SafeAreaView>
   );
