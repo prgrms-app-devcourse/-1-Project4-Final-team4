@@ -15,26 +15,6 @@ const page = '1';
 // 지역코드 1 = 서울, 2 = 인천
 const area = '1';
 
-// 강남구, 강동구 등 구 출력 API
-export const getLocation = async () => {
-  try {
-    console.log(authKey);
-    const res = await placeAPI.get(
-      `/areaCode1?serviceKey=${authKey}&numOfRows=${row}&pageNo=${page}&MobileOS=${os}&MobileApp=${name}&areaCode=${area}&_type=json`,
-    );
-
-    if (res.ok) {
-      const {data} = res;
-      return data;
-    } else {
-      console.error('Error : ', res.problem);
-      return null;
-    }
-  } catch (error) {
-    console.error('Error : ', error);
-  }
-};
-
 // length가 2면 cat3는 안하고 cat1, cat2만 수행, length가 3이면 cat3까지 수행
 export const getPlace = async paramsArray => {
   try {
@@ -74,6 +54,24 @@ export const getPlace = async paramsArray => {
         console.error('Error : ', res.problem);
         return null;
       }
+    }
+  } catch (error) {
+    console.error('Error : ', error);
+  }
+};
+
+export const getPlaceDetail = async (typeid, contentid) => {
+  try {
+    const res = await placeAPI.get(
+      `/detailIntro1?serviceKey=${authKey}&MobileOS=${os}&MobileApp=${name}&contentId=${contentid}&contentTypeId=${typeid}&_type=json`,
+    );
+
+    if (res.ok) {
+      const {data} = res;
+      return data;
+    } else {
+      console.error('Error : ', res.problem);
+      return null;
     }
   } catch (error) {
     console.error('Error : ', error);

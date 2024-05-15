@@ -73,7 +73,6 @@ const ThemeSearch = () => {
       const res = await getMovie();
       if (res) {
         setMovieContentList(res.boxOfficeResult.dailyBoxOfficeList);
-        // console.log('Movie : ', res);
         return;
       }
     } catch (e) {
@@ -86,7 +85,6 @@ const ThemeSearch = () => {
     try {
       const res = await getShow();
       setShowContentList(res.boxofs.boxof);
-      // console.log('show : ', res.boxofs.boxof);
       return;
     } catch (e) {
       console.error(e);

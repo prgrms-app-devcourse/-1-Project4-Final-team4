@@ -14,10 +14,9 @@ const moviePosterAPI = create({
 
 const authKey = MOVIE_API_KEY;
 const today = new Date();
-const curDate = `${today.getFullYear()}${String(today.getMonth() + 1).padStart(
-  2,
-  '0',
-)}${String(today.getDate() - 1).padStart(2, '0')}`;
+export const curDate = `${today.getFullYear()}${String(
+  today.getMonth() + 1,
+).padStart(2, '0')}${String(today.getDate() - 1).padStart(2, '0')}`;
 
 export const getMovie = async () => {
   try {
@@ -43,7 +42,6 @@ export const getMoviePoster = async movieNm => {
     );
     if (res.ok) {
       const {data} = res;
-      console.log(res);
       return data;
     } else {
       console.error('Error : ', res.problem);
