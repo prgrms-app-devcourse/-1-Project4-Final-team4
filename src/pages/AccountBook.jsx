@@ -12,6 +12,7 @@ import BasicHeader from '../components/BasicHeader';
 import {SCREEN_WIDTH} from '../utils/utils';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LunchIcon from 'react-native-vector-icons/MaterialIcons';
+import ShoppingIcon from 'react-native-vector-icons/MaterialIcons';
 
 const AccountBook = ({navigation}) => {
   return (
@@ -39,16 +40,24 @@ const AccountBook = ({navigation}) => {
             <Icon name="music" size={55} color={Colors.grey} />
             <Text style={styles.contentText}>콘서트 0회</Text>
           </TouchableOpacity>
+          <TouchableOpacity style={styles.box} activeOpacity={0.7}>
+            <ShoppingIcon name="shopping-cart" size={55} color={Colors.grey} />
+            <Text style={styles.contentText}>쇼핑 1회</Text>
+          </TouchableOpacity>
         </View>
         {/* 두 번째 열 */}
         <View style={styles.boxWrapper}>
           <TouchableOpacity style={styles.box} activeOpacity={0.7}>
             <LunchIcon name="lunch-dining" size={55} color={Colors.grey} />
-            <Text style={styles.contentText}>맛집 3회</Text>
+            <Text style={styles.contentText}>식비 3회</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.box} activeOpacity={0.7}>
             <Icon name="bus" size={55} color={Colors.grey} />
             <Text style={styles.contentText}>교통비</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.box} activeOpacity={0.7}>
+            <Icon name="butterfly-outline" size={55} color={Colors.grey} />
+            <Text style={styles.contentText}>기타</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -77,13 +86,14 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 50,
-    borderBottomWidth: 15,
+    gap: 30,
+    borderBottomWidth: 10,
     borderColor: '#80D7CE',
+    backgroundColor: '#d9f3f1',
   },
   userNameText: {
     color: Colors.black,
-    fontSize: 28,
+    fontSize: 24,
     fontFamily: 'PretendardBold',
     textAlign: 'center',
   },
