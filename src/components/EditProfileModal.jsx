@@ -13,9 +13,9 @@ import { SCREEN_WIDTH } from '../utils/utils';
 import AddScheduleInput from './AddScheduleInput';
 import Margin from './Margin';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getAuth, updateProfile } from "firebase/auth";
+import {FIREBASE_AUTH, updateProfile} from '../firebase/firebase';
 
-const auth = getAuth();
+const auth = FIREBASE_AUTH;
 
 const EditProfileModal = ({ isVisible, setIsVisible }) => {
   const [input, setInput] = useState('');
@@ -40,11 +40,11 @@ const EditProfileModal = ({ isVisible, setIsVisible }) => {
       // 어싱크 스토리지에 사용자 이름 저장
       await AsyncStorage.setItem('userName', input);
 
-      Alert.alert('Success', 'User name has been updated successfully!');
+      Alert.alert('Success', '사용자 이름이 변경되었습니다.');
       setIsVisible(false); // 모달 닫기
     } catch (error) {
-      console.error('Failed to update user name:', error);
-      Alert.alert('Error', 'Failed to update user name');
+      console.error('사용자 이름 변경 실패:', error);
+      Alert.alert('Error', '사용자 이름 변경 실패');
     }
   };
 
