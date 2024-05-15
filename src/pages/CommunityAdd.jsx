@@ -17,8 +17,39 @@ import CategorySelectButton from '../components/CategorySelectButton';
 const cancel = require('../assets/icons/cancel.png');
 const camera = require('../assets/icons/camera.png');
 
+const categoryList = [
+  {
+    category: '맛집',
+    isSelect: 'false',
+  },
+  {
+    category: '영화',
+    isSelect: 'false',
+  },
+  {
+    category: '콘서트',
+    isSelect: 'false',
+  },
+  {
+    category: '뮤지컬',
+    isSelect: 'false',
+  },
+  {
+    category: '연극',
+    isSelect: 'false',
+  },
+];
+
 const CommunityAdd = ({navigation}) => {
   const [text, onChangeText] = useState('');
+
+  const categorySelect = categoryList.map((name, index) => (
+    <CategorySelectButton
+      name={name.category}
+      key={index}
+      isSelect={name.isSelect}
+    />
+  ));
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: Colors.background}}>
@@ -37,28 +68,23 @@ const CommunityAdd = ({navigation}) => {
             <Image source={camera} style={{width: 24, height: 24}} />
             <Text style={styles.photoText}>사진 추가</Text>
           </TouchableOpacity>
-          <View style={styles.categoryWrapper}>
-            <CategorySelectButton name={'맛집'} />
-            <CategorySelectButton name={'영화'} />
-            <CategorySelectButton name={'콘서트'} />
-            <CategorySelectButton name={'뮤지컬'} />
-            <CategorySelectButton name={'연극'} />
-          </View>
+          <View style={styles.categoryWrapper}>{categorySelect}</View>
           <View>
             <TextInput
               multiline
+              textAlignVertical="top"
               maxLength={1000}
-              placeholder="내용을 입력하세요."
+              placeholder="내용을 입력하세요. (1000자 이내)"
               placeholderTextColor={Colors.grey}
               autoCapitalize="none"
               spellCheck={false}
               autoCorrect={false}
               value={text}
               onChangeText={text => onChangeText(text)}
+              style={styles.textInput}
             />
           </View>
         </View>
-        <View style={styles.line} />
       </View>
     </SafeAreaView>
   );
@@ -94,11 +120,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 4,
   },
-  line: {
-    width: SCREEN_WIDTH,
-    height: 1,
+  textInput: {
+    width: SCREEN_WIDTH - 32,
+    height: 200,
+    padding: 16,
     backgroundColor: Colors.border_color,
-    marginVertical: 20,
+    borderRadius: 15,
   },
 });
 

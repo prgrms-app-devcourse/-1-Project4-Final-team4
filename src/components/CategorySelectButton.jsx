@@ -3,14 +3,16 @@ import {TouchableOpacity, Text, StyleSheet} from 'react-native';
 
 import {Colors} from '../utils/Colors';
 
-const CategorySelectButton = ({name}) => {
-  const [select, setSelect] = useState('false');
+const CategorySelectButton = ({name, key, isSelect}) => {
+  const [select, setSelect] = useState(isSelect);
 
   return (
     <TouchableOpacity
       style={select ? styles.buttonOff : styles.buttonOn}
       onPress={() => setSelect(!select)}>
-      <Text style={select ? styles.textOff : styles.textOn}>{name}</Text>
+      <Text style={select ? styles.textOff : styles.textOn} key={key}>
+        {name}
+      </Text>
     </TouchableOpacity>
   );
 };
