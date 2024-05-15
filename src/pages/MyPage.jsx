@@ -21,7 +21,8 @@ import ArrowRight from 'react-native-vector-icons/Entypo';
 
 const ContentsBox = ({onPress, iconName, text, fontAwesome6}) => {
   return (
-    <View
+    <TouchableOpacity
+      onPress={onPress}
       style={[
         {
           flexDirection: 'row',
@@ -49,10 +50,10 @@ const ContentsBox = ({onPress, iconName, text, fontAwesome6}) => {
         )}
         <Text style={{fontSize: 18}}>{text}</Text>
       </View>
-      <TouchableOpacity onPress={onPress}>
+      <View>
         <ArrowRight name="chevron-right" size={30} />
-      </TouchableOpacity>
-    </View>
+      </View>
+    </TouchableOpacity>
   );
 };
 
@@ -153,6 +154,13 @@ const MyPage = ({navigation}) => {
         iconName={'book'}
         onPress={onPressAccountBook}
         text={'가계부'}
+      />
+      <Margin height={20} />
+      <ContentsBox
+        fontAwesome6={true}
+        iconName={'gamepad'}
+        onPress={onPressAccountBook}
+        text={'돌림판'}
       />
       <Margin height={20} />
       <ContentsBox
