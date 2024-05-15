@@ -11,8 +11,8 @@ import {
 import Margin from '../components/Margin';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {uploadImageToStorage} from '../firebase/storage';
-import {useImagePikcer} from '../hook/use-image-picker';
+import { uploadImageToStorage } from '../firebase/storage';
+import { useImagePikcer } from '../hook/use-image-picker';
 import EditProfileModal from '../components/EditProfileModal';
 import {
   SCREEN_HEIGHT,
@@ -63,7 +63,28 @@ const EditProfile = ({navigation}) => {
   const {pickImage, image, removeImage} = useImagePikcer();
   const [isVisible, setIsVisible] = useState(false);
   const [imageUrl, setImageUrl] = useState(null);
+  const [userName, setUserName] = useState('');
   const [isEditEmailModal, setIsEditEmailModal] = useState(false);
+
+  useEffect(() => {
+    // Fetch userName from AsyncStorage
+    const fetchUserName = async () => {
+      try {
+        const name = await AsyncStorage.getItem('userName');
+        if (name) {
+          setUserName(name);
+        } else {
+          setUserName('사용자 이름'); // Fallback text if userName is not defined
+        }
+      } catch (error) {
+        console.error('Failed to fetch user name:', error);
+        setUserName('사용자 이름'); // Fallback text in case of error
+      }
+    };
+
+    fetchUserName();
+  }, []);
+
   useEffect(() => {
     if (image && image.uri) {
       handleUploadImage(image.uri);
@@ -73,12 +94,13 @@ const EditProfile = ({navigation}) => {
   const handleUploadImage = async uri => {
     try {
       const userEmail = await AsyncStorage.getItem('email'); // 이메일 주소 불러오기
-      const userName = await AsyncStorage.getItem('displayName'); // 사용자 이름 불러오기
+      const userName = await AsyncStorage.getItem('userName'); // 사용자 이름 불러오기
       if (userEmail && uri) {
         const url = await uploadImageToStorage(uri, userEmail); // 이메일을 사용자 ID로 사용
         setImageUrl(url); // 업로드된 이미지 URL을 상태에 저장
-        Alert.alert('업로드 성공', '이미지가 성공적으로 업로드되었습니다!');
+        // Alert.alert('업로드 성공', '이미지가 성공적으로 업로드되었습니다!');
         console.log('업로드 성공:', url);
+        console.log('사용자 이름:', userName);
       } else {
         Alert.alert('업로드 실패', '이메일 정보를 불러올 수 없습니다.');
       }
@@ -133,7 +155,7 @@ const EditProfile = ({navigation}) => {
         <EditContent
           iconName={'person'}
           text={'이름'}
-          content={'moko'}
+          content={userName}
           onPress={() => {
             const name = 'name';
             onPressEditProfileModal({name});
@@ -188,11 +210,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  name: {
+  nameContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
     alignSelf: 'center',
+  },
+  nameText: {
+    fontSize: 40,
   },
   imageEditButton: {
     position: 'absolute',

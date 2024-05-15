@@ -123,7 +123,7 @@ const MyPage = ({navigation}) => {
               color: Colors.black,
               fontFamily: 'PretendardBold',
             }}>
-            moko
+            {FIREBASE_AUTH.currentUser.displayName}
           </Text>
           <TouchableOpacity
             style={{

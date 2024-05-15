@@ -25,7 +25,7 @@ const Register = () => {
           displayName: usernameValue
         });
         Alert.alert('회원가입 성공', '가입된 이메일: ' + response.user.email);
-        navigation.replace('MainTab');
+        navigation.replace('LoginTab');
       }
     } catch (error) {
       console.error(error);
