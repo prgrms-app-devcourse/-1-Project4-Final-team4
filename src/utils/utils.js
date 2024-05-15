@@ -24,7 +24,7 @@ export const shadow = {
 };
 
 export const ITEM_WIDTH = 330;
-export const BOTTOM_HEIGHT = 15;
+export const BOTTOM_HEIGHT = 20;
 
 export const fillEmptyColumns = (columns, start, end) => {
   const filledColumns = columns.slice(0);
