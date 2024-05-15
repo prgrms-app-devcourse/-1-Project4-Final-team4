@@ -19,9 +19,6 @@ const likeOn = require('../assets/icons/likeOn.png');
 const comment = require('../assets/icons/comment.png');
 const cancel = require('../assets/icons/cancel.png');
 const send = require('../assets/icons/send.png');
-const mainSample = require('../assets/images/sample.png');
-
-const dummy_image = [mainSample, mainSample, mainSample];
 
 const CommunityArticle = ({data}) => {
   const [like, setLike] = useState(false);

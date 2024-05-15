@@ -171,7 +171,7 @@ const Community = ({navigation}) => {
 const styles = StyleSheet.create({
   windowWrapper: {
     flex: 1,
-    marginBottom: 50,
+    marginBottom: 70,
     backgroundColor: Colors.background,
   },
   sortWrapper: {
