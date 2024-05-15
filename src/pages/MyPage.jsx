@@ -95,7 +95,7 @@ const MyPage = ({ navigation }) => {
               color: Colors.black,
               fontFamily: 'PretendardBold',
             }}>
-            moko
+            {FIREBASE_AUTH.currentUser.displayName}
           </Text>
           <TouchableOpacity onPress={() => navigation.navigate('EditProfile')}>
             <EditIcon name="edit" color={'#aeaeae'} size={14} />
