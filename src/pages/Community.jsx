@@ -26,7 +26,7 @@ const dummy_data = [
     id: 1,
     profile: profile,
     name: 'hyunjinab',
-    date: '20240508',
+    date: '2024-05-08',
     image: [mainSample, mainSample, mainSample],
     category: ['#맛집', '#영화'],
     body: '부끄러운 맘이 숨은 멋진 밤에 별빛에 떨림을 더해 네게 질문을 던져 그러다가 맘을 들켜 너는 웃어',
@@ -50,7 +50,7 @@ const dummy_data = [
     id: 2,
     profile: profile1,
     name: 'lnxexu',
-    date: '20240505',
+    date: '2024-05-05',
     image: [mainSample],
     category: ['#콘서트'],
     body: '부끄러운 맘이 숨은 멋진 밤에 별빛에 떨림을 더해 네게 질문을 던져 그러다가 맘을 들켜 너는 웃어',
@@ -80,7 +80,7 @@ const dummy_data = [
     id: 3,
     profile: profile2,
     name: '0ct0ber19',
-    date: '20240430',
+    date: '2024-04-30',
     image: [mainSample, mainSample, mainSample, mainSample],
     category: ['#맛집', '#뮤지컬'],
     body: '부끄러운 맘이 숨은 멋진 밤에 별빛에 떨림을 더해 네게 질문을 던져 그러다가 맘을 들켜 너는 웃어',
@@ -104,7 +104,7 @@ const Community = ({navigation}) => {
 
     const compare = (a, b) => {
       if (value === 'latest') {
-        return parseInt(b.date) - parseInt(a.date);
+        return new Date(b.date) - new Date(a.date);
       } else if (value === 'likest') {
         return parseInt(b.likes.length) - parseInt(a.likes.length);
       }
