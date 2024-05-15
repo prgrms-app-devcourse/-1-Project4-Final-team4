@@ -19,7 +19,7 @@ import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Geolocation from 'react-native-geolocation-service';
 import {getLocation} from '../apis/place.js';
-import {getPlace} from '../apis/place.js';
+import {getLocationContent} from '../apis/location.js';
 
 const dummyData = [
   {
@@ -81,6 +81,46 @@ const LocationSearchMap = ({navigation}) => {
     longitudeDelta: 0.0421,
   });
 
+  const [locationContentList, setLocationContentList] = useState([]);
+
+  useEffect(() => {
+    fetchLocationContent(currentRegion.longitude, currentRegion.latitude);
+  }, []);
+
+  /* 변형 한 후 사용
+  const placeRenderItems = ({item, index}) => {
+    const backgroundImage = item.firstimage
+      ? {uri: item.firstimage}
+      : require('../assets/images/placeholder.jpg');
+    return (
+      // <TouchableOpacity onPress={() => navigation.navigate(item.navigateRoute)}>
+      <TouchableOpacity>
+        <ImageBackground
+          source={backgroundImage}
+          style={{width: 260, height: 264}}
+          imageStyle={{borderRadius: 8}}>
+          <View style={styles.placeContentContainer}>
+            <Text style={styles.placeTitle}>{item.title}</Text>
+            <Text style={styles.placeContent}>{item.addr1}</Text>
+          </View>
+        </ImageBackground>
+      </TouchableOpacity>
+    );
+  };*/
+
+  const fetchLocationContent = async (longitudeApi, latitudeApi) => {
+    try {
+      const res = await getLocationContent(longitudeApi, latitudeApi);
+      if (res) {
+        setLocationContentList(res.response.body.items.item);
+        console.log(res.response.body.items.item);
+        return;
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   // 현재 위치 권한 요청
   useEffect(() => {
     if (Platform.OS === 'android') {
@@ -130,6 +170,11 @@ const LocationSearchMap = ({navigation}) => {
 
   const handleLocationPress = region => {
     setSelectedLocation(region);
+    console.log(selectedLocation.coordinates);
+    fetchLocationContent(
+      selectedLocation.coordinates.longitude,
+      selectedLocation.coordinates.latitude,
+    );
     // 상단 모달 접기
     toggleTopHeight();
   };
@@ -261,6 +306,17 @@ const LocationSearchMap = ({navigation}) => {
         </MapView>
       </View>
       {/* 하단 모달 부분 */}
+      {/* 하단 출력 시 사용
+      <View>
+          <Text style={styles.listTitle}>영화 목록</Text>
+          <FlatList
+            keyExtractor={item => item.id}
+            data={movieContentList}
+            renderItem={renderMovieItem}
+            style={{height: '65%'}}
+          />
+        </View>
+      */}
       <View style={styles.bottomModalWrapper}>
         <Animated.View style={{height: modalHeight}}>
           <TouchableOpacity activeOpacity={1} onPress={toggleHeight}>
