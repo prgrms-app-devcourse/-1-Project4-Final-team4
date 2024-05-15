@@ -13,7 +13,7 @@ import AddScheduleInput from './AddScheduleInput';
 import dayjs from 'dayjs';
 import Margin from './Margin';
 
-const EditProfileModal = ({isVisible, setIsVisible}) => {
+const EditEmailModal = ({isVisible, setIsVisible}) => {
   const [input, setInput] = useState('');
   const resetInput = () => setInput('');
   const onSubmitEditing = () => {
@@ -94,4 +94,4 @@ const EditProfileModal = ({isVisible, setIsVisible}) => {
     </SafeAreaView>
   );
 };
-export default EditProfileModal;
+export default EditEmailModal;
