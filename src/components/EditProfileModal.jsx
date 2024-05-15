@@ -1,27 +1,53 @@
 import Modal from 'react-native-modal';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   Keyboard,
   SafeAreaView,
   Text,
   TouchableOpacity,
   View,
+  Alert,
 } from 'react-native';
-import {Colors} from '../utils/Colors';
-import {SCREEN_WIDTH} from '../utils/utils';
+import { Colors } from '../utils/Colors';
+import { SCREEN_WIDTH } from '../utils/utils';
 import AddScheduleInput from './AddScheduleInput';
-import dayjs from 'dayjs';
 import Margin from './Margin';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getAuth, updateProfile } from "firebase/auth";
 
-const EditProfileModal = ({isVisible, setIsVisible}) => {
+const auth = getAuth();
+
+const EditProfileModal = ({ isVisible, setIsVisible }) => {
   const [input, setInput] = useState('');
+
   const resetInput = () => setInput('');
+
   const onSubmitEditing = () => {
     resetInput();
   };
-  const onPressEditNameButton = () => {
-    // 파이어베이스 스토리지의 회원 정보 수정
+
+  const onPressEditNameButton = async () => {
+    try {
+      const userEmail = await AsyncStorage.getItem('email');
+      if (!userEmail) {
+        Alert.alert('Error', 'Unable to fetch user email');
+        return;
+      }
+      // firebase auth에 사용자 이름 업데이트
+      updateProfile(auth.currentUser, {
+        displayName: input,
+      });
+      // 어싱크 스토리지에 사용자 이름 저장
+      await AsyncStorage.setItem('userName', input);
+
+      Alert.alert('Success', 'User name has been updated successfully!');
+      setIsVisible(false); // 모달 닫기
+    } catch (error) {
+      console.error('Failed to update user name:', error);
+      Alert.alert('Error', 'Failed to update user name');
+    }
   };
+
   return (
     <SafeAreaView>
       <Modal
@@ -94,4 +120,5 @@ const EditProfileModal = ({isVisible, setIsVisible}) => {
     </SafeAreaView>
   );
 };
+
 export default EditProfileModal;
