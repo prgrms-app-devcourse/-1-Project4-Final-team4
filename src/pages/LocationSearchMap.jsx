@@ -86,7 +86,6 @@ const LocationSearchMap = ({navigation}) => {
       const res = await getLocationContent(longitudeApi, latitudeApi);
       if (res) {
         setLocationContentList(res.response.body.items.item);
-        console.log(res.response.body.items.item);
         return;
       }
     } catch (e) {
@@ -144,7 +143,6 @@ const LocationSearchMap = ({navigation}) => {
   const handleLocationPress = region => {
     setSelectedLocation(region);
     setLocationName(region.name);
-    // console.log(selectedLocation.coordinates);
     fetchLocationContent(
       region.coordinates.longitude,
       region.coordinates.latitude,
