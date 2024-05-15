@@ -25,6 +25,7 @@ import {Colors} from '../utils/Colors';
 import EditIcon from 'react-native-vector-icons/MaterialIcons';
 import Trash from 'react-native-vector-icons/FontAwesome6';
 import Person from 'react-native-vector-icons/Ionicons';
+import { set } from 'firebase/database';
 
 export const profile_img = 150;
 
@@ -64,6 +65,7 @@ const EditProfile = ({navigation}) => {
   const [isVisible, setIsVisible] = useState(false);
   const [imageUrl, setImageUrl] = useState(null);
   const [userName, setUserName] = useState('');
+  const [userEmail, setUserEmail] = useState('');
   const [isEditEmailModal, setIsEditEmailModal] = useState(false);
 
   useEffect(() => {
@@ -71,14 +73,16 @@ const EditProfile = ({navigation}) => {
     const fetchUserName = async () => {
       try {
         const name = await AsyncStorage.getItem('userName');
+        const email = await AsyncStorage.getItem('email');
         if (name) {
           setUserName(name);
+          setUserEmail(email);
         } else {
-          setUserName('사용자 이름'); // Fallback text if userName is not defined
+          setUserName('사용자 이름'); 
         }
       } catch (error) {
-        console.error('Failed to fetch user name:', error);
-        setUserName('사용자 이름'); // Fallback text in case of error
+        console.error('Failed to fetch user name & email:', error);
+        setUserName('사용자 이름'); 
       }
     };
 
@@ -94,13 +98,13 @@ const EditProfile = ({navigation}) => {
   const handleUploadImage = async uri => {
     try {
       const userEmail = await AsyncStorage.getItem('email'); // 이메일 주소 불러오기
-      const userName = await AsyncStorage.getItem('userName'); // 사용자 이름 불러오기
       if (userEmail && uri) {
         const url = await uploadImageToStorage(uri, userEmail); // 이메일을 사용자 ID로 사용
         setImageUrl(url); // 업로드된 이미지 URL을 상태에 저장
         // Alert.alert('업로드 성공', '이미지가 성공적으로 업로드되었습니다!');
         console.log('업로드 성공:', url);
         console.log('사용자 이름:', userName);
+        console.log('사용자 이메일:', userEmail);
       } else {
         Alert.alert('업로드 실패', '이메일 정보를 불러올 수 없습니다.');
       }
@@ -166,7 +170,7 @@ const EditProfile = ({navigation}) => {
         <EditContent
           iconName={'at'}
           text={'이메일'}
-          content={'asf@naver.com'}
+          content={userEmail}
         />
       </View>
       <EditProfileModal isVisible={isVisible} setIsVisible={setIsVisible} />
