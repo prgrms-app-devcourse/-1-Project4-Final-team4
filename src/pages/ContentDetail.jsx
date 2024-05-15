@@ -13,7 +13,6 @@ import {getPlaceDetail} from '../apis/place';
 
 const ContentDetail = ({route}) => {
   const {item, type} = route.params;
-  console.log('Detail: ', item);
   const [detailContent, setDetailContent] = useState([]);
 
   useEffect(() => {
