@@ -21,33 +21,15 @@ import ArrowRight from 'react-native-vector-icons/Entypo';
 
 const ContentsBox = ({onPress, iconName, text, fontAwesome6}) => {
   return (
-    <TouchableOpacity
-      onPress={onPress}
-      style={[
-        {
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          width: SCREEN_WIDTH - 40,
-          paddingHorizontal: 16,
-          paddingVertical: 20,
-          backgroundColor: Colors.background,
-          borderRadius: 12,
-        },
-        shadow,
-      ]}>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          gap: 8,
-          paddingHorizontal: 8,
-        }}>
-        {fontAwesome6 ? (
-          <FontAwesome6 name={iconName} size={30} />
-        ) : (
-          <AntDesign name={iconName} size={30} />
-        )}
+    <TouchableOpacity onPress={onPress} style={[styles.contentWrapper, shadow]}>
+      <View style={styles.iconImgWrapper}>
+        <View style={{width: 40, alignItems: 'center'}}>
+          {fontAwesome6 ? (
+            <FontAwesome6 name={iconName} size={30} />
+          ) : (
+            <AntDesign name={iconName} size={30} />
+          )}
+        </View>
         <Text style={{fontSize: 18}}>{text}</Text>
       </View>
       <View>
@@ -87,6 +69,7 @@ const MyPage = ({navigation}) => {
     // 가계부로 기동
     //navigation.navigate('');
   };
+  const moveToHelpPage = () => navigation.navigate('Help');
   return (
     <SafeAreaView style={[containerStyle, {alignItems: 'center'}]}>
       {/* 헤더 */}
@@ -94,19 +77,7 @@ const MyPage = ({navigation}) => {
       <Margin height={40} />
 
       {/* 프로필 섹션 */}
-      <View
-        style={[
-          {
-            width: SCREEN_WIDTH - 40,
-            height: 150,
-            backgroundColor: Colors.background,
-            borderRadius: 8,
-            padding: 20,
-            flexDirection: 'row',
-            gap: 20,
-          },
-          shadow,
-        ]}>
+      <View style={[styles.profileWrapper, shadow]}>
         {/* 재접을 해야만 반영이 됨 */}
         {profileImageUrl ? (
           <Image source={{uri: profileImageUrl}} style={styles.image} />
@@ -117,24 +88,10 @@ const MyPage = ({navigation}) => {
         )}
 
         <View style={{gap: 4}}>
-          <Text
-            style={{
-              fontSize: 24,
-              color: Colors.black,
-              fontFamily: 'PretendardBold',
-            }}>
+          <Text style={styles.profileUserName}>
             {FIREBASE_AUTH.currentUser.displayName}
           </Text>
-          <TouchableOpacity
-            style={{
-              flexDirection: 'row',
-              borderWidth: 0.5,
-              padding: 5,
-              borderRadius: 12,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-            onPress={moveToEditPage}>
+          <TouchableOpacity style={styles.manageBtn} onPress={moveToEditPage}>
             <Text>정보 관리</Text>
             <EditIcon name="edit" color={'#aeaeae'} size={14} />
           </TouchableOpacity>
@@ -162,6 +119,14 @@ const MyPage = ({navigation}) => {
         onPress={onPressAccountBook}
         text={'돌림판'}
       />
+      {/* 도움말 섹션 */}
+      <Margin height={20} />
+      <ContentsBox
+        fontAwesome6={true}
+        iconName={'question'}
+        onPress={moveToHelpPage}
+        text={'도움말'}
+      />
       <Margin height={20} />
       <ContentsBox
         fontAwesome6={false}
@@ -176,7 +141,16 @@ const MyPage = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
-  profile: {},
+  contentWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: SCREEN_WIDTH - 40,
+    paddingHorizontal: 16,
+    paddingVertical: 20,
+    backgroundColor: Colors.background,
+    borderRadius: 12,
+  },
   image: {
     width: 150,
     height: 150,
@@ -195,6 +169,35 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.grey,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  profileWrapper: {
+    width: SCREEN_WIDTH - 40,
+    height: 150,
+    backgroundColor: Colors.background,
+    borderRadius: 8,
+    padding: 20,
+    flexDirection: 'row',
+    gap: 20,
+  },
+  profileUserName: {
+    fontSize: 24,
+    color: Colors.black,
+    fontFamily: 'PretendardBold',
+  },
+  iconImgWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    paddingHorizontal: 8,
+  },
+  manageBtn: {
+    flexDirection: 'row',
+    borderWidth: 0.5,
+    padding: 5,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingBottom: 9,
   },
 });
 

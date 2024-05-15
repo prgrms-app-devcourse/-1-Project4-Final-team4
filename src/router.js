@@ -16,6 +16,7 @@ import ContentDetail from './pages/ContentDetail';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Article from './pages/Article';
+import Help from './pages/Help';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -36,21 +37,8 @@ const LoginTab = () => {
     </Stack.Navigator>
   );
 };
-// main탭에서 추천 컨텐츠 전체보기로 들어가는 페이지
-// const ArticleTab = () => {
-//   return (
-//     <Stack.Navigator
-//       screenOptions={{
-//         headerShown: false,
-//       }}>
-//       <Stack.Screen name="Article" component={Article} />
-//       <Stack.Screen name="ArticleDetail" component={ArticleDetail} />
-//     </Stack.Navigator>
-//   );
-// };
 
 // 홈 , 검색 , 커뮤니티 , 도구 , 마이페이지
-
 const MainTab = () => {
   return (
     <Tab.Navigator
@@ -75,10 +63,12 @@ const Router = () => {
       <Stack.Screen name="Splash" component={Splash} />
       <Stack.Screen name="LoginTab" component={LoginTab} />
       <Stack.Screen name="MainTab" component={MainTab} />
+      <Stack.Screen name="Article" component={Article} />
       <Stack.Screen name="LocationSearchMap" component={LocationSearchMap} />
       <Stack.Screen name="ThemeSearch" component={ThemeSearch} />
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
       <Stack.Screen name="EditProfile" component={EditProfile} />
+      <Stack.Screen name="Help" component={Help} />
       <Stack.Screen name="CommunityAdd" component={CommunityAdd} />
       <Stack.Screen name="ContentDetail" component={ContentDetail} />
     </Stack.Navigator>
