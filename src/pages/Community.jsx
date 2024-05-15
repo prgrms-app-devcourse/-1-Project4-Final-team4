@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -12,7 +12,6 @@ import {
 import {Colors} from '../utils/Colors';
 import {SCREEN_WIDTH} from '../utils/utils';
 
-import SortButton from '../components/SortButton';
 import CommunityArticle from '../components/CommunityArticle';
 import SubHeader from '../components/SubHeader';
 
@@ -97,7 +96,14 @@ const dummy_data = [
   },
 ];
 
+const sortList = [
+  {value: 'latest', name: '최신순'},
+  {value: 'likest', name: '추천순'},
+];
+
 const Community = ({navigation}) => {
+  const [sortValue, setSortValue] = useState('latest');
+
   const renderFeed = ({item}) => {
     return (
       <View style={{flex: 1, marginBottom: 16}}>
@@ -115,9 +121,24 @@ const Community = ({navigation}) => {
           barStyle="dark-content"
         />
         <SubHeader title={'커뮤니티'} />
+
         <View style={styles.sortWrapper}>
-          <SortButton name={'최신순'} />
-          <SortButton name={'추천순'} />
+          {sortList.map(item => {
+            return (
+              <TouchableOpacity
+                onPress={() => setSortValue(item.value)}
+                style={
+                  item.value === sortValue ? styles.buttonOn : styles.buttonOff
+                }>
+                <Text
+                  style={
+                    item.value === sortValue ? styles.textOn : styles.textOff
+                  }>
+                  {item.name}
+                </Text>
+              </TouchableOpacity>
+            );
+          })}
         </View>
 
         <FlatList
@@ -150,6 +171,36 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     marginBottom: 8,
     gap: 4,
+  },
+  buttonOn: {
+    width: 50,
+    height: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 15,
+    backgroundColor: Colors.grey,
+  },
+  buttonOff: {
+    width: 50,
+    height: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 15,
+    backgroundColor: Colors.background,
+    borderWidth: 1,
+    borderColor: Colors.grey,
+  },
+  textOn: {
+    fontFamily: 'Pretendard',
+    fontSize: 12,
+    color: Colors.white,
+    lineHeight: 24,
+  },
+  textOff: {
+    fontFamily: 'Pretendard',
+    fontSize: 12,
+    color: Colors.grey,
+    lineHeight: 24,
   },
   line: {
     width: SCREEN_WIDTH,
