@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Image,
   SafeAreaView,
@@ -16,7 +16,7 @@ import EditIcon from 'react-native-vector-icons/MaterialIcons';
 import {FIREBASE_AUTH} from '../firebase/firebase';
 import {getImageFromStorage} from '../firebase/storage';
 
-const ContentsBox = ({ content, onPress }) => {
+const ContentsBox = ({content, onPress}) => {
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -37,8 +37,8 @@ const ContentsBox = ({ content, onPress }) => {
   );
 };
 
-const MyPage = ({ navigation }) => {
-  const { image, setImage, init } = useImagePikcer();
+const MyPage = ({navigation}) => {
+  const {image, setImage, init} = useImagePikcer();
   const [profileImageUrl, setProfileImageUrl] = useState(null);
 
   useEffect(() => {
@@ -59,7 +59,7 @@ const MyPage = ({ navigation }) => {
   }, []);
 
   return (
-    <SafeAreaView style={[containerStyle, { alignItems: 'center' }]}>
+    <SafeAreaView style={[containerStyle, {alignItems: 'center'}]}>
       {/* 헤더 */}
       <SubHeader title={'마이페이지'} />
       <Margin height={40} />
@@ -80,13 +80,12 @@ const MyPage = ({ navigation }) => {
         ]}>
         {/* 재접을 해야만 반영이 됨 */}
         {profileImageUrl ? (
-          <Image source={{ uri: profileImageUrl }} style={styles.image} />
+          <Image source={{uri: profileImageUrl}} style={styles.image} />
         ) : (
           <View style={styles.noImage}>
             <Text>no image.</Text>
           </View>
         )}
-
 
         <View style={{flexDirection: 'row', gap: 4}}>
           <Text
@@ -105,23 +104,17 @@ const MyPage = ({ navigation }) => {
 
       <Margin height={20} />
       {/* 컨텐츠 섹션 */}
-      <View style={{ flexDirection: 'row' }}>
+      <View style={{flexDirection: 'row'}}>
         <ContentsBox content={'돌림판'} />
-        <ContentsBox
-          content={'N빵'}
-          onPress={() => navigation.navigate('Division')}
-        />
-        <ContentsBox
-          content={'가계부'}
-          onPress={() => navigation.navigate('AccountBook')}
-        />
+        <ContentsBox content={'N빵'} />
+        <ContentsBox content={'가계부'} />
       </View>
-      <View style={{ flexDirection: 'row' }}>
+      <View style={{flexDirection: 'row'}}>
         <ContentsBox />
         <ContentsBox />
         <ContentsBox />
       </View>
-      <View style={{ flexDirection: 'row' }}>
+      <View style={{flexDirection: 'row'}}>
         <ContentsBox />
         <ContentsBox />
         <ContentsBox content={'로그아웃'} />
