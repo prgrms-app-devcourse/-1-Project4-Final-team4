@@ -7,6 +7,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   Alert,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from 'react-native';
 import BasicHeader from '../components/BasicHeader.jsx';
 import {Colors} from '../utils/Colors.js';
@@ -18,16 +20,12 @@ const Division = () => {
   const [resultNum, setResultNum] = useState(null); // 결과값
   const [adjustment, setAdjustment] = useState(null); // 남은값 한명 몰아주기
 
-  // 금액을 천원 구분하여 출력 (한국 기준!)
+  // 금액을 천원 단위로 구분하여 출력 (한국 기준!)
   const formatNumber = number => {
     if (number === null || number === undefined) {
       return '0';
     }
     return number.toLocaleString('ko-KR', {maximumFractionDigits: 0});
-  };
-
-  const parseInput = input => {
-    return parseInt(input.replace(/,/g, ''), 10);
   };
 
   const calculatorHandle = () => {
@@ -51,6 +49,7 @@ const Division = () => {
     setAdjustment(remainder > 0 ? adjustedCost : null);
   };
 
+  // 리셋버튼
   const resetButton = () => {
     setTotalNum(null);
     setPersonNum(null);
@@ -59,60 +58,67 @@ const Division = () => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
-      <BasicHeader isBackButton={true} title={'더치페이'} />
-      <View style={styles.TextInContainer}>
-        <Text style={{fontFamily: 'PretendardBold', fontSize: 20}}>
-          더치페이 계산기!
-        </Text>
-        <View style={{alignItems: 'flex-end', gap: 17}}>
-          <View style={styles.TextInWrapper}>
-            <Text style={styles.InputText}>총 비용을 알려주세요!</Text>
-            <TextInput
-              keyboardType="number-pad"
-              style={styles.TextIn}
-              placeholder="터치해주세요!"
-              value={totalNum}
-              onChangeText={setTotalNum}
-            />
-          </View>
-          <View style={styles.TextInWrapper}>
-            <Text style={styles.InputText}>몇 명이신가요?</Text>
-            <TextInput
-              keyboardType="number-pad"
-              style={styles.PersonTextIn}
-              placeholder="터치!"
-              value={personNum}
-              onChangeText={setPersonNum}
-            />
-          </View>
-          <View style={styles.ResultTextInWrapper}>
-            <Text style={styles.ResultInputText}>1인당 비용 :</Text>
-            <Text style={styles.ResultInputText}>
-              {formatNumber(resultNum)} 원
-            </Text>
-          </View>
-          <View>
-            {adjustment && (
-              <Text style={styles.PlusResultText}>
-                * 한 명은 {formatNumber(adjustment)} 원을 내야 합니다.
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <SafeAreaView style={{flex: 1, backgroundColor: Colors.background}}>
+        <BasicHeader isBackButton={true} title={'더치페이'} />
+        <View style={styles.TextInContainer}>
+          <Text
+            style={{
+              fontFamily: 'PretendardBold',
+              fontSize: 20,
+              color: Colors.black,
+            }}>
+            더치페이 계산기
+          </Text>
+          <View style={{alignItems: 'flex-end', gap: 18}}>
+            <View style={styles.TextInWrapper}>
+              <Text style={styles.InputText}>총 비용을 알려주세요!</Text>
+              <TextInput
+                keyboardType="number-pad"
+                style={styles.TextIn}
+                placeholder="터치해주세요!"
+                value={totalNum}
+                onChangeText={setTotalNum}
+              />
+            </View>
+            <View style={styles.TextInWrapper}>
+              <Text style={styles.InputText}>몇 명이신가요?</Text>
+              <TextInput
+                keyboardType="number-pad"
+                style={styles.PersonTextIn}
+                placeholder="터치!"
+                value={personNum}
+                onChangeText={setPersonNum}
+              />
+            </View>
+            <View style={styles.ResultTextInWrapper}>
+              <Text style={styles.ResultInputText}>1인당 비용 :</Text>
+              <Text style={styles.ResultInputText}>
+                {formatNumber(resultNum)} 원
               </Text>
-            )}
+            </View>
+            <View>
+              {adjustment && (
+                <Text style={styles.PlusResultText}>
+                  * 한 명은 {formatNumber(adjustment)} 원을 내야 합니다.
+                </Text>
+              )}
+            </View>
+          </View>
+
+          <View style={{flexDirection: 'row', gap: 18}}>
+            <TouchableOpacity onPress={resetButton} style={styles.ResultButton}>
+              <Text style={styles.ResultText}>리셋!</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={calculatorHandle}
+              style={styles.ResultButton}>
+              <Text style={styles.ResultText}>계산하기!</Text>
+            </TouchableOpacity>
           </View>
         </View>
-
-        <View style={{flexDirection: 'row', gap: 18}}>
-          <TouchableOpacity onPress={resetButton} style={styles.ResultButton}>
-            <Text style={styles.ResultText}>리셋!</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={calculatorHandle}
-            style={styles.ResultButton}>
-            <Text style={styles.ResultText}>계산하기!</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -134,17 +140,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 15,
+    gap: 10,
   },
   ResultTextInWrapper: {
     flexDirection: 'row',
     gap: 15,
-    borderWidth: 3,
-    width: 200,
-    height: 45,
-    backgroundColor: 'white',
-    borderRadius: 10,
-    borderColor: Colors.mint,
+    height: 40,
+    // backgroundColor: 'white',
+    borderBottomWidth: 1,
+    borderColor: '#4F97A3',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -158,6 +162,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     fontFamily: 'Pretendard',
     fontSize: 15,
+    borderBottomWidth: 3,
+    borderEndWidth: 3,
+    borderColor: Colors.mint,
   },
   PersonTextIn: {
     width: 60,
@@ -168,8 +175,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     justifyContent: 'center',
     alignItems: 'center',
+    fontSize: 15,
+    borderBottomWidth: 3,
+    borderEndWidth: 3,
+    borderColor: Colors.mint,
   },
-  InputText: {fontFamily: 'PretendardMedium', fontSize: 15},
+  InputText: {fontFamily: 'PretendardMedium', fontSize: 15, color: '#333333'},
   ResultInputText: {
     fontFamily: 'PretendardBold',
     fontSize: 18,
@@ -191,7 +202,7 @@ const styles = StyleSheet.create({
     borderEndWidth: 3,
     borderColor: Colors.mint,
   },
-  ResultText: {fontFamily: 'PretendardBold', fontSize: 20},
+  ResultText: {fontFamily: 'PretendardBold', fontSize: 20, color: '#333333'},
   PlusResultText: {
     fontFamily: 'PretendardBold',
     fontSize: 15,
