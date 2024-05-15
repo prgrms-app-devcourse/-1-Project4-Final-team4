@@ -18,7 +18,6 @@ const area = '1';
 // 강남구, 강동구 등 구 출력 API
 export const getLocation = async () => {
   try {
-    console.log(authKey);
     const res = await placeAPI.get(
       `/areaCode1?serviceKey=${authKey}&numOfRows=${row}&pageNo=${page}&MobileOS=${os}&MobileApp=${name}&areaCode=${area}&_type=json`,
     );
@@ -74,6 +73,24 @@ export const getPlace = async paramsArray => {
         console.error('Error : ', res.problem);
         return null;
       }
+    }
+  } catch (error) {
+    console.error('Error : ', error);
+  }
+};
+
+export const getPlaceDetail = async (typeid, contentid) => {
+  try {
+    const res = await placeAPI.get(
+      `/detailIntro1?serviceKey=${authKey}&MobileOS=${os}&MobileApp=${name}&contentId=${contentid}&contentTypeId=${typeid}&_type=json`,
+    );
+
+    if (res.ok) {
+      const {data} = res;
+      return data;
+    } else {
+      console.error('Error : ', res.problem);
+      return null;
     }
   } catch (error) {
     console.error('Error : ', error);

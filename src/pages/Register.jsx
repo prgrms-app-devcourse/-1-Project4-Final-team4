@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import { View, Image, TextInput, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { FIREBASE_AUTH } from '../firebase';
+import { FIREBASE_AUTH } from '../firebase/firebase';
 import logo_fullname from '../assets/icons/logo_fullname.png';
-import google from '../assets/icons/google.png';
-import facebook from '../assets/icons/facebook.png';
 
 const Register = () => {
   const [usernameValue, setUsernameValue] = useState('');

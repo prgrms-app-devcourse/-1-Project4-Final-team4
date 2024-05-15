@@ -83,7 +83,7 @@ const CustomBottomTab = ({state, navigation, insets, descriptors}) => {
             key={index}
             activeOpacity={0.7}
             onPress={onPress}
-            style={{flex: 1, alignItems: 'center'}}>
+            style={styles.bottomIconWrapper}>
             {iconFlag(label)}
           </TouchableOpacity>
         );
@@ -98,14 +98,19 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     justifyContent: 'space-between',
-    borderStyle: 'solid',
     borderTopWidth: 0.5,
     borderLeftWidth: 0.5,
     borderRightWidth: 0.5,
     borderColor: Colors.main,
-    backgroundColor: '#fff',
+    backgroundColor: Colors.white,
     paddingTop: BOTTOM_HEIGHT,
     zIndex: 10,
+  },
+  bottomIconWrapper: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingBottom: 20,
   },
 });
 

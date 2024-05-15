@@ -11,7 +11,7 @@ const Splash = ({navigation}) => {
     const interval = setInterval(() => {
       if (index === phrases.length) {
         clearInterval(interval);
-        setTimeout(() => navigation.replace('MainTab'), 1000);
+        setTimeout(() => navigation.replace('LoginTab'), 1000);
       } else {
         const modifiedPhrases = phrases[index].split('').map((char, i) => (
           <Text key={i} style={styles.text}>

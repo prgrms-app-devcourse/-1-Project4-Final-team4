@@ -12,8 +12,10 @@ import LocationSearchMap from './pages/LocationSearchMap';
 import ThemeSearch from './pages/ThemeSearch';
 import EditProfile from './pages/EditProfile';
 import CommunityAdd from './pages/CommunityAdd';
-// import Register from './pages/Register';
-// import Login from './pages/Login';
+import ContentDetail from './pages/ContentDetail';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Article from './pages/Article';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -21,7 +23,34 @@ const Tab = createBottomTabNavigator();
 // 바텀탭
 const renderBottomBar = props => <CustomBottomTab {...props} />;
 
-// 홈 , 커뮤니티 , 도구 , 마이페이지
+// login 탭 (로그인, 회원가입, 도움말 페이지)
+const LoginTab = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Register" component={Register} />
+      <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+    </Stack.Navigator>
+  );
+};
+// main탭에서 추천 컨텐츠 전체보기로 들어가는 페이지
+// const ArticleTab = () => {
+//   return (
+//     <Stack.Navigator
+//       screenOptions={{
+//         headerShown: false,
+//       }}>
+//       <Stack.Screen name="Article" component={Article} />
+//       <Stack.Screen name="ArticleDetail" component={ArticleDetail} />
+//     </Stack.Navigator>
+//   );
+// };
+
+// 홈 , 검색 , 커뮤니티 , 도구 , 마이페이지
+
 const MainTab = () => {
   return (
     <Tab.Navigator
@@ -44,14 +73,14 @@ const Router = () => {
         headerShown: false,
       }}>
       <Stack.Screen name="Splash" component={Splash} />
+      <Stack.Screen name="LoginTab" component={LoginTab} />
       <Stack.Screen name="MainTab" component={MainTab} />
-      {/* <Stack.Screen name="Login" component={Login} /> */}
-      {/* <Stack.Screen name="Register" component={Register} /> */}
       <Stack.Screen name="LocationSearchMap" component={LocationSearchMap} />
       <Stack.Screen name="ThemeSearch" component={ThemeSearch} />
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
       <Stack.Screen name="EditProfile" component={EditProfile} />
       <Stack.Screen name="CommunityAdd" component={CommunityAdd} />
+      <Stack.Screen name="ContentDetail" component={ContentDetail} />
     </Stack.Navigator>
   );
 };
