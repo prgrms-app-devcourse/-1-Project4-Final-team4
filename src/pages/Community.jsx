@@ -5,22 +5,22 @@ import {
   SafeAreaView,
   StatusBar,
   StyleSheet,
-  Dimensions,
   FlatList,
   TouchableOpacity,
 } from 'react-native';
 
 import {Colors} from '../utils/Colors';
-import CommunityButton from '../components/CommunityButton';
+import {SCREEN_WIDTH} from '../utils/utils';
+
+import SortButton from '../components/SortButton';
 import CommunityArticle from '../components/CommunityArticle';
+import SubHeader from '../components/SubHeader';
 
 const profile = require('../assets/images/dummyProfile.jpg');
 const profile1 = require('../assets/images/profile1.png');
 const profile2 = require('../assets/images/profile2.jpg');
 const profile3 = require('../assets/images/profile3.jpg');
 const mainSample = require('../assets/images/sample.png');
-
-const {width} = Dimensions.get('window');
 
 const dummy_data = [
   {
@@ -108,15 +108,16 @@ const Community = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: Colors.background}}>
+    <SafeAreaView style={styles.windowWrapper}>
       <View style={{flex: 1}}>
         <StatusBar
           backgroundColor={Colors.background}
           barStyle="dark-content"
         />
+        <SubHeader title={'커뮤니티'} />
         <View style={styles.sortWrapper}>
-          <CommunityButton name={'최신순'} />
-          <CommunityButton name={'추천순'} />
+          <SortButton name={'최신순'} />
+          <SortButton name={'추천순'} />
         </View>
 
         <FlatList
@@ -138,17 +139,23 @@ const Community = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
+  windowWrapper: {
+    flex: 1,
+    marginBottom: 50,
+    backgroundColor: Colors.background,
+  },
   sortWrapper: {
     flexDirection: 'row',
+    justifyContent: 'flex-end',
     marginHorizontal: 16,
-    marginVertical: 10,
+    marginBottom: 8,
     gap: 4,
   },
   line: {
-    width,
+    width: SCREEN_WIDTH,
     height: 1,
-    backgroundColor: '#EEE',
-    marginVertical: 20,
+    backgroundColor: Colors.border_color,
+    marginBottom: 20,
   },
   addButton: {
     position: 'absolute',
@@ -161,10 +168,10 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.main,
   },
   addIcon: {
-    fontFamily: 'Pretendard-Regular',
+    fontFamily: 'Pretendard',
     fontSize: 50,
     lineHeight: 54,
-    color: 'white',
+    color: Colors.white,
   },
 });
 

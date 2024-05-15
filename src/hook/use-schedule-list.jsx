@@ -68,8 +68,10 @@ export const useScheduleList = selectedDate => {
 
   const init = async () => {
     const result = await AsyncStorage.getItem(STORAGE_KEY.SCHEDULE_KEY);
-    const newScheduleList = JSON.parse(result);
-    setScheduleList(newScheduleList);
+    if (result !== null) {
+      const newScheduleList = JSON.parse(result);
+      setScheduleList(newScheduleList);
+    }
   };
 
   return {

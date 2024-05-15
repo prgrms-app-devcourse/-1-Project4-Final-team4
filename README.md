@@ -1,79 +1,39 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+<center>
 
-# Getting Started
+![로고 이미지](src/assets/images/logo_fullname.png)
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+'나만의 가치있게 노는 라이프'의 줄임말로 나가서 노는 문화를 제공/공유 해주는 서비스입니다.
 
-## Step 1: Start the Metro Server
+</center>
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+## 🐣 프로젝트 목표
 
-To start Metro, run the following command from the _root_ of your React Native project:
+⭐ 귀차니즘의 대명사 P(MBTI)들을 위한 장소 추천 서비스.<br/>
+⭐ 추천 코스, 약속, 사용자들이 추천하는 코스등을 유저들이 공유하여 앱을 사용할 수 있다.<br/>
+⭐ 가계부를 통해 일정에 사용된 비용을 확인할 수 있다.<br/>
+⭐ 투두리스트를 통해 일정을 기록할 수 있다.
 
-```bash
-# using npm
-npm start
+## 🐣 팀원소개
 
-# OR using Yarn
-yarn start
-```
+|                                       |                                     |                                     |                                       |                                          |
+| :-----------------------------------: | :---------------------------------: | :---------------------------------: | :-----------------------------------: | :--------------------------------------: |
+|       ![alt text](image-1.png)        |       ![alt text](image.png)        |      ![alt text](image-3.png)       |       ![alt text](image-4.png)        |         ![alt text](image-2.png)         |
+| [이준영](https://github.com/moko0428) | [조윤서](https://github.com/zyyyun) | [문서진](https://github.com/ba-bam) | [정지민](https://github.com/wlals262) | [성동현](https://github.com/babycat1526) |
 
-## Step 2: Start your Application
+## 🐣 프로젝트 소개
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+⭐ 팀명: #F4 감성 모르면 나가라<br/>
+⭐ 프로젝트명: 나가노라<br/>
+⭐ 프로젝트 기간: 2024.04.08 ~ 2024.05.17<br/>
+⭐ 팀 노션: [최종 팀 노션 페이지](https://www.notion.so/prgrms/Team-4-F4-67820a9cbf41407c891456161cd477ae)
 
-### For Android
+## 🐣 사용기술
 
-```bash
-# using npm
-npm run android
+|                                         |                                         |                                           |     |     |
+| :-------------------------------------: | :-------------------------------------: | :---------------------------------------: | :-: | :-: |
+| <img src="./src/assets/images/rn.png"/> | <img src="./src/assets/images/js.png"/> | <img src="./src/assets/images/fire.png"/> |
+|               React-Naive               |               JavaScript                |                 Firebase                  |
 
-# OR using Yarn
-yarn android
-```
+## 🐣 구현
 
-### For iOS
-
-```bash
-# using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
-
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
-
-## Step 3: Modifying your App
-
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+<img src="./src/assets/images/page.jpg"/>

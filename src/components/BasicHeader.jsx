@@ -10,7 +10,7 @@ const BasicHeader = ({isBackButton, title, label, rightIconName}) => {
   return (
     <View style={styles.headerWrapper}>
       <TouchableOpacity onPress={() => navigation.goBack()}>
-        {isBackButton ? <BackIcon name="arrow-rotate-left" size={25} /> : null}
+        {isBackButton ? <BackIcon name="arrow-left-long" size={25} /> : null}
       </TouchableOpacity>
       {title ? <Text style={styles.title}>{title}</Text> : null}
     </View>

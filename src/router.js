@@ -1,31 +1,21 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React from 'react';
-
-// 탭 컴포넌트
 import CustomBottomTab from './components/CustomBottomTab';
-
-// init 페이지
-import Splash from './pages/Splash';
-import Login from './pages/Login';
 import ForgotPassword from './pages/ForgotPassword';
-import Register from './pages/Register';
-
-// 메인 페이지
+import Community from './pages/Community';
+import ScheduleList from './pages/ScheduleList';
+import MyPage from './pages/MyPage';
 import Home from './pages/Home';
-
-// 검색 페이지
+import Splash from './pages/Splash';
 import LocationSearchMap from './pages/LocationSearchMap';
 import ThemeSearch from './pages/ThemeSearch';
-
-// 커뮤니티 페이지
-import Community from './pages/Community';
-import CommunityAdd from './pages/CommunityAdd';
-
-// 마이페이지
-import MyPage from './pages/MyPage';
-import ScheduleList from './pages/ScheduleList';
 import EditProfile from './pages/EditProfile';
+import CommunityAdd from './pages/CommunityAdd';
+import ContentDetail from './pages/ContentDetail';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Article from './pages/Article';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -60,6 +50,7 @@ const LoginTab = () => {
 // };
 
 // 홈 , 검색 , 커뮤니티 , 도구 , 마이페이지
+
 const MainTab = () => {
   return (
     <Tab.Navigator
@@ -89,6 +80,7 @@ const Router = () => {
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
       <Stack.Screen name="EditProfile" component={EditProfile} />
       <Stack.Screen name="CommunityAdd" component={CommunityAdd} />
+      <Stack.Screen name="ContentDetail" component={ContentDetail} />
     </Stack.Navigator>
   );
 };

@@ -18,9 +18,8 @@ import {Dimensions} from 'react-native';
 import {Colors} from '../utils/Colors.js';
 import CustomCarousel from '../components/CustomCarousel';
 import {getPlace} from '../apis/place';
-import {getMovie} from '../apis/movie';
-
-const windowWidth = Dimensions.get('window').width;
+import {curDate, getMovie} from '../apis/movie';
+import {SCREEN_WIDTH} from '../utils/utils';
 
 const tempData = [
   {
@@ -29,6 +28,7 @@ const tempData = [
     content2: '인당 1발 이상씩 쏴드립니다!',
     navigateRoute: 'Article',
     img: require('../assets/images/johnWick.png'),
+    id: 1,
   },
   {
     title: '쉬어매드니스',
@@ -36,16 +36,21 @@ const tempData = [
     content2: '오늘은 내가 코난?!',
     navigateRoute: 'Article',
     img: require('../assets/images/madness.png'),
+    id: 2,
   },
 ];
 
 const Home = ({navigation}) => {
+  const navigateArticle = (id, title) => {
+    navigation.navigate('Article', {id, title});
+  };
+
   //아티클 콘텐츠 렌더
   const articleRenderItems = ({item, index}) => {
     return (
       <TouchableOpacity
         style={styles.itemContainer}
-        onPress={() => navigation.navigate(item.navigateRoute)}>
+        onPress={() => navigateArticle('Article', item.title)}>
         <View>
           <Image
             source={item.img}
@@ -63,14 +68,17 @@ const Home = ({navigation}) => {
     );
   };
 
+  const navigateDetail = (item, type) => {
+    navigation.navigate('ContentDetail', {item, type});
+  };
+
   //추천 명소 렌더
   const placeRenderItems = ({item, index}) => {
     const backgroundImage = item.firstimage
       ? {uri: item.firstimage}
       : require('../assets/images/placeholder.jpg');
     return (
-      // <TouchableOpacity onPress={() => navigation.navigate(item.navigateRoute)}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigateDetail(item, 'place')}>
         <ImageBackground
           source={backgroundImage}
           style={{width: 260, height: 264}}
@@ -86,11 +94,13 @@ const Home = ({navigation}) => {
 
   //추천 영화 렌더
   const movieRenderItems = ({item}) => (
-    <TouchableOpacity style={styles.flatWrapper}>
+    <TouchableOpacity
+      style={styles.movieWrapper}
+      onPress={() => navigateDetail(item, 'movie')}>
       <View style={styles.flatItemContentWrapper}>
-        <Text style={styles.flatTitle}>{item.movieNm}</Text>
-        <Text style={styles.flatContent}>누적관객수 : {item.audiAcc}명</Text>
-        <Text style={styles.flatContent}>{item.rank}등</Text>
+        <Text style={styles.movieTitle}>{item.movieNm}</Text>
+        <Text style={styles.movieContent}>누적관객수 : {item.audiAcc}명</Text>
+        <Text style={styles.movieContent}>{item.rank}등</Text>
       </View>
     </TouchableOpacity>
   );
@@ -178,7 +188,7 @@ const Home = ({navigation}) => {
             <Carousel
               data={tempData}
               renderItem={articleRenderItems}
-              sliderWidth={windowWidth}
+              sliderWidth={SCREEN_WIDTH}
               itemWidth={260}
               activeSlideAlignment={'start'}
             />
@@ -205,7 +215,11 @@ const Home = ({navigation}) => {
             />
           </View>
           <View style={styles.placeMainContainer}>
-            <Text style={styles.placeMainTitle}>영화 추천</Text>
+            <View
+              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Text style={styles.placeMainTitle}>영화 추천</Text>
+              <Text style={styles.placeDate}>{curDate} 기준</Text>
+            </View>
             <CustomCarousel
               data={movieContentList}
               renderItem={movieRenderItems}
@@ -214,7 +228,7 @@ const Home = ({navigation}) => {
           <TouchableOpacity onPress={() => navigation.navigate('Community')}>
             <Image
               source={reviewFrame}
-              style={{width: windowWidth}}
+              style={{width: SCREEN_WIDTH}}
               resizeMode="contain"
             />
           </TouchableOpacity>
@@ -227,7 +241,7 @@ const Home = ({navigation}) => {
 const styles = StyleSheet.create({
   category: {
     marginHorizontal: 28,
-    rowGap: 20,
+    rowGap: 16,
   },
   titleText: {
     color: Colors.black,
@@ -244,7 +258,8 @@ const styles = StyleSheet.create({
   recContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 28,
+    paddingHorizontal: 28,
+    paddingTop: 16,
   },
   recdTitle: {
     color: Colors.grey,
@@ -268,14 +283,14 @@ const styles = StyleSheet.create({
     columnGap: 16,
   },
   placeMainContainer: {
-    padding: 16,
+    paddingHorizontal: 8,
+    paddingVertical: 8,
     borderRadius: 8,
   },
   placeMainTitle: {
     color: Colors.black,
     fontSize: 18,
     fontFamily: 'PretendardBold',
-    marginBottom: 12,
     marginLeft: 16,
   },
   placeContentContainer: {
@@ -296,6 +311,28 @@ const styles = StyleSheet.create({
     color: Colors.white,
     fontFamily: 'Pretendard',
     fontSize: 14,
+  },
+  movieWrapper: {
+    color: '#AAA',
+    borderWidth: 0.5,
+    borderRadius: 8,
+    padding: 8,
+  },
+  movieTitle: {
+    fontSize: 18,
+    fontFamily: 'PretendardBold',
+    color: Colors.black,
+  },
+  movieContent: {
+    fontSize: 16,
+    fontFamily: 'Pretendard',
+    color: Colors.black,
+  },
+  placeDate: {
+    marginRight: 16,
+    fontSize: 14,
+    fontFamily: 'Pretendard',
+    color: Colors.black,
   },
 });
 
