@@ -13,6 +13,7 @@ import {getPlaceDetail} from '../apis/place';
 
 const ContentDetail = ({route}) => {
   const {item, type} = route.params;
+  console.log('Detail: ', item);
   const [detailContent, setDetailContent] = useState([]);
 
   useEffect(() => {
@@ -25,6 +26,8 @@ const ContentDetail = ({route}) => {
       const res = await getPlaceDetail(item.contenttypeid, item.contentid);
       if (res) {
         setDetailContent(res.response.body.items.item[0]);
+        console.log(res.response.body.items.item[0]);
+        // console.log('content : ', detailContent[0]);
         return;
       }
     } catch (e) {
