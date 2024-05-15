@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {
-  Button,
   Image,
   SafeAreaView,
   StyleSheet,
@@ -15,7 +14,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {uploadImageToStorage} from '../firebase/storage';
 import {useImagePikcer} from '../hook/use-image-picker';
 import EditProfileModal from '../components/EditProfileModal';
-import EditEmailModal from '../components/EditEmailModal';
 import {
   SCREEN_HEIGHT,
   SCREEN_WIDTH,
@@ -50,9 +48,13 @@ const EditContent = ({text, content, iconName, onPress}) => {
         <Person name={iconName} color="" size={24} />
         <Text style={{fontSize: 20}}>{text}</Text>
       </View>
-      <TouchableOpacity style={styles.name} onPress={onPress}>
+      {onPress ? (
+        <TouchableOpacity style={styles.name} onPress={onPress}>
+          <Text style={{fontSize: 20}}>{content}</Text>
+        </TouchableOpacity>
+      ) : (
         <Text style={{fontSize: 20}}>{content}</Text>
-      </TouchableOpacity>
+      )}
     </View>
   );
 };
@@ -143,17 +145,9 @@ const EditProfile = ({navigation}) => {
           iconName={'at'}
           text={'이메일'}
           content={'asf@naver.com'}
-          onPress={() => {
-            const email = 'email';
-            onPressEditProfileModal({email});
-          }}
         />
       </View>
       <EditProfileModal isVisible={isVisible} setIsVisible={setIsVisible} />
-      <EditEmailModal
-        isVisible={isEditEmailModal}
-        setIsVisible={setIsEditEmailModal}
-      />
       <Margin height={20} />
     </SafeAreaView>
   );
