@@ -63,6 +63,9 @@ const CommunityAdd = ({navigation}) => {
       isSelect={name.isSelect}
     />
   ));
+  const onPressSubmitButton = () => {
+    // 등록 버튼 누를 시 파이어베이스 db에 저장
+  };
   const onPressOpenGallery = () => {
     pickImages();
   };
@@ -92,7 +95,7 @@ const CommunityAdd = ({navigation}) => {
             <Image source={cancel} style={{width: 24, height: 24}} />
           </TouchableOpacity>
           <Text style={styles.headerText}>포스트 작성</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={onPressSubmitButton}>
             <Text style={styles.headerText}>등록</Text>
           </TouchableOpacity>
         </View>
