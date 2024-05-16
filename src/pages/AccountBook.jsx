@@ -67,8 +67,8 @@ const AccountBook = ({navigation}) => {
       <View
         style={{
           alignItems: 'flex-end',
-          marginHorizontal: 20,
-          marginBottom: 20,
+          marginHorizontal: 15,
+          marginBottom: 15,
         }}>
         <TouchableOpacity
           onPress={() => navigation.navigate('AccountBookPlus')}
@@ -112,6 +112,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 20,
   },
   boxWrapper: {
     flexDirection: 'column',
