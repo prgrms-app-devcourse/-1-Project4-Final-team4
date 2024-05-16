@@ -80,11 +80,11 @@ const MyPage = ({navigation}) => {
   const moveToEditPage = () => navigation.navigate('EditProfile');
   const onPressCalculator = () => {
     // 더치페이 계산기로 기동
-    //navigation.navigate('');
+    navigation.navigate('Division');
   };
   const onPressAccountBook = () => {
     // 가계부로 기동
-    //navigation.navigate('');
+    navigation.navigate('AccountBook');
   };
   return (
     <SafeAreaView style={[containerStyle, {alignItems: 'center'}]}>
