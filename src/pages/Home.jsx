@@ -99,7 +99,9 @@ const Home = ({navigation}) => {
       onPress={() => navigateDetail(item, 'movie')}>
       <View style={styles.flatItemContentWrapper}>
         <Text style={styles.movieTitle}>{item.movieNm}</Text>
-        <Text style={styles.movieContent}>누적관객수 : {item.audiAcc}명</Text>
+        <Text style={styles.movieContent}>
+          누적관객수 : {parseInt(item.audiAcc).toLocaleString()}명
+        </Text>
         <Text style={styles.movieContent}>{item.rank}등</Text>
       </View>
     </TouchableOpacity>
