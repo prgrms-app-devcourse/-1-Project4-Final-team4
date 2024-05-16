@@ -9,6 +9,9 @@ import MyPage from './pages/MyPage';
 import Home from './pages/Home';
 import Splash from './pages/Splash';
 import LocationSearchMap from './pages/LocationSearchMap';
+import Division from './pages/Division';
+import AccountBook from './pages/AccountBook';
+import AccountBookPlus from './pages/AccountBookPlus';
 import ThemeSearch from './pages/ThemeSearch';
 import EditProfile from './pages/EditProfile';
 import CommunityAdd from './pages/CommunityAdd';
@@ -65,6 +68,9 @@ const Router = () => {
       <Stack.Screen name="MainTab" component={MainTab} />
       <Stack.Screen name="Article" component={Article} />
       <Stack.Screen name="LocationSearchMap" component={LocationSearchMap} />
+      <Stack.Screen name="AccountBook" component={AccountBook} />
+      <Stack.Screen name="AccountBookPlus" component={AccountBookPlus} />
+      <Stack.Screen name="Division" component={Division} />
       <Stack.Screen name="ThemeSearch" component={ThemeSearch} />
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
       <Stack.Screen name="EditProfile" component={EditProfile} />
