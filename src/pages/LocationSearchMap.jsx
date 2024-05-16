@@ -144,8 +144,8 @@ const LocationSearchMap = ({navigation}) => {
     },
     {
       id: 8,
-      name: '서초',
-      coordinates: {latitude: 37.4839, longitude: 127.0326},
+      name: '동작',
+      coordinates: {latitude: 37.5125, longitude: 126.9393},
     },
     {
       id: 9,
@@ -171,10 +171,10 @@ const LocationSearchMap = ({navigation}) => {
   const [expanded, setExpanded] = useState(false);
 
   // 모달 높이 변화 함수
-  const modalHeight = useRef(new Animated.Value(144)).current;
+  const modalHeight = useRef(new Animated.Value(100)).current;
 
   const toggleHeight = () => {
-    const newHeight = expanded ? 144 : 652;
+    const newHeight = expanded ? 100 : 652;
     setExpanded(!expanded);
     Animated.timing(modalHeight, {
       toValue: newHeight,
@@ -352,8 +352,8 @@ const styles = StyleSheet.create({
     gap: 14,
   },
   button: {
-    margin: 5,
-    height: 108,
+    margin: 3,
+    height: 85,
     width: 110,
     justifyContent: 'center',
     alignItems: 'center',

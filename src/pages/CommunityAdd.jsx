@@ -64,7 +64,7 @@ const CommunityAdd = ({navigation}) => {
     />
   ));
   const onPressSubmitButton = () => {
-    // 등록 버튼 누를 시 파이어베이스 db에 저장
+    navigation.goBack();
   };
   const onPressOpenGallery = () => {
     pickImages();

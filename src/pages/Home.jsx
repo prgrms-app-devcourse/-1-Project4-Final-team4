@@ -99,7 +99,9 @@ const Home = ({navigation}) => {
       onPress={() => navigateDetail(item, 'movie')}>
       <View style={styles.flatItemContentWrapper}>
         <Text style={styles.movieTitle}>{item.movieNm}</Text>
-        <Text style={styles.movieContent}>누적관객수 : {item.audiAcc}명</Text>
+        <Text style={styles.movieContent}>
+          누적관객수 : {parseInt(item.audiAcc).toLocaleString()}명
+        </Text>
         <Text style={styles.movieContent}>{item.rank}등</Text>
       </View>
     </TouchableOpacity>
@@ -228,7 +230,7 @@ const Home = ({navigation}) => {
           <TouchableOpacity onPress={() => navigation.navigate('Community')}>
             <Image
               source={reviewFrame}
-              style={{width: SCREEN_WIDTH}}
+              style={{width: SCREEN_WIDTH, height: 250}}
               resizeMode="contain"
             />
           </TouchableOpacity>
@@ -297,7 +299,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 16,
     marginHorizontal: 12,
-    backgroundColor: 'rgba(0,0,0,0.3)',
+    backgroundColor: 'rgba(0,0,0,0.6)',
     borderRadius: 8,
     padding: 4,
     opacity: 0.8,

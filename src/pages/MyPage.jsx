@@ -113,12 +113,7 @@ const MyPage = ({navigation}) => {
         text={'가계부'}
       />
       <Margin height={20} />
-      <ContentsBox
-        fontAwesome6={true}
-        iconName={'gamepad'}
-        onPress={onPressAccountBook}
-        text={'돌림판'}
-      />
+      <ContentsBox fontAwesome6={true} iconName={'gamepad'} text={'돌림판'} />
       {/* 도움말 섹션 */}
       <Margin height={20} />
       <ContentsBox

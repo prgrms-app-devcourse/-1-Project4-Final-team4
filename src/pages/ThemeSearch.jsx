@@ -140,7 +140,9 @@ const ThemeSearch = ({navigation}) => {
         onPress={() => navigateDetail(item, 'movie')}>
         <View style={styles.flatItemContentWrapper}>
           <Text style={styles.flatTitle}>{item.movieNm}</Text>
-          <Text style={styles.flatContent}>누적관객수 : {item.audiAcc}명</Text>
+          <Text style={styles.flatContent}>
+            누적관객수 : {parseInt(item.audiAcc).toLocaleString()}명
+          </Text>
           <Text style={styles.flatContent}>{item.rank}등</Text>
         </View>
       </TouchableOpacity>

@@ -171,15 +171,19 @@ const ContentDetail = ({route}) => {
         <View>
           <BasicHeader isBackButton={true} title={item.movieNm} />
           <View style={{padding: 16, rowGap: 8}}>
-            <Text style={styles.rankText}>{item.rank}위</Text>
+            <Text style={styles.rankText}>{item.rank}등</Text>
             {/* 영화포스터 */}
             <Text style={styles.titleText}>{item.movieNm}</Text>
             <Text style={styles.subTitle}>영화개봉일</Text>
             <Text style={styles.subContent}>{item.openDt}</Text>
             <Text style={styles.subTitle}>누적관객수</Text>
-            <Text style={styles.subContent}>{item.audiAcc}</Text>
+            <Text style={styles.subContent}>
+              {parseInt(item.audiAcc).toLocaleString()} 명
+            </Text>
             <Text style={styles.subTitle}>누적매출액</Text>
-            <Text style={styles.subContent}>{item.salesAcc}</Text>
+            <Text style={styles.subContent}>
+              {parseInt(item.salesAcc).toLocaleString()} 원
+            </Text>
           </View>
         </View>
       );
