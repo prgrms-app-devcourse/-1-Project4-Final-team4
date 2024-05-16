@@ -157,8 +157,10 @@ const AccountBookPlus = ({navigation}) => {
                     {item.category}
                   </Text>
                 </View>
-                <View style={{}}>
-                  <TouchableOpacity onPress={() => deleteHandle(index)}>
+                <View>
+                  <TouchableOpacity
+                    style={{marginHorizontal: 15}}
+                    onPress={() => deleteHandle(index)}>
                     <Icon
                       name="close-circle-outline"
                       size={28}
@@ -214,7 +216,6 @@ const styles = StyleSheet.create({
     width: 380,
     height: 60,
     alignItems: 'center',
-  
   },
 });
 
