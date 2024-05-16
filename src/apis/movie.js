@@ -42,7 +42,6 @@ export const getMoviePoster = async movieNm => {
     );
     if (res.ok) {
       const {data} = res;
-      console.log(res);
       return data;
     } else {
       console.error('Error : ', res.problem);

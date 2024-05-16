@@ -38,7 +38,7 @@ const LoginTab = () => {
   );
 };
 
-// 홈 , 검색 , 커뮤니티 , 도구 , 마이페이지
+// 홈 , 커뮤니티 , 도구 , 마이페이지
 const MainTab = () => {
   return (
     <Tab.Navigator
