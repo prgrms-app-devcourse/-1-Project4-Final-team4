@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "428118474456",
+    "project_id": "get-ready-with-p",
+    "storage_bucket": "get-ready-with-p.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:428118474456:android:f14a95ecb70d97b572a1ad",
+        "android_client_info": {
+          "package_name": "com.get_ready_with_p"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7kPhliSdxnKD-SoOSe-aFF3x7X8Mw3dE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
