@@ -171,7 +171,7 @@ const ContentDetail = ({route}) => {
         <View>
           <BasicHeader isBackButton={true} title={item.movieNm} />
           <View style={{padding: 16, rowGap: 8}}>
-            <Text style={styles.rankText}>{item.rank}위</Text>
+            <Text style={styles.rankText}>{item.rank}등</Text>
             {/* 영화포스터 */}
             <Text style={styles.titleText}>{item.movieNm}</Text>
             <Text style={styles.subTitle}>영화개봉일</Text>
