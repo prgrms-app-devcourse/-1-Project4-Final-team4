@@ -18,35 +18,35 @@ import ShoppingIcon from 'react-native-vector-icons/MaterialIcons';
 const dummyData = [
   {
     id: 1,
-    title: '치킨',
+    title: ' 치킨  ',
     Price: 15000,
     category: '식비',
     img: 'https://source.unsplash.com/random.jpg​',
   },
   {
     id: 2,
-    title: '초밥',
+    title: ' 초밥  ',
     Price: 50000,
     category: '식비',
     img: 'https://source.unsplash.com/random.jpg​',
   },
   {
     id: 3,
-    title: '택시',
+    title: ' 택시  ',
     Price: 13400,
     category: '교통비',
     img: 'https://source.unsplash.com/random.jpg​',
   },
   {
     id: 4,
-    title: '존윅4',
+    title: ' 존윅4 ',
     Price: 36000,
     category: '영화',
     img: 'https://source.unsplash.com/random.jpg​',
   },
   {
     id: 5,
-    title: '갈비찜',
+    title: ' 갈비찜 ',
     Price: 35000,
     category: '식비',
     img: 'https://source.unsplash.com/random.jpg​',
@@ -130,23 +130,34 @@ const AccountBookPlus = ({navigation}) => {
             return (
               <View style={styles.ContentWrapper}>
                 {categoryIcon}
-                <Text style={{fontSize: 15, color: 'black'}}>{item.title}</Text>
-                <Text
-                  style={{
-                    fontSize: 15,
-                    color: 'black',
-                  }}>
-                  {item.Price.toLocaleString()} 원
-                </Text>
-
-                <Text style={{fontSize: 15, color: 'black'}}>
-                  {item.category}
-                </Text>
+                <View style={{width: 80, alignItems: 'center'}}>
+                  <Text style={{fontSize: 15, color: 'black'}}>
+                    {item.title}
+                  </Text>
+                </View>
                 <View
                   style={{
-                    right: 30,
-                    position: 'absolute',
+                    width: 100,
+                    alignItems: 'flex-start',
                   }}>
+                  <Text
+                    style={{
+                      fontSize: 15,
+                      color: 'black',
+                    }}>
+                    {item.Price.toLocaleString()} 원
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    width: 50,
+                    alignItems: 'center',
+                  }}>
+                  <Text style={{fontSize: 15, color: 'black'}}>
+                    {item.category}
+                  </Text>
+                </View>
+                <View style={{}}>
                   <TouchableOpacity onPress={() => deleteHandle(index)}>
                     <Icon
                       name="close-circle-outline"
@@ -200,9 +211,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
     gap: 20,
     justifyContent: 'flex-start',
-    width: 400,
+    width: 380,
     height: 60,
     alignItems: 'center',
+  
   },
 });
 
