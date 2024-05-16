@@ -50,10 +50,17 @@ const Column = ({
         style={{
           color,
           opacity,
-          fontFamily: hasSchedule ? 'PretendardBold' : 'Pretendard',
         }}>
         {text}
       </Text>
+      <View
+        style={{
+          width: 10,
+          height: 10,
+          borderRadius: 5,
+          backgroundColor: hasSchedule ? Colors.main : 'transparent',
+        }}
+      />
     </TouchableOpacity>
   );
 };
@@ -198,9 +205,13 @@ const ScheduleList = () => {
     scrollToEnd();
   };
   const onSubmitEditing = () => {
-    addSchedule();
-    resetInput();
-    scrollToEnd();
+    if (input.length < 1) {
+      Alert.alert('한글자 이상 입력해주세요.');
+    } else {
+      addSchedule();
+      resetInput();
+      scrollToEnd();
+    }
   };
   const onFocus = () => {
     scrollToEnd();

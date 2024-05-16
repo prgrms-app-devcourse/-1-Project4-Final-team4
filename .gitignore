@@ -94,3 +94,5 @@ package-lock.json
 
 # Auth Key ignore
 src/apis/authKey.js
+
+google-services.json

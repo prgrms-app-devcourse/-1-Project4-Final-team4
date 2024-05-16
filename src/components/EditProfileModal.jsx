@@ -1,27 +1,53 @@
 import Modal from 'react-native-modal';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   Keyboard,
   SafeAreaView,
   Text,
   TouchableOpacity,
   View,
+  Alert,
 } from 'react-native';
-import {Colors} from '../utils/Colors';
-import {SCREEN_WIDTH} from '../utils/utils';
+import { Colors } from '../utils/Colors';
+import { SCREEN_WIDTH } from '../utils/utils';
 import AddScheduleInput from './AddScheduleInput';
-import dayjs from 'dayjs';
 import Margin from './Margin';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {FIREBASE_AUTH, updateProfile} from '../firebase/firebase';
 
-const EditProfileModal = ({isVisible, setIsVisible}) => {
+const auth = FIREBASE_AUTH;
+
+const EditProfileModal = ({ isVisible, setIsVisible }) => {
   const [input, setInput] = useState('');
+
   const resetInput = () => setInput('');
+
   const onSubmitEditing = () => {
     resetInput();
   };
-  const onPressEditNameButton = () => {
-    // 파이어베이스 스토리지의 회원 정보 수정
+
+  const onPressEditNameButton = async () => {
+    try {
+      const userEmail = await AsyncStorage.getItem('email');
+      if (!userEmail) {
+        Alert.alert('Error', 'Unable to fetch user email');
+        return;
+      }
+      // firebase auth에 사용자 이름 업데이트
+      updateProfile(auth.currentUser, {
+        displayName: input,
+      });
+      // 어싱크 스토리지에 사용자 이름 저장
+      await AsyncStorage.setItem('userName', input);
+
+      Alert.alert('Success', '사용자 이름이 변경되었습니다.');
+      setIsVisible(false); // 모달 닫기
+    } catch (error) {
+      console.error('사용자 이름 변경 실패:', error);
+      Alert.alert('Error', '사용자 이름 변경 실패');
+    }
   };
+
   return (
     <SafeAreaView>
       <Modal
@@ -94,4 +120,5 @@ const EditProfileModal = ({isVisible, setIsVisible}) => {
     </SafeAreaView>
   );
 };
+
 export default EditProfileModal;

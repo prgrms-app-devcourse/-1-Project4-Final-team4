@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   TextInput,
@@ -9,9 +9,9 @@ import {
   Image,
   Switch
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { FIREBASE_AUTH } from '../firebase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import {useNavigation} from '@react-navigation/native';
+import {FIREBASE_AUTH} from '../firebase/firebase';
+import {signInWithEmailAndPassword} from 'firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import logo_fullname from '../assets/icons/logo_fullname.png';
 import google from '../assets/icons/google.png';
@@ -53,6 +53,9 @@ const Login = () => {
       const response = await signInWithEmailAndPassword(auth, email, password);
       console.log(response);
       navigation.replace('MainTab');
+      await AsyncStorage.setItem('userEmail', email);
+      await AsyncStorage.setItem('userName', response.user.displayName);
+      console.log('로그인 성공:', response.user.displayName);
       if (autoLogin) {
         AsyncStorage.setItem('email', email);
         AsyncStorage.setItem('password', password);

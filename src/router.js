@@ -16,6 +16,7 @@ import ContentDetail from './pages/ContentDetail';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Article from './pages/Article';
+import Help from './pages/Help';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -67,6 +68,7 @@ const Router = () => {
       <Stack.Screen name="ThemeSearch" component={ThemeSearch} />
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
       <Stack.Screen name="EditProfile" component={EditProfile} />
+      <Stack.Screen name="Help" component={Help} />
       <Stack.Screen name="CommunityAdd" component={CommunityAdd} />
       <Stack.Screen name="ContentDetail" component={ContentDetail} />
     </Stack.Navigator>

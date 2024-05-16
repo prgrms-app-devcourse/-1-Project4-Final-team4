@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -12,7 +12,6 @@ import {
 import {Colors} from '../utils/Colors';
 import {SCREEN_WIDTH} from '../utils/utils';
 
-import SortButton from '../components/SortButton';
 import CommunityArticle from '../components/CommunityArticle';
 import SubHeader from '../components/SubHeader';
 
@@ -27,11 +26,11 @@ const dummy_data = [
     id: 1,
     profile: profile,
     name: 'hyunjinab',
-    date: '2024.05.08. 16:15',
-    image: mainSample,
+    date: '2024-05-08',
+    image: [mainSample, mainSample, mainSample],
     category: ['#맛집', '#영화'],
     body: '부끄러운 맘이 숨은 멋진 밤에 별빛에 떨림을 더해 네게 질문을 던져 그러다가 맘을 들켜 너는 웃어',
-    likes: [5, 6],
+    likes: [5],
     commentList: [
       {
         id: 1,
@@ -51,9 +50,9 @@ const dummy_data = [
     id: 2,
     profile: profile1,
     name: 'lnxexu',
-    date: '2024.04.30. 11:44',
-    image: mainSample,
-    category: ['#맛집', '#영화'],
+    date: '2024-05-05',
+    image: [mainSample],
+    category: ['#콘서트'],
     body: '부끄러운 맘이 숨은 멋진 밤에 별빛에 떨림을 더해 네게 질문을 던져 그러다가 맘을 들켜 너는 웃어',
     likes: [],
     commentList: [
@@ -81,11 +80,11 @@ const dummy_data = [
     id: 3,
     profile: profile2,
     name: '0ct0ber19',
-    date: '2024.05.05. 18:48',
-    image: mainSample,
-    category: ['#맛집', '#영화'],
+    date: '2024-04-30',
+    image: [mainSample, mainSample, mainSample, mainSample],
+    category: ['#맛집', '#뮤지컬'],
     body: '부끄러운 맘이 숨은 멋진 밤에 별빛에 떨림을 더해 네게 질문을 던져 그러다가 맘을 들켜 너는 웃어',
-    likes: [8],
+    likes: [6, 8],
     commentList: [
       {
         id: 1,
@@ -98,6 +97,22 @@ const dummy_data = [
 ];
 
 const Community = ({navigation}) => {
+  const [sortValue, setSortValue] = useState('latest');
+
+  const sortClick = value => {
+    setSortValue(value);
+
+    const compare = (a, b) => {
+      if (value === 'latest') {
+        return new Date(b.date) - new Date(a.date);
+      } else if (value === 'likest') {
+        return parseInt(b.likes.length) - parseInt(a.likes.length);
+      }
+    };
+
+    dummy_data.sort(compare);
+  };
+
   const renderFeed = ({item}) => {
     return (
       <View style={{flex: 1, marginBottom: 16}}>
@@ -115,9 +130,24 @@ const Community = ({navigation}) => {
           barStyle="dark-content"
         />
         <SubHeader title={'커뮤니티'} />
+
         <View style={styles.sortWrapper}>
-          <SortButton name={'최신순'} />
-          <SortButton name={'추천순'} />
+          <TouchableOpacity
+            onPress={() => sortClick('latest')}
+            style={sortValue === 'latest' ? styles.buttonOn : styles.buttonOff}>
+            <Text
+              style={sortValue === 'latest' ? styles.textOn : styles.textOff}>
+              최신순
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => sortClick('likest')}
+            style={sortValue === 'likest' ? styles.buttonOn : styles.buttonOff}>
+            <Text
+              style={sortValue === 'likest' ? styles.textOn : styles.textOff}>
+              추천순
+            </Text>
+          </TouchableOpacity>
         </View>
 
         <FlatList
@@ -141,7 +171,7 @@ const Community = ({navigation}) => {
 const styles = StyleSheet.create({
   windowWrapper: {
     flex: 1,
-    marginBottom: 50,
+    marginBottom: 70,
     backgroundColor: Colors.background,
   },
   sortWrapper: {
@@ -150,6 +180,36 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     marginBottom: 8,
     gap: 4,
+  },
+  buttonOn: {
+    width: 50,
+    height: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 15,
+    backgroundColor: Colors.grey,
+  },
+  buttonOff: {
+    width: 50,
+    height: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 15,
+    backgroundColor: Colors.background,
+    borderWidth: 1,
+    borderColor: Colors.grey,
+  },
+  textOn: {
+    fontFamily: 'Pretendard',
+    fontSize: 12,
+    color: Colors.white,
+    lineHeight: 24,
+  },
+  textOff: {
+    fontFamily: 'Pretendard',
+    fontSize: 12,
+    color: Colors.grey,
+    lineHeight: 24,
   },
   line: {
     width: SCREEN_WIDTH,
@@ -170,7 +230,7 @@ const styles = StyleSheet.create({
   addIcon: {
     fontFamily: 'Pretendard',
     fontSize: 50,
-    lineHeight: 54,
+    lineHeight: 50,
     color: Colors.white,
   },
 });

@@ -1,3 +1,4 @@
+import React, {useEffect, useState} from 'react';
 import {
   Image,
   SafeAreaView,
@@ -6,115 +7,133 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect} from 'react';
 import {Colors} from '../utils/Colors';
 import Margin from '../components/Margin';
 import {useImagePikcer} from '../hook/use-image-picker';
-import {containerStyle, shadow} from '../utils/utils';
-import BasicHeader from '../components/BasicHeader';
-import EditIcon from 'react-native-vector-icons/MaterialIcons';
-import {profile_img} from './EditProfile';
+import {SCREEN_WIDTH, containerStyle, shadow} from '../utils/utils';
 import SubHeader from '../components/SubHeader';
+import EditIcon from 'react-native-vector-icons/MaterialIcons';
+import {FIREBASE_AUTH} from '../firebase/firebase';
+import {getImageFromStorage} from '../firebase/storage';
+import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import ArrowRight from 'react-native-vector-icons/Entypo';
 
-const ContentsBox = ({content, onPress}) => {
+const ContentsBox = ({onPress, iconName, text, fontAwesome6}) => {
   return (
-    <TouchableOpacity
-      onPress={onPress}
-      style={[
-        {
-          width: 100,
-          height: 100,
-          backgroundColor: Colors.background,
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderRadius: 12,
-          margin: 12,
-        },
-        shadow,
-      ]}>
-      <Text>{content}</Text>
+    <TouchableOpacity onPress={onPress} style={[styles.contentWrapper, shadow]}>
+      <View style={styles.iconImgWrapper}>
+        <View style={{width: 40, alignItems: 'center'}}>
+          {fontAwesome6 ? (
+            <FontAwesome6 name={iconName} size={30} />
+          ) : (
+            <AntDesign name={iconName} size={30} />
+          )}
+        </View>
+        <Text style={{fontSize: 18}}>{text}</Text>
+      </View>
+      <View>
+        <ArrowRight name="chevron-right" size={30} />
+      </View>
     </TouchableOpacity>
   );
 };
 
 const MyPage = ({navigation}) => {
   const {image, setImage, init} = useImagePikcer();
+  const [profileImageUrl, setProfileImageUrl] = useState(null);
 
-  // useEffect(() => {
-  //   init();
-  // }, []);
+  useEffect(() => {
+    const fetchProfileImage = async () => {
+      try {
+        const user = FIREBASE_AUTH.currentUser;
+        if (user) {
+          const url = await getImageFromStorage(user.email);
+          setProfileImageUrl(url);
+          console.log('Profile image URL:', url);
+        }
+      } catch (error) {
+        console.error('Error fetching profile image:', error);
+      }
+    };
+
+    fetchProfileImage();
+  }, []);
+
+  const moveToEditPage = () => navigation.navigate('EditProfile');
+  const onPressCalculator = () => {
+    // 더치페이 계산기로 기동
+    //navigation.navigate('');
+  };
+  const onPressAccountBook = () => {
+    // 가계부로 기동
+    //navigation.navigate('');
+  };
+  const moveToHelpPage = () => navigation.navigate('Help');
   return (
     <SafeAreaView style={[containerStyle, {alignItems: 'center'}]}>
       {/* 헤더 */}
       <SubHeader title={'마이페이지'} />
-
       <Margin height={40} />
 
       {/* 프로필 섹션 */}
-      <View
-        style={[
-          {
-            width: 350,
-            height: 150,
-            backgroundColor: Colors.background,
-            borderRadius: 8,
-            padding: 20,
-            flexDirection: 'row',
-            gap: 20,
-          },
-          shadow,
-        ]}>
+      <View style={[styles.profileWrapper, shadow]}>
         {/* 재접을 해야만 반영이 됨 */}
-        {image ? (
-          <Image source={image} style={[styles.image]} />
+        {profileImageUrl ? (
+          <Image source={{uri: profileImageUrl}} style={styles.image} />
         ) : (
           <View style={styles.noImage}>
             <Text>no image.</Text>
           </View>
         )}
 
-        <View style={{flexDirection: 'row', gap: 4}}>
-          <Text
-            style={{
-              fontSize: 24,
-              color: Colors.black,
-              fontFamily: 'PretendardBold',
-            }}>
-            moko
+        <View style={{gap: 4}}>
+          <Text style={styles.profileUserName}>
+            {FIREBASE_AUTH.currentUser.displayName}
           </Text>
-          <TouchableOpacity onPress={() => navigation.navigate('EditProfile')}>
+          <TouchableOpacity style={styles.manageBtn} onPress={moveToEditPage}>
+            <Text>정보 관리</Text>
             <EditIcon name="edit" color={'#aeaeae'} size={14} />
           </TouchableOpacity>
         </View>
       </View>
 
       <Margin height={20} />
-      {/* 컨텐츠 섹션
-       * @todo - 텍스트를 이미지로 넣어야함.
-       *       - 로그아웃 파이어베이스와 연동
-       */}
-      <View style={{flexDirection: 'row'}}>
-        <ContentsBox content={'돌림판'} />
-        <ContentsBox content={'N빵'} />
-        <ContentsBox content={'가계부'} />
-      </View>
-      <View style={{flexDirection: 'row'}}>
-        <ContentsBox />
-        <ContentsBox />
-        <ContentsBox />
-      </View>
-      <View style={{flexDirection: 'row'}}>
-        <ContentsBox />
-        <ContentsBox />
-        <ContentsBox content={'로그아웃'} />
-      </View>
+      {/* 컨텐츠 섹션 */}
+      <ContentsBox
+        iconName={'calculator'}
+        onPress={onPressCalculator}
+        text={'더치페이'}
+      />
       <Margin height={20} />
 
-      <TouchableOpacity
-        style={styles.box}
-        onPress={() => navigation.navigate('LoginTab')}>
-        <Text style={{fontSize: 20}}>로그아웃</Text>
-      </TouchableOpacity>
+      <ContentsBox
+        iconName={'book'}
+        onPress={onPressAccountBook}
+        text={'가계부'}
+      />
+      <Margin height={20} />
+      <ContentsBox
+        fontAwesome6={true}
+        iconName={'gamepad'}
+        onPress={onPressAccountBook}
+        text={'돌림판'}
+      />
+      {/* 도움말 섹션 */}
+      <Margin height={20} />
+      <ContentsBox
+        fontAwesome6={true}
+        iconName={'question'}
+        onPress={moveToHelpPage}
+        text={'도움말'}
+      />
+      <Margin height={20} />
+      <ContentsBox
+        fontAwesome6={false}
+        iconName={'logout'}
+        onPress={() => navigation.navigate('LoginTab')}
+        text={'로그아웃'}
+      />
 
       {/* 스케줄 관리 섹션 */}
     </SafeAreaView>
@@ -122,7 +141,16 @@ const MyPage = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
-  profile: {},
+  contentWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: SCREEN_WIDTH - 40,
+    paddingHorizontal: 16,
+    paddingVertical: 20,
+    backgroundColor: Colors.background,
+    borderRadius: 12,
+  },
   image: {
     width: 150,
     height: 150,
@@ -142,8 +170,35 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  point: {},
-  box: {},
+  profileWrapper: {
+    width: SCREEN_WIDTH - 40,
+    height: 150,
+    backgroundColor: Colors.background,
+    borderRadius: 8,
+    padding: 20,
+    flexDirection: 'row',
+    gap: 20,
+  },
+  profileUserName: {
+    fontSize: 24,
+    color: Colors.black,
+    fontFamily: 'PretendardBold',
+  },
+  iconImgWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    paddingHorizontal: 8,
+  },
+  manageBtn: {
+    flexDirection: 'row',
+    borderWidth: 0.5,
+    padding: 5,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingBottom: 9,
+  },
 });
 
 export default MyPage;
