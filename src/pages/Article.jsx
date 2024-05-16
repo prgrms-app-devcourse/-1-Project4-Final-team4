@@ -120,6 +120,7 @@ const tempData = [
 const Article = ({route}) => {
   const {title} = route.params;
   const article = tempData.find(item => item.title === title);
+  console.log(article);
   return (
     <ScrollView>
       <BasicHeader title={article.title} isBackButton={true} />
