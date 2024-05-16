@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -7,15 +7,20 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  Alert,
+  FlatList,
 } from 'react-native';
 
 import {Colors} from '../utils/Colors';
-import {SCREEN_WIDTH} from '../utils/utils';
+import {SCREEN_WIDTH, STORAGE_KEY} from '../utils/utils';
 
+import Camera from 'react-native-vector-icons/Feather';
 import CategorySelectButton from '../components/CategorySelectButton';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {launchImageLibrary} from 'react-native-image-picker';
+import {useAddPost} from '../hook/use-addPost';
 
 const cancel = require('../assets/icons/cancel.png');
-const camera = require('../assets/icons/camera.png');
 
 const categoryList = [
   {
@@ -42,6 +47,14 @@ const categoryList = [
 
 const CommunityAdd = ({navigation}) => {
   const [text, onChangeText] = useState('');
+  const {
+    images,
+    pickImages,
+    imagesWithAddButton,
+    removeImage,
+    selectImage,
+    selectedImage,
+  } = useAddPost();
 
   const categorySelect = categoryList.map((name, index) => (
     <CategorySelectButton
@@ -50,7 +63,30 @@ const CommunityAdd = ({navigation}) => {
       isSelect={name.isSelect}
     />
   ));
+  const onPressSubmitButton = () => {
+    // 등록 버튼 누를 시 파이어베이스 db에 저장
+  };
+  const onPressOpenGallery = () => {
+    pickImages();
+  };
+  const onPressImage = imageId => removeImage(imageId);
 
+  const renderItem = ({item: image, index}) => {
+    const {id, uri} = image;
+    if (id === -1) {
+      return (
+        <TouchableOpacity onPress={onPressOpenGallery} style={styles.photoAdd}>
+          <Camera name="camera" size={60} />
+          <Text style={styles.photoText}>사진 추가</Text>
+        </TouchableOpacity>
+      );
+    }
+    return (
+      <TouchableOpacity onLongPress={() => onPressImage(id)}>
+        <Image source={{uri}} style={{width: 100, height: 100, margin: 2}} />
+      </TouchableOpacity>
+    );
+  };
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: Colors.background}}>
       <View style={{flex: 1}}>
@@ -59,15 +95,18 @@ const CommunityAdd = ({navigation}) => {
             <Image source={cancel} style={{width: 24, height: 24}} />
           </TouchableOpacity>
           <Text style={styles.headerText}>포스트 작성</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={onPressSubmitButton}>
             <Text style={styles.headerText}>등록</Text>
           </TouchableOpacity>
         </View>
         <View style={{marginHorizontal: 16, gap: 16}}>
-          <TouchableOpacity style={styles.photoAdd}>
-            <Image source={camera} style={{width: 24, height: 24}} />
-            <Text style={styles.photoText}>사진 추가</Text>
-          </TouchableOpacity>
+          <Text>추가한 이미지</Text>
+          <FlatList
+            data={imagesWithAddButton}
+            renderItem={renderItem}
+            numColumns={4}
+          />
+
           <View style={styles.categoryWrapper}>{categorySelect}</View>
           <View>
             <TextInput
@@ -98,17 +137,18 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   headerText: {
-    fontSize: 16,
+    fontSize: 20,
     fontFamily: 'PretendardBold',
     color: Colors.black,
   },
   photoAdd: {
-    width: 70,
-    height: 70,
+    width: 100,
+    height: 100,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: Colors.grey,
+    borderWidth: 3,
+    borderStyle: 'dashed',
+    borderColor: Colors.main,
     borderRadius: 15,
   },
   photoText: {
