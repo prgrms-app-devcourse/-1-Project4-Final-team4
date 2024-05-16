@@ -177,9 +177,13 @@ const ContentDetail = ({route}) => {
             <Text style={styles.subTitle}>영화개봉일</Text>
             <Text style={styles.subContent}>{item.openDt}</Text>
             <Text style={styles.subTitle}>누적관객수</Text>
-            <Text style={styles.subContent}>{item.audiAcc}</Text>
+            <Text style={styles.subContent}>
+              {parseInt(item.audiAcc).toLocaleString()} 명
+            </Text>
             <Text style={styles.subTitle}>누적매출액</Text>
-            <Text style={styles.subContent}>{item.salesAcc}</Text>
+            <Text style={styles.subContent}>
+              {parseInt(item.salesAcc).toLocaleString()} 원
+            </Text>
           </View>
         </View>
       );
