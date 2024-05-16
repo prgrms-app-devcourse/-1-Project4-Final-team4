@@ -23,10 +23,10 @@ const AccountBook = ({navigation}) => {
       {/* 유저네임, 지출 비용 연동되게 할 것 */}
       <View style={styles.userWrapper}>
         <View>
-          <Text style={styles.userNameText}>서진님 가계부</Text>
+          <Text style={styles.userNameText}>moko님 가계부</Text>
         </View>
         <View style={styles.resultWrapper}>
-          <Text style={styles.userNameText}>총 사용 금액 125,000 원</Text>
+          <Text style={styles.userNameText}>총 사용 금액 231,400 원</Text>
         </View>
       </View>
       <View style={styles.contentWrapper}>
