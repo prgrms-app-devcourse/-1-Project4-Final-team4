@@ -130,23 +130,34 @@ const AccountBookPlus = ({navigation}) => {
             return (
               <View style={styles.ContentWrapper}>
                 {categoryIcon}
-                <Text style={{fontSize: 15, color: 'black'}}>{item.title}</Text>
-                <Text
-                  style={{
-                    fontSize: 15,
-                    color: 'black',
-                  }}>
-                  {item.Price.toLocaleString()} 원
-                </Text>
-
-                <Text style={{fontSize: 15, color: 'black'}}>
-                  {item.category}
-                </Text>
+                <View style={{width: 80, alignItems: 'center'}}>
+                  <Text style={{fontSize: 15, color: 'black'}}>
+                    {item.title}
+                  </Text>
+                </View>
                 <View
                   style={{
-                    right: 30,
-                    position: 'absolute',
+                    width: 100,
+                    alignItems: 'flex-end',
                   }}>
+                  <Text
+                    style={{
+                      fontSize: 15,
+                      color: 'black',
+                    }}>
+                    {item.Price.toLocaleString()} 원
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    width: 50,
+                    alignItems: 'flex-end',
+                  }}>
+                  <Text style={{fontSize: 15, color: 'black'}}>
+                    {item.category}
+                  </Text>
+                </View>
+                <View style={{}}>
                   <TouchableOpacity onPress={() => deleteHandle(index)}>
                     <Icon
                       name="close-circle-outline"
